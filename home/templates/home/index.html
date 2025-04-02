@@ -1,6 +1,27 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block page_header %}
+{% endblock %}
+
 {% block content %}
-<h1>testingsss</h1>
+<div class="mx-3 mx-sm-1">
+    <div class="bg-light rounded-3 container my-5">
+        <div class="row align-items-center rounded-3 border shadow-lg">
+            <div class="p-3 p-lg-5">
+                <img class="d-block mx-auto mb-4" src="{% static 'img/stickered.png' %}" alt="" width="200"
+                    height="auto">
+                <h1 class="display-4 fw-bold lh-1 text-body-emphasis text-center">Latest Products</h1>
+                <p class="lead"></p>
+                <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Latest Products</button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">Shop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div>SHOP</div>
+</div>
 {% endblock %}
