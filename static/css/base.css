@@ -1,0 +1,28 @@
+header {
+    background-color: aliceblue;    
+}
+
+.nav {
+    text-transform: uppercase;
+}
+
+body {
+
+}
+
+.hero2 {
+    background: url(/media/hero.jpg) no-repeat center center fixed;
+    backdrop-filter: blur(10px);
+    background-size: cover;
+    
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background: url('/media/hero.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 50px);
+}
