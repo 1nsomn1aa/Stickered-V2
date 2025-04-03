@@ -5,23 +5,41 @@
 {% endblock %}
 
 {% block content %}
-<div class="mx-3 mx-sm-1">
-    <div class="bg-light rounded-3 container my-5">
-        <div class="row align-items-center rounded-3 border shadow-lg">
-            <div class="p-3 p-lg-5">
-                <img class="d-block mx-auto mb-4" src="{% static 'img/stickered.png' %}" alt="" width="200"
-                    height="auto">
-                <h1 class="display-4 fw-bold lh-1 text-body-emphasis text-center">Latest Products</h1>
-                <p class="lead"></p>
-                <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center">
-                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Latest Products</button>
-                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">Shop</button>
+<section id="hero" class="img-fluid">
+    <div class="mx-5 mx-sm-1">
+        <div class="bg-light rounded-3 container my-5">
+            <div class="row align-items-center rounded-3 border shadow-lg">
+                <div class="p-3 p-lg-5">
+                    <img class="d-block mx-auto mb-4" src="{% static 'img/stickered.png' %}" alt="" width="200"
+                        height="auto">
+                    <h1 class="display-4 fw-bold lh-1 text-body-emphasis text-center">TEXT</h1>
+                    <p class="lead"></p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center">
+                        <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Latest
+                            Products</button>
+                        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Shop</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div>SHOP</div>
-</div>
+    <div>
+        <p style="color: aliceblue;"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" color="#53CB24">
+                <path fill="currentColor"
+                    d="M22.456 5.22a.75.75 0 00-.616-.69c-4.055-.728-5.747-1.254-9.531-2.963a.75.75 0 00-.618 0c-3.784 1.709-5.476 2.235-9.53 2.962a.75.75 0 00-.617.691c-.18 2.865.204 5.534 1.145 7.933a16.38 16.38 0 003.358 5.274c2.506 2.66 5.167 3.814 5.675 4.019a.75.75 0 00.563 0c.507-.205 3.168-1.36 5.675-4.019a16.379 16.379 0 003.351-5.274c.941-2.4 1.326-5.068 1.145-7.933zm-6.14 3.52l-5.194 6a.748.748 0 01-.535.26h-.03a.75.75 0 01-.526-.214l-2.306-2.26a.75.75 0 111.05-1.071l1.734 1.7 4.674-5.396a.75.75 0 111.134.982h-.001z">
+                </path>
+            </svg> 100%
+            TRUSTADVISOR
+            RATING</p>
+
+    </div>
+</section>
+<section id="latest-products">
+    <div class="position-relative overflow-hidden  text-center bg-body-tertiary">
+        <div class="col-md-6 p-lg-5 mx-auto my-5">
+            <h1 class="display-3 fw-bold">Latest Products</h1>
+            <h3 class="fw-normal text-muted mb-3">Check out our latest selection!</h3>
+        </div>
+    </div>
+</section>
 {% endblock %}

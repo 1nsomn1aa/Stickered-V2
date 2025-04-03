@@ -1,28 +1,40 @@
 header {
-    background-color: aliceblue;    
+        background-color: rgba(240, 248, 255, 0.404);
 }
 
 .nav {
     text-transform: uppercase;
 }
 
-body {
-
-}
-
-.hero2 {
-    background: url(/media/hero.jpg) no-repeat center center fixed;
-    backdrop-filter: blur(10px);
+#hero {
+    position: relative;
+    background: linear-gradient(135deg, rgba(24, 33, 36, 0.2), rgba(24, 33, 36, 0.2)), url("../img/hero.jpg");
+    background-repeat: no-repeat;
     background-size: cover;
-    
+    background-position: center;
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    overflow: hidden;
 }
 
-html {
+#hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
+    background: inherit; 
+    filter: blur(3px); 
+    transition: filter 0.5s ease-in-out; 
+    z-index: -1; 
 }
 
-body {
-    background: url('/media/hero.jpg') no-repeat center center fixed;
-    background-size: cover;
-    height: calc(100vh - 50px);
+#hero:hover::before {
+    filter: blur(0px);
 }

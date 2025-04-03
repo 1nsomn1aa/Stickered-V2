@@ -1,4 +1,4 @@
-.venv
+venv
 env.py
 *.sqlite3
 *.pyc
