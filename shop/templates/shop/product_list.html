@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+{% for product in products %}
+<div>
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <p>Price: €{{ product.price }}</p>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
+    <a href="{% url 'edit_product' product.pk %}">Edit</a>
+    <a href="{% url 'delete_product' product.pk %}">Delete</a>
+</div>
+{% endfor %}
+<a href="{% url 'add_product' %}">Add New Product</a>
+{% endblock %}
