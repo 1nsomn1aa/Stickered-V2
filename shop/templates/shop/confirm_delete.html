@@ -5,11 +5,10 @@
 {% endblock %}
 
 {% block content %}
-{% for product in products %}
 <p>Are you sure you want to delete "{{ product.name }}"?</p>
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Yes, Delete</button>
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="{% url 'product_list' %}" class="btn btn-secondary">Cancel</a>
 </form>
-<a href="{% url 'product_list' %}">Cancel</a>
 {% endblock %}
