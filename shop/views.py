@@ -6,18 +6,44 @@ def product_list(request):
     products = Product.objects.all()
     categories = Category.objects.all()
 
+    # Get multiple category filter values
     category_filter = request.GET.getlist('category')
     if category_filter:
         products = products.filter(category__id__in=category_filter)
 
+    # Price filters
+    price_from = request.GET.get('price_from')
     price_to = request.GET.get('price_to')
+
+    if price_from:
+        products = products.filter(price__gte=price_from)
     if price_to:
         products = products.filter(price__lte=price_to)
 
+    # Sorting
+    sort_by = request.GET.get('sort_by', 'date_desc')
+    if sort_by == 'price_asc':
+        products = products.order_by('price')
+    elif sort_by == 'price_desc':
+        products = products.order_by('-price')
+    elif sort_by == 'name_asc':
+        products = products.order_by('name')
+    elif sort_by == 'name_desc':
+        products = products.order_by('-name')
+    elif sort_by == 'date_asc':
+        products = products.order_by('created_at')
+    elif sort_by == 'date_desc':
+        products = products.order_by('-created_at')
+
+    # Pass everything to the template
     return render(request, 'shop/product_list.html', {
         'products': products,
         'categories': categories,
-        'category_filter': category_filter
+        'category_filter': category_filter,
+        'sort_by': sort_by,
+        'price_from': price_from,
+        'price_to': price_to,
+        'selected_categories': category_filter,  # 👈 for use in hidden inputs
     })
 
 def add_product(request):

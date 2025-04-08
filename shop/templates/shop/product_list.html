@@ -1,168 +1,238 @@
-{% extends "base.html" %} {% load static %} {% block content %}
-
-<section class="py-5 text-center container">
-  <div class="row py-lg-5">
-    <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light">Shop</h1>
-      <p class="lead text-body-secondary">
-        Browse through our selection of custom stickers and license plates.
-      </p>
-      {% if user.is_superuser %}
-      <p>
-        <a href="{% url 'add_product' %}" class="btn btn-primary"
-          >Add Product</a
-        >
-      </p>
-      {% endif %}
-    </div>
-  </div>
-</section>
-
-<div class="container">
-  <div class="row">
-    <div class="col-12 col-md-3 d-none d-md-block">
-      <div class="bg-light p-3">
-        <h4>Filter Products</h4>
-        <form method="GET" action="{% url 'product_list' %}">
-          <div class="mb-3">
-              <label for="category" class="form-label">Category</label>
-              <select class="form-select" id="category" name="category" multiple>
-                  {% for category in categories %}
-                      <option value="{{ category.id }}"
-                          {% if category.id in category_filter %} selected {% endif %}>
-                          {{ category.name }}
-                      </option>
-                  {% endfor %}
-              </select>
-          </div>
-      
-          <div class="mb-3">
-              <label for="price_to" class="form-label">Price (Up to)</label>
-              <input type="number" class="form-control" id="price_to" name="price_to" placeholder="Max Price"
-                     value="{{ request.GET.price_to }}">
-          </div>
-      
-          <button type="submit" class="btn btn-primary">Apply Filters</button>
-      </form>
-      </div>
-    </div>
-
-    <div class="col-12 col-md-9">
-      <button
-        class="btn btn-dark d-md-none w-100 mb-3"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#filterSidebarMobile"
-        aria-controls="filterSidebarMobile"
-        aria-expanded="false"
-        aria-label="Toggle Filters"
-      >
-        ☰ Filters
-      </button>
-
-      <div class="collapse d-md-none" id="filterSidebarMobile">
-        <div class="col-12 bg-light p-3">
-          <h4>Filter Products</h4>
-          <form method="GET" action="{% url 'product_list' %}">
-            <div class="mb-3">
-                <label for="category" class="form-label">Category</label>
-                <select class="form-select" id="category" name="category" multiple>
-                    {% for category in categories %}
-                        <option value="{{ category.id }}"
-                            {% if category.id in category_filter %} selected {% endif %}>
-                            {{ category.name }}
-                        </option>
-                    {% endfor %}
-                </select>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <section class="shop ">
+        <!-- Hero -->
+        <section class="container py-5 my-4 text-center bg-secondary shop-header rounded d-none d-md-block"
+                 style="height: 300px">
+            <div class="py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto text-white ">
+                    {% if user.is_superuser %}
+                        <p>
+                            <a href="{% url 'add_product' %}" class="btn btn-primary">Add Product</a>
+                        </p>
+                    {% endif %}
+                </div>
             </div>
-        
-            <div class="mb-3">
-                <label for="price_to" class="form-label">Price (Up to)</label>
-                <input type="number" class="form-control" id="price_to" name="price_to" placeholder="Max Price"
-                       value="{{ request.GET.price_to }}">
-            </div>
-        
-            <button type="submit" class="btn btn-primary">Apply Filters</button>
-        </form>
-        </div>
-      </div>
-
-      <div class="album py-5 bg-body-tertiary">
+        </section>
         <div class="container">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for product in products %}
-            <div class="col">
-              <div class="card shadow-sm">
-                <div
-                  class="card-img-top d-flex align-items-center justify-content-center"
-                  style="height: 225px; background-color: #55595c"
-                >
-                  <img
-                    src="{{ product.image.url }}"
-                    alt="{{ product.name }}"
-                    style="
-                      max-height: 100%;
-                      max-width: 100%;
-                      object-fit: contain;
-                    "
-                  />
-                </div>
-                <div class="card-body text-center">
-                  <h2 class="text-uppercase">{{ product.name }}</h2>
-                  <p class="card-text">
-                    {{ product.description|truncatechars:100 }}
-                  </p>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group w-100">
-                      {% if user.is_superuser %}
-                      <a
-                        href="{% url 'edit_product' product.pk %}"
-                        class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center w-100 mb-2 mb-md-0"
-                        >Edit</a
-                      >
-                      <a
-                        href="{% url 'delete_product' product.pk %}"
-                        class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center w-100 mb-2 mb-md-0"
-                        >Delete</a
-                      >
-                      {% endif %}
-                      <a
-                        href="{% url 'product_detail' product.pk %}"
-                        class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center w-100 mb-2 mb-md-0"
-                        >View</a
-                      >
-                      <a
-                        href="#"
-                        class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center w-100 mb-2 mb-md-0"
-                        >Add To Cart</a
-                      >
+            <div class="row">
+                <!-- Filters/Desktop -->
+                <div class="col-12 col-md-3 d-none d-md-block">
+                    <div class="text-light p-3 border rounded shadow-lg"
+                         style="background-color: #55595c">
+                        <h4 class="text-uppercase">Filter Products</h4>
+                        <form method="GET" action="{% url 'product_list' %}">
+                            <div class="mb-3">
+                                <label class="form-label">Category</label>
+                                <div class="mb-3 py-2 mx-n2 border rounded bg-light">
+                                    {% for category in categories %}
+                                        <div class="m-2">
+                                            <input class="btn-check"
+                                                   type="checkbox"
+                                                   name="category"
+                                                   value="{{ category.id }}"
+                                                   id="cat{{ category.id }}"
+                                                   {% if category.id|stringformat:"s" in category_filter %}checked{% endif %}>
+                                            <label class="btn btn-secondary" for="cat{{ category.id }}">{{ category.name }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Price Range</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">€</span>
+                                    <input type="number"
+                                           class="form-control"
+                                           name="price_from"
+                                           placeholder="Min"
+                                           value="{{ request.GET.price_from }}">
+                                    <span class="input-group-text">–</span>
+                                    <input type="number"
+                                           class="form-control"
+                                           name="price_to"
+                                           placeholder="Max"
+                                           value="{{ request.GET.price_to }}">
+                                </div>
+                            </div>
+                            {% if request.GET.category %}
+                                {% for cat_id in request.GET.category %}<input type="hidden" name="category" value="{{ cat_id }}">{% endfor %}
+                            {% endif %}
+                            {% if request.GET.price_from %}<input type="hidden" name="price_from" value="{{ request.GET.price_from }}">{% endif %}
+                            {% if request.GET.price_to %}<input type="hidden" name="price_to" value="{{ request.GET.price_to }}">{% endif %}
+                            <button type="submit" class="btn btn-danger">Apply Filters</button>
+                        </form>
                     </div>
-                  </div>
-                  <div class="mt-3">
-                    <small class="text-body-secondary">
-                      <p><b>{{ product.price }}€</b></p>
-                    </small>
-                  </div>
                 </div>
-              </div>
+                <!-- Filters/Mobile/Tablet -->
+                <div class="col-12 col-md-9">
+                    <button class="btn btn-light text-black d-md-none w-100 mb-2 mt-4"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#filterSidebarMobile"
+                            aria-controls="filterSidebarMobile"
+                            aria-expanded="false"
+                            aria-label="Toggle Filters">☰ Filters</button>
+                    <div class="collapse d-md-none" id="filterSidebarMobile">
+                        <div class="col-12 p-3 rounded text-light"
+                             style="background-color: #55595c">
+                            <h4>Filter Products</h4>
+                            <form method="GET" action="{% url 'product_list' %}">
+                                <div class="mb-3">
+                                    <label class="form-label">Category</label>
+                                    <div class="mb-3 py-2 mx-n2 border rounded bg-light">
+                                        {% for category in categories %}
+                                            <div class="m-2">
+                                                <input class="btn-check"
+                                                       type="checkbox"
+                                                       name="category"
+                                                       value="{{ category.id }}"
+                                                       id="mobile-cat{{ category.id }}"
+                                                       {% if category.id|stringformat:"s" in category_filter %}checked{% endif %}>
+                                                <label class="btn btn-secondary" for="mobile-cat{{ category.id }}">{{ category.name }}</label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Price Range</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">€</span>
+                                        <input type="number"
+                                               class="form-control"
+                                               name="price_from"
+                                               placeholder="Min"
+                                               value="{{ request.GET.price_from }}">
+                                        <span class="input-group-text">–</span>
+                                        <input type="number"
+                                               class="form-control"
+                                               name="price_to"
+                                               placeholder="Max"
+                                               value="{{ request.GET.price_to }}">
+                                    </div>
+                                </div>
+                                {% if request.GET.category %}
+                                    {% for cat_id in request.GET.category %}<input type="hidden" name="category" value="{{ cat_id }}">{% endfor %}
+                                {% endif %}
+                                {% if request.GET.price_from %}<input type="hidden" name="price_from" value="{{ request.GET.price_from }}">{% endif %}
+                                {% if request.GET.price_to %}<input type="hidden" name="price_to" value="{{ request.GET.price_to }}">{% endif %}
+                                <button type="submit" class="btn btn-secondary">Apply Filters</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="d-block d-md-flex justify-content-between align-items-start gap-2 mb-4">
+                        <!-- Active Filters -->
+                        <div class="d-flex gap-2 flex-wrap pt-3 pt-md-0">
+                            {% for category in categories %}
+                                {% if category.id|stringformat:"s" in category_filter %}
+                                    <span class="badge rounded-pill bg-danger d-flex align-items-center px-3 py-2">
+                                        {{ category.name }}
+                                        <a href="{% url 'product_list' %}?{% for id in category_filter %}{% if id != category.id|stringformat:"s" %}category={{ id }}&{% endif %}{% endfor %}{% if request.GET.price_from %}price_from={{ request.GET.price_from }}&{% endif %}{% if request.GET.price_to %}price_to={{ request.GET.price_to }}&{% endif %}{% if sort_by %}sort_by={{ sort_by }}{% endif %}"
+                                           class="btn-close btn-close-white btn-sm ms-2"
+                                           aria-label="Remove"></a>
+                                    </span>
+                                {% endif %}
+                            {% endfor %}
+                            {% if request.GET.price_from or request.GET.price_to %}
+                                <span class="badge rounded-pill bg-danger d-flex align-items-center px-3 py-2">
+                                    Price
+                                    {% if request.GET.price_from %}From €{{ request.GET.price_from }}{% endif %}
+                                    {% if request.GET.price_from and request.GET.price_to %}–{% endif %}
+                                    {% if request.GET.price_to %}To €{{ request.GET.price_to }}{% endif %}
+                                    <a href="{% url 'product_list' %}?{% for id in category_filter %}category={{ id }}&{% endfor %}{% if sort_by %}sort_by={{ sort_by }}{% endif %}"
+                                       class="btn-close btn-close-white btn-sm ms-2"
+                                       aria-label="Remove"></a>
+                                </span>
+                            {% endif %}
+                        </div>
+                        <!-- Sorting -->
+                        <div class="d-flex justify-content-center justify-content-md-end w-100 pt-3 pt-md-0">
+                            <form method="GET"
+                                  action="{% url 'product_list' %}"
+                                  class="d-flex align-items-center">
+                                <label for="sort_by" class="me-2 mb-0 text-white">Sort By :</label>
+                                <select class="form-select form-select-sm"
+                                        name="sort_by"
+                                        onchange="this.form.submit()"
+                                        style="width: auto">
+                                    <option value="price_asc"
+                                            {% if request.GET.sort_by == 'price_asc' %}selected{% endif %}>
+                                        Price: Low to High
+                                    </option>
+                                    <option value="price_desc"
+                                            {% if request.GET.sort_by == 'price_desc' %}selected{% endif %}>
+                                        Price: High to Low
+                                    </option>
+                                    <option value="name_asc"
+                                            {% if request.GET.sort_by == 'name_asc' %}selected{% endif %}>
+                                        Name: A to Z
+                                    </option>
+                                    <option value="name_desc"
+                                            {% if request.GET.sort_by == 'name_desc' %}selected{% endif %}>
+                                        Name: Z to A
+                                    </option>
+                                    <option value="date_asc"
+                                            {% if request.GET.sort_by == 'date_asc' %}selected{% endif %}>
+                                        Date: Oldest to Newest
+                                    </option>
+                                    <option value="date_desc"
+                                            {% if request.GET.sort_by == 'date_desc' or not request.GET.sort_by %}selected{% endif %}>
+                                        Date: Newest to Oldest
+                                    </option>
+                                </select>
+                                {% if request.GET.category %}
+                                    {% for cat_id in selected_categories %}<input type="hidden" name="category" value="{{ cat_id }}">{% endfor %}
+                                {% endif %}
+                                {% if request.GET.price_from %}<input type="hidden" name="price_from" value="{{ request.GET.price_from }}">{% endif %}
+                                {% if request.GET.price_to %}<input type="hidden" name="price_to" value="{{ request.GET.price_to }}">{% endif %}
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Products -->
+                    <div class="transparent">
+                        <div class="container">
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
+                                {% for product in products %}
+                                    <div class="col">
+                                        <div class="card shadow-lg">
+                                            <div class="card-img-top d-flex align-items-center justify-content-center"
+                                                 style="height: 225px;
+                                                        background-color: #55595c">
+                                                <img src="{{ product.image.url }}"
+                                                     alt="{{ product.name }}"
+                                                     style="max-height: 100%;
+                                                            max-width: 100%;
+                                                            object-fit: contain" />
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <small class="text-secondary">{{ product.category }}</small>
+                                                <h2 class="text-uppercase">{{ product.name }}</h2>
+                                                <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                                                <p class="card-text text-dark">
+                                                    <b>{{ product.price }}€</b>
+                                                </p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="btn-group w-100">
+                                                        {% if user.is_superuser %}
+                                                            <a href="{% url 'edit_product' product.pk %}"
+                                                               class="btn btn-sm btn-outline-success d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Edit</a>
+                                                            <a href="{% url 'delete_product' product.pk %}"
+                                                               class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Delete</a>
+                                                        {% endif %}
+                                                        <a href="#"
+                                                           class="btn btn-sm btn-danger d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Add To Cart</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            {% endfor %}
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  const categoryFilter = {{ category_filter| safe }};
-
-  document.querySelectorAll('select[name="category"] option').forEach(option => {
-      if (categoryFilter.includes(parseInt(option.value))) {
-          option.selected = true;
-      }
-  });
-</script>
+    </section>
 {% endblock %}

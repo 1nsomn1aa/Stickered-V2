@@ -1,5 +1,22 @@
 a {
     text-decoration: none;
+    color: white;
+    font-family: "Russo One", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+h2, h4 {
+    font-family: "Russo One", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+body {
+    font-family: "Funnel Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 header {
@@ -41,4 +58,28 @@ header {
 
 #hero:hover::before {
     filter: blur(0px);
+}
+
+.shop-header {
+    background:  url("../img/shop-header.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0% 87%;
+}
+
+.shop {
+    background: linear-gradient(90deg, #232526, #414345, #232526);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
 }
