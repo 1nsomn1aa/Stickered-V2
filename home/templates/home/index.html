@@ -17,11 +17,15 @@
                         <h1 class="display-1 fw-bold lh-1 text-center text-shadow">UNFOLD YOUR CREATIVITY</h1>
                         <p class="lead text-shadow">Discover handcrafted products from independant artists</p>
                         <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center mt-5">
-                            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
-                                Latest
-                                Products
-                            </button>
-                            <button type="button" class="btn btn-secondary btn-lg px-4">Shop</button>
+                            <a href="#latest">
+                                <button type="button" class="btn btn-danger btn-lg px-4 me-md-2 fw-bold">
+                                    Latest
+                                    Products
+                                </button>
+                            </a>
+                            <a href="{% url 'product_list' %}">
+                                <button type="button" class="btn btn-secondary btn-lg px-4">Shop</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -46,21 +50,21 @@
     <section id="hero-text-secondary">
         <div class="container d-flex flex-column flex-md-row align-items-center text-white text-center px-5 mx-auto">
             <div class="col-12 col-md-4 d-flex flex-column justify-content-between h-100 text-center mb-4 mb-md-0">
-                <i class="fas fa-palette fa-lg mb-4"></i>
+                <i class="fas fa-palette fa-lg mb-4 red"></i>
                 <h3>Custom Designs</h3>
                 <p>
                     Choose from a wide range of colors, patterns, and designs, or create your own personalized sticker to match your unique style.
                 </p>
             </div>
             <div class="col-12 col-md-4 d-flex flex-column justify-content-between h-100 text-center mb-4 mb-md-0">
-                <i class="fas fa-check-circle fa-lg mb-4"></i>
+                <i class="fas fa-check-circle fa-lg mb-4 red"></i>
                 <h3>Quality Assurance</h3>
                 <p>
                     Every sticker goes through a thorough verification process to ensure premium quality, durability, and vibrant colors.
                 </p>
             </div>
             <div class="col-12 col-md-4 d-flex flex-column justify-content-between h-100 text-center">
-                <i class="fas fa-tag fa-lg mb-4"></i>
+                <i class="fas fa-tag fa-lg mb-4 red"></i>
                 <h3>Exclusive Collections</h3>
                 <p>
                     Each sticker comes with unique attributes, from limited editions to special designs, perfect for collectors and enthusiasts alike.
@@ -68,23 +72,28 @@
             </div>
         </div>
     </section>
-    <section class="container">
+    <div class="container text-center text-white mt-5 py-4 gray-opacity rounded">
+        <h2 class="display-5">Latest Releases</h2>
+    </div>
+    <section class="container" id="latest">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
                 {% for product in recent_products %}
                     <div class="swiper-slide">
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                        <div class="product-info">
-                            <h3>{{ product.name }}</h3>
-                            <p>{{ product.category|truncatewords:10 }}</p>
-                            <span>${{ product.price }}</span>
-                        </div>
+                        <a href="{% url 'product_detail' product.pk %}">
+                            <img src="{{ product.image.url }}"
+                                 alt="{{ product.name }}"
+                                 class="swiper-image"
+                                 loading="lazy">
+                            <div class="product-info text-center text-black rounded-bottom-3">
+                                <h3 class="product-name text-black">{{ product.name }}</h3>
+                                <p>{{ product.category|truncatewords:10 }}</p>
+                                <span>${{ product.price }}</span>
+                            </div>
+                        </a>
                     </div>
                 {% endfor %}
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
         </div>
     </section>
     <script src="/static/js/swiper.js" defer></script>
