@@ -1,45 +1,91 @@
 {% extends "base.html" %}
 {% load static %}
-
-{% block page_header %}
-{% endblock %}
-
+{% block page_header %}{% endblock %}
 {% block content %}
-<section id="hero" class="img-fluid">
-    <div class="mx-5 mx-sm-1">
-        <div class="bg-light rounded-3 container my-5">
-            <div class="row align-items-center rounded-3 border shadow-lg">
-                <div class="p-3 p-lg-5">
-                    <img class="d-block mx-auto mb-4" src="{% static 'img/stickered.png' %}" alt="" width="200"
-                        height="auto">
-                    <h1 class="display-4 fw-bold lh-1 text-body-emphasis text-center">TEXT</h1>
-                    <p class="lead"></p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center">
-                        <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Latest
-                            Products</button>
-                        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Shop</button>
+    <section id="hero" class="img-fluid">
+    </section>
+    <section id="hero-text">
+        <div class="mx-5 mx-sm-1">
+            <div class="container my-0 my-md-5">
+                <div class="row align-items-center">
+                    <div class="p-3 p-lg-5 text-white">
+                        <img class="d-none d-md-block mx-auto mb-4 hero-logo"
+                             src="{% static 'img/stickered.png' %}"
+                             alt=""
+                             width="200"
+                             height="auto">
+                        <h1 class="display-1 fw-bold lh-1 text-center text-shadow">UNFOLD YOUR CREATIVITY</h1>
+                        <p class="lead text-shadow">Discover handcrafted products from independant artists</p>
+                        <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center mt-5">
+                            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
+                                Latest
+                                Products
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-lg px-4">Shop</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div>
-        <p style="color: aliceblue;"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" color="#53CB24">
-                <path fill="currentColor"
-                    d="M22.456 5.22a.75.75 0 00-.616-.69c-4.055-.728-5.747-1.254-9.531-2.963a.75.75 0 00-.618 0c-3.784 1.709-5.476 2.235-9.53 2.962a.75.75 0 00-.617.691c-.18 2.865.204 5.534 1.145 7.933a16.38 16.38 0 003.358 5.274c2.506 2.66 5.167 3.814 5.675 4.019a.75.75 0 00.563 0c.507-.205 3.168-1.36 5.675-4.019a16.379 16.379 0 003.351-5.274c.941-2.4 1.326-5.068 1.145-7.933zm-6.14 3.52l-5.194 6a.748.748 0 01-.535.26h-.03a.75.75 0 01-.526-.214l-2.306-2.26a.75.75 0 111.05-1.071l1.734 1.7 4.674-5.396a.75.75 0 111.134.982h-.001z">
-                </path>
-            </svg> 100%
-            TRUSTADVISOR
-            RATING</p>
-
-    </div>
-</section>
-<section id="latest-products">
-    <div class="position-relative overflow-hidden  text-center bg-body-tertiary">
-        <div class="col-md-6 p-lg-5 mx-auto my-5">
-            <h1 class="display-3 fw-bold">Latest Products</h1>
-            <h3 class="fw-normal text-muted mb-3">Check out our latest selection!</h3>
+        <div class="pt-0 pt-md-5">
+            <p style="color: aliceblue;">
+                <svg width="16"
+                     height="16"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     color="#53CB24">
+                    <path fill="currentColor" d="M22.456 5.22a.75.75 0 00-.616-.69c-4.055-.728-5.747-1.254-9.531-2.963a.75.75 0 00-.618 0c-3.784 1.709-5.476 2.235-9.53 2.962a.75.75 0 00-.617.691c-.18 2.865.204 5.534 1.145 7.933a16.38 16.38 0 003.358 5.274c2.506 2.66 5.167 3.814 5.675 4.019a.75.75 0 00.563 0c.507-.205 3.168-1.36 5.675-4.019a16.379 16.379 0 003.351-5.274c.941-2.4 1.326-5.068 1.145-7.933zm-6.14 3.52l-5.194 6a.748.748 0 01-.535.26h-.03a.75.75 0 01-.526-.214l-2.306-2.26a.75.75 0 111.05-1.071l1.734 1.7 4.674-5.396a.75.75 0 111.134.982h-.001z">
+                    </path>
+                </svg>
+                100%
+                TRUSTADVISOR
+                RATING
+            </p>
         </div>
-    </div>
-</section>
+    </section>
+    <section id="hero-text-secondary">
+        <div class="container d-flex flex-column flex-md-row align-items-center text-white text-center px-5 mx-auto">
+            <div class="col-12 col-md-4 d-flex flex-column justify-content-between h-100 text-center mb-4 mb-md-0">
+                <i class="fas fa-palette fa-lg mb-4"></i>
+                <h3>Custom Designs</h3>
+                <p>
+                    Choose from a wide range of colors, patterns, and designs, or create your own personalized sticker to match your unique style.
+                </p>
+            </div>
+            <div class="col-12 col-md-4 d-flex flex-column justify-content-between h-100 text-center mb-4 mb-md-0">
+                <i class="fas fa-check-circle fa-lg mb-4"></i>
+                <h3>Quality Assurance</h3>
+                <p>
+                    Every sticker goes through a thorough verification process to ensure premium quality, durability, and vibrant colors.
+                </p>
+            </div>
+            <div class="col-12 col-md-4 d-flex flex-column justify-content-between h-100 text-center">
+                <i class="fas fa-tag fa-lg mb-4"></i>
+                <h3>Exclusive Collections</h3>
+                <p>
+                    Each sticker comes with unique attributes, from limited editions to special designs, perfect for collectors and enthusiasts alike.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                {% for product in recent_products %}
+                    <div class="swiper-slide">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <div class="product-info">
+                            <h3>{{ product.name }}</h3>
+                            <p>{{ product.category|truncatewords:10 }}</p>
+                            <span>${{ product.price }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+    <script src="/static/js/swiper.js" defer></script>
 {% endblock %}

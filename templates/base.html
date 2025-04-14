@@ -21,6 +21,8 @@
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Russo+One&display=swap"
                   rel="stylesheet">
+            <link rel="stylesheet"
+                  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         {% endblock %}
         {% block extra_css %}{% endblock %}
         {% block js %}
@@ -29,53 +31,35 @@
                     crossorigin="anonymous"></script>
             <script src="https://kit.fontawesome.com/041ada9d0b.js"
                     crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         {% endblock %}
         {% block extra_js %}{% endblock %}
     </head>
     <body class="d-flex flex-column">
-        <header class="p-3" style="background-color: #55595c;">
+        <!-- Mobile Header -->
+        <header class="p-2 d-lg-none" style="background-color: #55595c91;">
             <div class="container text-light">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/"
-                       class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-                        <img class="me-5"
-                             loading="lazy"
-                             src="{% static 'img/stickered.png' %}"
-                             width="130"
-                             height="auto"
-                             alt="Stickered Logo">
-                    </a>
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 fs-5">
-                        <li>
-                            <a href="#" class="nav-link px-2 text-white">Home</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'product_list' %}" class="nav-link px-2 text-white">Shop</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'about' %}" class="nav-link px-2 text-white">About Us</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'contact' %}" class="nav-link px-2 text-white">Contact</a>
-                        </li>
-                    </ul>
-                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                        <input type="search"
-                               class="form-control"
-                               placeholder="Search..."
-                               aria-label="Search">
-                    </form>
-                    <div>
-                        <button type="button" class="text-white btn me-3">
-                            <a href="" class="text-decoration-none"><i class="fa-solid fa-cart-shopping"></i></a>
-                            <p class="my-0">
+                <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                    <div class="text-center">
+                        <a href="#" class="text-white text-decoration-none">
+                            <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                            <small class="d-block">
                                 {% if cart_total %}
                                     €{{ cart_total|floatformat:2 }}
                                 {% else %}
                                     €0.00
                                 {% endif %}
-                            </p>
-                        </button>
+                            </small>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/" class="d-block text-center">
+                            <img src="{% static 'img/stickered.png' %}"
+                                 alt="Stickered Logo"
+                                 width="100"
+                                 height="auto"
+                                 class="mx-auto">
+                        </a>
                     </div>
                     <div class="dropdown text-end">
                         <a href="#"
@@ -88,7 +72,7 @@
                                  height="32"
                                  class="rounded-circle">
                         </a>
-                        <ul class="dropdown-menu text-small">
+                        <ul class="dropdown-menu dropdown-menu-end text-small">
                             {% if user.is_authenticated %}
                                 {% if user.is_superuser %}
                                     <li>
@@ -115,11 +99,137 @@
                         </ul>
                     </div>
                 </div>
+                <div class="w-100 d-flex justify-content-center my-1">
+                    <button class="btn btn-outline-light"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#mobileNav"
+                            aria-controls="mobileNav"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+                <div class="collapse mt-2" id="mobileNav">
+                    <nav class="nav nav-mobile flex-column text-center fs-5">
+                        <a href="/"
+                           class="nav-link text-white {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                        <a href="{% url 'product_list' %}"
+                           class="nav-link text-white {% if request.resolver_match.url_name == 'product_list' %}active{% endif %}">Shop</a>
+                        <a href="{% url 'about' %}"
+                           class="nav-link text-white {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About Us</a>
+                        <a href="{% url 'contact' %}"
+                           class="nav-link text-white {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+                    </nav>
+                    <form class="search-wrapper mb-2" role="search">
+                        <input type="search"
+                               class="search-input"
+                               placeholder="Search..."
+                               aria-label="Search" />
+                        <button type="button"
+                                class="btn text-white search-toggle"
+                                aria-label="Toggle search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <header class="p-2 mt-4 d-none d-lg-block container rounded-4"
+                style="background-color: #55595c91">
+            <div class="text-light d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/"
+                   class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+                    <img class="me-5"
+                         loading="lazy"
+                         src="{% static 'img/stickered.png' %}"
+                         width="130"
+                         height="auto"
+                         alt="Stickered Logo">
+                </a>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 fs-5">
+                    <li>
+                        <a href="/"
+                           class="nav-link px-2 text-white {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'product_list' %}"
+                           class="nav-link px-2 text-white {% if request.resolver_match.url_name == 'product_list' %}active{% endif %}">Shop</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'about' %}"
+                           class="nav-link px-2 text-white {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About Us</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contact' %}"
+                           class="nav-link px-2 text-white {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+                    </li>
+                </ul>
+                <form class="search-wrapper" role="search">
+                    <input type="search"
+                           class="search-input"
+                           placeholder="Search..."
+                           aria-label="Search" />
+                    <button type="button"
+                            class="btn text-white search-toggle"
+                            aria-label="Toggle search">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+                <div class="me-3">
+                    <button type="button" class="text-white btn">
+                        <a href="" class="text-decoration-none"><i class="fa-solid fa-cart-shopping"></i></a>
+                        <p class="my-0">
+                            {% if cart_total %}
+                                €{{ cart_total|floatformat:2 }}
+                            {% else %}
+                                €0.00
+                            {% endif %}
+                        </p>
+                    </button>
+                </div>
+                <div class="dropdown text-end">
+                    <a href="#"
+                       class="d-block text-decoration-none dropdown-toggle"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="https://github.com/mdo.png"
+                             alt="mdo"
+                             width="32"
+                             height="32"
+                             class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        {% if user.is_authenticated %}
+                            {% if user.is_superuser %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'admin:index' %}">Admin Panel</a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item" href="#">Profile</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Sign out</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a class="dropdown-item" href="#">Login</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Signup</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </header>
         {% if messages %}<div class="message-container"></div>{% endif %}
         {% block page_header %}{% endblock %}
         {% block content %}{% endblock %}
-        {% block post_load_js %}{% endblock %}
+        {% block post_load_js %}<script src="/static/js/search.js" defer></script>{% endblock %}
     </body>
 </html>
