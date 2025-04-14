@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <section class="shop ">
+    <section class="background">
         <!-- Hero -->
         <section class="container py-5 my-4 text-center bg-secondary shop-header rounded d-none d-md-block"
                  style="height: 300px">
@@ -196,18 +196,22 @@
                                 {% for product in products %}
                                     <div class="col">
                                         <div class="card shadow-lg">
-                                            <div class="card-img-top d-flex align-items-center justify-content-center"
-                                                 style="height: 225px;
-                                                        background-color: #55595c">
-                                                <img src="{{ product.image.url }}"
-                                                     alt="{{ product.name }}"
-                                                     style="max-height: 100%;
-                                                            max-width: 100%;
-                                                            object-fit: contain" />
-                                            </div>
+                                            <a href="{% url 'product_detail' product.pk %}">
+                                                <div class="card-img-top d-flex align-items-center justify-content-center"
+                                                     style="height: 225px;
+                                                            background-color: #55595c">
+                                                    <img src="{{ product.image.url }}"
+                                                         alt="{{ product.name }}"
+                                                         style="max-height: 100%;
+                                                                max-width: 100%;
+                                                                object-fit: contain" />
+                                                </div>
+                                            </a>
                                             <div class="card-body text-center">
+                                                <a href="{% url 'product_detail' product.pk %}">
+                                                    <h2 class="text-uppercase">{{ product.name }}</h2>
+                                                </a>
                                                 <small class="text-secondary">{{ product.category }}</small>
-                                                <h2 class="text-uppercase">{{ product.name }}</h2>
                                                 <p class="card-text">{{ product.description|truncatechars:100 }}</p>
                                                 <p class="card-text text-dark">
                                                     <b>{{ product.price }}€</b>

@@ -1,13 +1,13 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const swiper = new Swiper('.swiper-container', {
-        loop: true, // Loop the slides
-        autoplay: {
-            delay: 3000, // 3 seconds per slide
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true, // Make the pagination dots clickable
-        },
-        effect: 'fade', // Fade transition between slides
-    });
+var swiper = new Swiper(".mySwiper", {
+    centeredSlides: true,
+    spaceBetween: 30, 
+    loop: true,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
 });
