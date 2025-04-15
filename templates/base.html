@@ -227,7 +227,13 @@
                 </div>
             </div>
         </header>
-        {% if messages %}<div class="message-container"></div>{% endif %}
+        {% if messages %}
+            <ul class="global-messages">
+                {% for message in messages %}
+                    {% if 'testimonial' not in message.tags %}<li class="{{ message.tags }}">{{ message }}</li>{% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
         {% block page_header %}{% endblock %}
         {% block content %}{% endblock %}
         {% block post_load_js %}<script src="/static/js/search.js" defer></script>{% endblock %}
