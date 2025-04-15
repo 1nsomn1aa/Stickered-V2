@@ -27,7 +27,11 @@ body {
     font-weight: 400;
     font-style: normal;
     background: linear-gradient(90deg, #232526, #414345, #232526);
-    
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 .gray-opacity {
@@ -48,6 +52,10 @@ body {
 
 .headings {
     margin-top: 150px;
+}
+
+.flex-grow {
+    flex-grow: 1;
 }
 
 /* DESKTOP NAV */
@@ -78,6 +86,21 @@ body {
 }
 
 /* MOBILE NAV */
+
+.mobile-navbar {
+    transition: background-color 0.3s ease;
+}
+
+.mobile-navbar.nav-open {
+    background-color: rgba(0, 0, 0, 0.85);
+}
+.mobile-navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
 
 .nav-mobile a {
     position: relative;
@@ -126,7 +149,8 @@ header {
     background:  url("../img/shop-header.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 0% 87%;
+    background-position: 0% 88%;
+    height: 30vh;
 }
 
 .card {
@@ -447,7 +471,6 @@ header {
     }
 
     .hero-mobile {
-        margin-top: -135px;
         position: relative;
         background: linear-gradient(135deg, rgba(24, 33, 36, 0.2), rgba(24, 33, 36, 0.2)), url("../img/hero-mobile.webp");
         background-repeat: no-repeat;
@@ -461,7 +484,7 @@ header {
     }
 
     .hero-text-mobile {
-        margin-top: 145px;
+        margin-top: 25vh;
     }
     
     .bottom {
@@ -496,6 +519,10 @@ header {
         margin-top: 10px;
         position: static; 
         margin: 0px 10px;
+    }
+
+    .margin-top-fix {
+        margin-top: 150px;
     }
 }
 

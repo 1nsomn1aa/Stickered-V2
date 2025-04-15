@@ -1,20 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <section class="background">
+    <section class="margin-top-fix">
         <!-- Hero -->
-        <section class="container py-5 my-4 text-center bg-secondary shop-header rounded d-none d-md-block"
-                 style="height: 300px">
-            <div class="py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto text-white ">
-                    {% if user.is_superuser %}
-                        <p>
-                            <a href="{% url 'add_product' %}" class="btn btn-danger btn-lg">Add Product</a>
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
+        <section class="container py-5 my-4 text-center bg-secondary shop-header rounded d-none d-md-block">
         </section>
+        {% if user.is_superuser %}
+            <div class="container text-center">
+                <p>
+                    <a href="{% url 'add_product' %}" class="btn btn-danger btn-lg">Add Product</a>
+                </p>
+            </div>
+        {% endif %}
         <div class="container">
             <div class="row">
                 <!-- Filters/Desktop -->
