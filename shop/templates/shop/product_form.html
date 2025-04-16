@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
-
-{% block page_header %}
-{% endblock %}
-
+{% block page_header %}{% endblock %}
 {% block content %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
-<a href="{% url 'product_list' %}">Back to Products</a>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <h3>Select Sizes</h3>
+        {{ form.sizes }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'product_list' %}">Back to Products</a>
 {% endblock %}

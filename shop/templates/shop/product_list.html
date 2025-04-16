@@ -5,13 +5,6 @@
         <!-- Hero -->
         <section class="container py-5 my-4 text-center bg-secondary shop-header rounded d-none d-md-block">
         </section>
-        {% if user.is_superuser %}
-            <div class="container text-center">
-                <p>
-                    <a href="{% url 'add_product' %}" class="btn btn-danger btn-lg">Add Product</a>
-                </p>
-            </div>
-        {% endif %}
         <div class="container">
             <div class="row">
                 <!-- Filters/Desktop -->
@@ -118,6 +111,16 @@
                             </form>
                         </div>
                     </div>
+                    {% if user.is_superuser %}
+                        <div class="container text-center d-flex justify-content-center gap-2 mt-3 mt-md-0">
+                            <p>
+                                <a href="{% url 'add_product' %}" class="btn btn-danger btn-lg">Add Product</a>
+                            </p>
+                            <p>
+                                <a href="{% url 'admin:index' %}" class="btn btn-danger btn-lg">Admin Panel</a>
+                            </p>
+                        </div>
+                    {% endif %}
                     <div class="d-block d-md-flex justify-content-between align-items-start gap-2 mb-4">
                         <!-- Active Filters -->
                         <div class="d-flex gap-2 flex-wrap pt-3 pt-md-0">
@@ -194,9 +197,8 @@
                                     <div class="col">
                                         <div class="card shadow-lg">
                                             <a href="{% url 'product_detail' product.pk %}">
-                                                <div class="card-img-top d-flex align-items-center justify-content-center"
-                                                     style="height: 225px;
-                                                            background-color: #55595c">
+                                                <div class="card-img-top d-flex align-items-center justify-content-center gray"
+                                                     style="height: 225px">
                                                     <img src="{{ product.image.url }}"
                                                          alt="{{ product.name }}"
                                                          style="max-height: 100%;
