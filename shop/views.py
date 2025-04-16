@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, Category
+from .models import Product, Category, SizeOption
 from .forms import ProductForm
+from .cart import Cart
+from django.http import HttpResponseBadRequest
+from django.views.decorators.http import require_POST
 
 
 def product_list(request):
@@ -51,10 +54,14 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            product = form.save()
+
+            sizes = form.cleaned_data.get('sizes')
+            product.sizes.set(sizes)
             return redirect('product_list')
     else:
         form = ProductForm()
+
     return render(request, 'shop/product_form.html', {'form': form})
 
 
@@ -63,10 +70,14 @@ def edit_product(request, pk):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
-            form.save()
+            product = form.save()
+
+            sizes = form.cleaned_data.get('sizes')
+            product.sizes.set(sizes)
             return redirect('product_list')
     else:
         form = ProductForm(instance=product)
+
     return render(request, 'shop/product_form.html', {'form': form})
 
 
@@ -80,4 +91,63 @@ def delete_product(request, pk):
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    return render(request, 'shop/product_detail.html', {'product': product})
+    recent_products = Product.objects.filter(
+        category=product.category
+    ).exclude(pk=product.pk)[:3]
+
+    return render(request, 'shop/product_detail.html', {
+        'product': product,
+        'recent_products': recent_products,
+    })
+
+
+def add_to_cart(request, product_id):
+
+    size_id = request.POST.get('size')
+    quantity = request.POST.get('quantity', 1)
+
+    if not size_id or not quantity:
+        return HttpResponseBadRequest("Both size and quantity are required.")
+
+    try:
+        size_id = int(size_id)
+        quantity = int(quantity)
+    except ValueError:
+        return HttpResponseBadRequest("Invalid size or quantity value.")
+
+    size = get_object_or_404(SizeOption, id=size_id)
+    
+    cart = Cart(request)
+    
+    cart.add(product_id=product_id, size_id=size.id, quantity=quantity)
+
+    return redirect('cart_detail')
+
+
+def cart_detail(request):
+    cart = Cart(request)
+
+    return render(request, 'shop/cart_detail.html', {'cart': cart})
+
+
+def remove_from_cart(request, product_id, size_id):
+    cart = Cart(request)
+    cart.remove(product_id=product_id, size_id=size_id)
+    return redirect('cart_detail')
+
+
+@require_POST
+def update_cart_quantity(request, product_id, size_id):
+    cart = Cart(request)
+    quantity = request.POST.get('quantity')
+
+    try:
+        quantity = int(quantity)
+        if quantity > 0:
+            cart.add(product_id=product_id, size_id=size_id, quantity=quantity, update_quantity=True)
+        else:
+            cart.remove(product_id=product_id, size_id=size_id)
+    except (ValueError, TypeError):
+        pass
+
+    return redirect('cart_detail')
