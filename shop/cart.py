@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.conf import settings
 from shop.models import Product, SizeOption
 
@@ -34,19 +35,41 @@ class Cart:
         self.save()
 
     def __iter__(self):
-        product_ids = [int(key.split(":")[0]) for key in self.cart.keys()]
-        size_ids = [int(item['size_id']) for item in self.cart.values()]
-        products = Product.objects.filter(id__in=product_ids)
-        sizes = SizeOption.objects.filter(id__in=size_ids)
-        size_map = {s.id: s for s in sizes}
-        product_map = {p.id: p for p in products}
+        product_ids = []
+        size_ids = []
+        for key in self.cart.keys():
+            try:
+                pid, sid = map(int, key.split(":"))
+                product_ids.append(pid)
+                size_ids.append(sid)
+            except ValueError:
+                continue
 
-        for key, item in self.cart.items():
-            product_id, size_id = map(int, key.split(":"))
-            item['product'] = product_map[product_id]
-            item['size'] = size_map[size_id]
-            item['total_price'] = item['size'].price * item['quantity']
-            yield item
+        product_map = {p.id: p for p in Product.objects.filter(id__in=product_ids)}
+        size_map = {s.id: s for s in SizeOption.objects.filter(id__in=size_ids)}
+
+        modified = False
+
+        for key in list(self.cart.keys()):
+            try:
+                product_id, size_id = map(int, key.split(":"))
+                raw = self.cart[key]
+                prod = product_map[product_id]
+                siz = size_map[size_id]
+
+                yield {
+                    "product": prod,
+                    "size": siz,
+                    "quantity": raw["quantity"],
+                    "total_price": siz.price * raw["quantity"],
+                }
+
+            except (KeyError, ValueError):
+                self.cart.pop(key, None)
+                modified = True
+
+        if modified:
+            self.save()
 
     def get_total_price(self):
-        return sum(item['size'].price * item['quantity'] for item in self.cart.values())
+        return sum(item['total_price'] for item in self)
