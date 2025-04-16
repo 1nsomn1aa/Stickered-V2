@@ -120,7 +120,7 @@
                 Total: <span class="text-success">€{{ cart.get_total_price|floatformat:2 }}</span>
             </h4>
             <a href="{% url 'product_list' %}" class="btn btn-secondary me-2 mt-2">Continue Shopping</a>
-            <a href="#" class="btn btn-danger mt-2">Proceed to Checkout</a>
+            <a href="{% url 'checkout' %}" class="btn btn-danger mt-2">Proceed to Checkout</a>
         </div>
     {% else %}
         <div class="alert alert-info text-center">
