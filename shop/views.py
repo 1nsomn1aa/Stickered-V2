@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, Category, SizeOption
-from .forms import ProductForm
+from .models import Product, Category, SizeOption, Order, OrderItem
+from .forms import ProductForm, OrderForm
 from .cart import Cart
 from django.http import HttpResponseBadRequest
 from django.views.decorators.http import require_POST
@@ -151,3 +151,30 @@ def update_cart_quantity(request, product_id, size_id):
         pass
 
     return redirect('cart_detail')
+
+
+def checkout(request):
+    cart = Cart(request)
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in cart:
+                OrderItem.objects.create(
+                    order=order,
+                    product=item['product'],
+                    size=item['size'],
+                    price=item['size'].price,
+                    quantity=item['quantity']
+                )
+            cart.clear()
+            return redirect('order_confirmation')
+    else:
+        form = OrderForm()
+
+    return render(request, 'shop/checkout.html', {'form': form, 'cart': cart})
+
+
+def order_confirmation(request):
+    return render(request, 'shop/order_confirmation.html')

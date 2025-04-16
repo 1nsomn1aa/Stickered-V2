@@ -46,3 +46,27 @@ class SizeOption(models.Model):
 
     def __str__(self):
         return f"{self.get_code_display()}"
+
+
+class Order(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Order #{self.pk} by {self.first_name} {self.last_name}"
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    size = models.ForeignKey(SizeOption, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField()
+
+    def get_total_price(self):
+        return self.price * self.quantity

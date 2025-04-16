@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Category, SizeOption
+from .models import Product, Category, SizeOption, Order, OrderItem
 
 
 class SizeOptionInline(admin.TabularInline):
@@ -29,6 +29,19 @@ class ProductAdmin(admin.ModelAdmin):
     price_display.short_description = 'Price'
 
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0
+    readonly_fields = ('product', 'size', 'price', 'quantity')
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'first_name', 'last_name', 'email', 'created_at')
+    readonly_fields = ('first_name', 'last_name', 'email', 'address', 'city', 'zip_code', 'created_at')
+    inlines = [OrderItemInline]
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category)
 admin.site.register(SizeOption, SizeOptionAdmin)
+admin.site.register(Order, OrderAdmin)
