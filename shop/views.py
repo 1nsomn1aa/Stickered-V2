@@ -4,6 +4,8 @@ from .forms import ProductForm, OrderForm
 from .cart import Cart
 from django.http import HttpResponseBadRequest
 from django.views.decorators.http import require_POST
+from .shipping import calculate_shipping
+
 
 
 def product_list(request):
@@ -155,11 +157,17 @@ def update_cart_quantity(request, product_id, size_id):
 
 def checkout(request):
     cart = Cart(request)
+    cart_subtotal = cart.get_total_price()
 
     if request.method == 'POST':
         form = OrderForm(request.POST)
+        shipping_method = request.POST.get('shipping_method', 'standard')
+        shipping_cost = calculate_shipping(cart, method=shipping_method)
+        grand_total = cart_subtotal + shipping_cost
+
         if form.is_valid():
             order = form.save()
+
             for item in cart:
                 OrderItem.objects.create(
                     order=order,
@@ -168,12 +176,33 @@ def checkout(request):
                     price=item['size'].price,
                     quantity=item['quantity']
                 )
+
+            order = form.save(commit=False)
+            order.shipping_method = shipping_method
+            order.shipping_cost = shipping_cost
+            order.save()
+
             cart.clear()
             return redirect('order_confirmation')
     else:
         form = OrderForm()
+        shipping_method = 'standard'
+        shipping_cost = calculate_shipping(cart, 'standard')
+        grand_total = cart_subtotal + shipping_cost
 
-    return render(request, 'shop/checkout.html', {'form': form, 'cart': cart})
+    shipping_standard = calculate_shipping(cart, 'standard')
+    shipping_express = calculate_shipping(cart, 'express')
+
+    return render(request, 'shop/checkout.html', {
+        'form': form,
+        'cart': cart,
+        'cart_subtotal': cart_subtotal,
+        'shipping_standard': shipping_standard,
+        'shipping_express': shipping_express,
+        'shipping_method': shipping_method,
+        'shipping_cost': shipping_cost,
+        'grand_total': grand_total,
+    })
 
 
 def order_confirmation(request):

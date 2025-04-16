@@ -36,8 +36,16 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'email', 'created_at')
-    readonly_fields = ('first_name', 'last_name', 'email', 'address', 'city', 'zip_code', 'created_at')
+    list_display = (
+        'id', 'first_name', 'last_name', 'email',
+        'shipping_method', 'shipping_cost',
+        'total_amount', 'created_at',
+    )
+    readonly_fields = (
+        'first_name', 'last_name', 'email', 'address',
+        'city', 'zip_code', 'shipping_method',
+        'shipping_cost', 'total_amount', 'created_at',
+    )
     inlines = [OrderItemInline]
 
 

@@ -49,13 +49,31 @@ class SizeOption(models.Model):
 
 
 class Order(models.Model):
+    SHIPPING_CHOICES = [
+        ('standard', 'Standard'),
+        ('express', 'Express'),
+    ]
+
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
     address = models.TextField()
     city = models.CharField(max_length=100)
     zip_code = models.CharField(max_length=20)
+
+    shipping_method = models.CharField(
+        max_length=10, choices=SHIPPING_CHOICES, default='standard'
+    )
+    shipping_cost = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0.00
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def total_amount(self):
+        items_total = sum(i.get_total_price() for i in self.items.all())
+        return items_total + self.shipping_cost
+    total_amount.short_description = "Total (€)"
 
     def __str__(self):
         return f"Order #{self.pk} by {self.first_name} {self.last_name}"

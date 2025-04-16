@@ -43,13 +43,7 @@
                     <div class="text-center">
                         <a href="#" class="text-white text-decoration-none">
                             <i class="fa-solid fa-cart-shopping fa-lg"></i>
-                            <small class="d-block">
-                                {% if cart_total %}
-                                    €{{ cart_total|floatformat:2 }}
-                                {% else %}
-                                    €0.00
-                                {% endif %}
-                            </small>
+                            <small class="d-block">€{{ cart_total|default:"0.00"|floatformat:2 }}</small>
                         </a>
                     </div>
                     <div>
