@@ -213,8 +213,8 @@
                                                             <a href="{% url 'delete_product' product.pk %}"
                                                                class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Delete</a>
                                                         {% endif %}
-                                                        <a href="#"
-                                                           class="btn btn-sm btn-danger d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Add To Cart</a>
+                                                        <a href="{% url 'product_detail' product.pk %}"
+                                                           class="btn btn-sm btn-danger d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Select Options</a>
                                                     </div>
                                                 </div>
                                             </div>

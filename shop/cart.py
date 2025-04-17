@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.conf import settings
 from shop.models import Product, SizeOption
 
@@ -11,7 +10,7 @@ class Cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
-    def add(self, product_id, size_id, quantity, update_quantity=False):
+    def add(self, product_id, size_id, quantity=1, update_quantity=False):
         key = f"{product_id}:{size_id}"
         if key not in self.cart:
             self.cart[key] = {'quantity': 0, 'size_id': size_id}
@@ -35,9 +34,11 @@ class Cart:
         self.save()
 
     def __iter__(self):
+        keys = self.cart.keys()
         product_ids = []
         size_ids = []
-        for key in self.cart.keys():
+
+        for key in keys:
             try:
                 pid, sid = map(int, key.split(":"))
                 product_ids.append(pid)
@@ -45,31 +46,32 @@ class Cart:
             except ValueError:
                 continue
 
-        product_map = {p.id: p for p in Product.objects.filter(id__in=product_ids)}
-        size_map = {s.id: s for s in SizeOption.objects.filter(id__in=size_ids)}
+        products = Product.objects.filter(id__in=product_ids)
+        sizes = SizeOption.objects.filter(id__in=size_ids)
 
-        modified = False
+        product_map = {p.id: p for p in products}
+        size_map = {s.id: s for s in sizes}
 
         for key in list(self.cart.keys()):
             try:
-                product_id, size_id = map(int, key.split(":"))
-                raw = self.cart[key]
-                prod = product_map[product_id]
-                siz = size_map[size_id]
+                pid, sid = map(int, key.split(":"))
+                product = product_map[pid]
+                size = size_map[sid]
+                item = self.cart[key]
 
                 yield {
-                    "product": prod,
-                    "size": siz,
-                    "quantity": raw["quantity"],
-                    "total_price": siz.price * raw["quantity"],
+                    'product': product,
+                    'size': size,
+                    'quantity': item['quantity'],
+                    'total_price': size.price * item['quantity'],
                 }
 
             except (KeyError, ValueError):
                 self.cart.pop(key, None)
-                modified = True
-
-        if modified:
-            self.save()
+                self.save()
 
     def get_total_price(self):
         return sum(item['total_price'] for item in self)
+
+    def __len__(self):
+        return sum(item['quantity'] for item in self.cart.values())
