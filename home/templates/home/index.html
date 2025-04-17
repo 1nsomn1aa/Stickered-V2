@@ -88,7 +88,7 @@
                             <div class="product-info text-center text-black rounded-bottom-3">
                                 <h3 class="product-name text-black">{{ product.name }}</h3>
                                 <p>{{ product.category|truncatewords:10 }}</p>
-                                <span>${{ product.price }}</span>
+                                <span>€ {{ product.base_price }}</span>
                             </div>
                         </a>
                     </div>

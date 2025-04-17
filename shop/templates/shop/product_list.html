@@ -46,12 +46,7 @@
                                            value="{{ request.GET.price_to }}">
                                 </div>
                             </div>
-                            {% if request.GET.category %}
-                                {% for cat_id in request.GET.category %}<input type="hidden" name="category" value="{{ cat_id }}">{% endfor %}
-                            {% endif %}
-                            {% if request.GET.price_from %}<input type="hidden" name="price_from" value="{{ request.GET.price_from }}">{% endif %}
-                            {% if request.GET.price_to %}<input type="hidden" name="price_to" value="{{ request.GET.price_to }}">{% endif %}
-                            <button type="submit" class="btn btn-danger">Apply Filters</button>
+                            <button type="submit" class="btn btn-danger w-100">Apply Filters</button>
                         </form>
                     </div>
                 </div>
@@ -102,12 +97,7 @@
                                                value="{{ request.GET.price_to }}">
                                     </div>
                                 </div>
-                                {% if request.GET.category %}
-                                    {% for cat_id in request.GET.category %}<input type="hidden" name="category" value="{{ cat_id }}">{% endfor %}
-                                {% endif %}
-                                {% if request.GET.price_from %}<input type="hidden" name="price_from" value="{{ request.GET.price_from }}">{% endif %}
-                                {% if request.GET.price_to %}<input type="hidden" name="price_to" value="{{ request.GET.price_to }}">{% endif %}
-                                <button type="submit" class="btn btn-secondary">Apply Filters</button>
+                                <button type="submit" class="btn btn-secondary w-100">Apply Filters</button>
                             </form>
                         </div>
                     </div>
@@ -213,7 +203,7 @@
                                                 <small class="text-secondary">{{ product.category }}</small>
                                                 <p class="card-text">{{ product.description|truncatechars:100 }}</p>
                                                 <p class="card-text text-dark">
-                                                    <b>{{ product.price }}€</b>
+                                                    <b>€ {{ product.base_price }}</b>
                                                 </p>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="btn-group w-100">

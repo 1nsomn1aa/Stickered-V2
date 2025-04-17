@@ -19,15 +19,15 @@ def product_list(request):
     price_to = request.GET.get('price_to')
 
     if price_from:
-        products = products.filter(price__gte=price_from)
+        products = products.filter(base_price__gte=price_from)
     if price_to:
-        products = products.filter(price__lte=price_to)
+        products = products.filter(base_price__lte=price_to)
 
     sort_by = request.GET.get('sort_by', 'date_desc')
     if sort_by == 'price_asc':
-        products = products.order_by('price')
+        products = products.order_by('base_price')
     elif sort_by == 'price_desc':
-        products = products.order_by('-price')
+        products = products.order_by('-base_price')
     elif sort_by == 'name_asc':
         products = products.order_by('name')
     elif sort_by == 'name_desc':
