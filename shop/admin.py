@@ -1,20 +1,11 @@
 from django.contrib import admin
-from .models import Product, Category, SizeOption, Order, OrderItem
+from .models import Product, Category, SizeType, SizeOption, Order, OrderItem
 
 
 class SizeOptionInline(admin.TabularInline):
-    model = Product.sizes.through
+    model = SizeOption
     extra = 1
-    verbose_name = "Size Option"
-    verbose_name_plural = "Size Options"
-
-
-class SizeOptionAdmin(admin.ModelAdmin):
-    list_display = ('code', 'price', 'linked_products')
-
-    def linked_products(self, obj):
-        return ", ".join([product.name for product in obj.products.all()])
-    linked_products.short_description = 'Assigned to'
+    fields = ('size_type', 'price')
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -22,11 +13,15 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [SizeOptionInline]
 
     def price_display(self, obj):
-        sizes = obj.sizes.all().order_by('price')
+        sizes = obj.size_options.all().order_by('price')
         if sizes.exists():
             return f"€{sizes.first().price:.2f}"
         return f"€{obj.base_price:.2f}"
     price_display.short_description = 'Price'
+
+
+class SizeTypeAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 
 class OrderItemInline(admin.TabularInline):
@@ -36,10 +31,7 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = (
-        'id', 'full_name', 'email', 'shipping_method',
-        'shipping_cost', 'total_amount', 'created_at',
-    )
+    list_display = ('id', 'full_name', 'email', 'shipping_method', 'shipping_cost', 'total_amount', 'created_at')
     readonly_fields = (
         'first_name', 'last_name', 'email',
         'address_line1', 'address_line2', 'city', 'eir_code', 'country',
@@ -53,9 +45,7 @@ class OrderAdmin(admin.ModelAdmin):
             'fields': ('first_name', 'last_name', 'email', 'full_name')
         }),
         ('Shipping Address', {
-            'fields': (
-                'address_line1', 'address_line2', 'city', 'eir_code', 'country', 'address_display'
-            )
+            'fields': ('address_line1', 'address_line2', 'city', 'eir_code', 'country', 'address_display')
         }),
         ('Order Details', {
             'fields': ('shipping_method', 'shipping_cost', 'total_amount', 'created_at')
@@ -77,5 +67,5 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category)
-admin.site.register(SizeOption, SizeOptionAdmin)
+admin.site.register(SizeType, SizeTypeAdmin)
 admin.site.register(Order, OrderAdmin)

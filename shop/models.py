@@ -15,7 +15,6 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     size_description = models.TextField(blank=True, null=True)
-    sizes = models.ManyToManyField('SizeOption', blank=True, related_name='products')
     usage = models.TextField(blank=True, null=True)
     base_price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='products/', blank=True, null=True)
@@ -32,20 +31,22 @@ class Product(models.Model):
         return f"{self.name} ({self.sku})"
 
 
-class SizeOption(models.Model):
-    SIZE_CHOICES = [
-        ('S', 'Small'),
-        ('M', 'Medium'),
-        ('L', 'Large'),
-        ('XL', 'Extra Large'),
-        ('STD', 'Standard'),
-    ]
+class SizeType(models.Model):
+    name = models.CharField(max_length=50, unique=True)
 
-    code = models.CharField(max_length=3, choices=SIZE_CHOICES)
+    def __str__(self):
+        return self.name
+
+
+class SizeOption(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='size_options', null=True, blank=True)
+    size_type = models.ForeignKey(SizeType, on_delete=models.CASCADE, related_name='sizes', null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return f"{self.get_code_display()}"
+        size = self.size_type.name if self.size_type else "Unknown Size"
+        product = self.product.name if self.product else "Unknown Product"
+        return f"{size} - {product} - €{self.price}"
 
 
 class Order(models.Model):

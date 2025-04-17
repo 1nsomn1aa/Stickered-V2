@@ -1,13 +1,55 @@
 {% extends "base.html" %}
 {% load static %}
-{% block page_header %}{% endblock %}
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <h3>Select Sizes</h3>
-        {{ form.sizes }}
-        <button type="submit">Save</button>
-    </form>
-    <a href="{% url 'product_list' %}">Back to Products</a>
+    <div class="container py-5 margin-top-fix">
+        <h2 class="text-center mb-4">{{ form.instance.pk|yesno:"Edit Product,Add New Product" }}</h2>
+        <form method="post"
+              enctype="multipart/form-data"
+              class="bg-white rounded p-4 shadow">
+            {% csrf_token %}
+            <div class="row g-3">
+                {% for field in form %}
+                    {% if field.name != 'sizes' %}
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="col-12">
+                    <h4 class="mt-4">Available Sizes</h4>
+                    <div class="row">
+                        {% for item in form.size_data %}
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           name="sizes"
+                                           value="{{ item.size_type.id }}"
+                                           id="size_{{ item.size_type.id }}"
+                                           {% if item.checked %}checked{% endif %}>
+                                    <label class="form-check-label" for="size_{{ item.size_type.id }}">{{ item.size_type.name }}</label>
+                                </div>
+                                <input type="number"
+                                       name="price_{{ item.size_type.id }}"
+                                       class="form-control mt-2"
+                                       placeholder="Price"
+                                       step="0.01"
+                                       {% if item.price %}value="{{ item.price }}"{% endif %}>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-12 text-end mt-4">
+                    <button type="submit" class="btn btn-danger">Save Product</button>
+                </div>
+            </div>
+        </form>
+        <div class="text-center mt-4">
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to Products</a>
+        </div>
+    </div>
 {% endblock %}

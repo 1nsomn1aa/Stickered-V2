@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, Category, SizeOption, Order, OrderItem
+from .models import Product, Category, SizeOption, SizeType, Order, OrderItem
 from .forms import ProductForm, OrderForm
 from .cart import Cart
 from django.http import HttpResponseBadRequest
@@ -57,8 +57,19 @@ def add_product(request):
         if form.is_valid():
             product = form.save()
 
-            sizes = form.cleaned_data.get('sizes')
-            product.sizes.set(sizes)
+            product.size_options.all().delete()
+
+            selected_sizes = request.POST.getlist('sizes')
+
+            for size_type_id in selected_sizes:
+                price = request.POST.get(f'price_{size_type_id}', 0)
+                if price:
+                    SizeOption.objects.create(
+                        product=product,
+                        size_type_id=size_type_id,
+                        price=price,
+                    )
+
             return redirect('product_list')
     else:
         form = ProductForm()
@@ -73,8 +84,19 @@ def edit_product(request, pk):
         if form.is_valid():
             product = form.save()
 
-            sizes = form.cleaned_data.get('sizes')
-            product.sizes.set(sizes)
+            product.size_options.all().delete()
+
+            selected_sizes = request.POST.getlist('sizes')
+
+            for size_type_id in selected_sizes:
+                price = request.POST.get(f'price_{size_type_id}', 0)
+                if price:
+                    SizeOption.objects.create(
+                        product=product,
+                        size_type_id=size_type_id,
+                        price=price,
+                    )
+
             return redirect('product_list')
     else:
         form = ProductForm(instance=product)
@@ -103,7 +125,6 @@ def product_detail(request, pk):
 
 
 def add_to_cart(request, product_id):
-
     size_id = request.POST.get('size')
     quantity = request.POST.get('quantity', 1)
 
@@ -117,9 +138,8 @@ def add_to_cart(request, product_id):
         return HttpResponseBadRequest("Invalid size or quantity value.")
 
     size = get_object_or_404(SizeOption, id=size_id)
-    
+
     cart = Cart(request)
-    
     cart.add(product_id=product_id, size_id=size.id, quantity=quantity)
 
     return redirect('cart_detail')
@@ -127,7 +147,6 @@ def add_to_cart(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-
     return render(request, 'shop/cart_detail.html', {'cart': cart})
 
 
@@ -165,7 +184,10 @@ def checkout(request):
         grand_total = cart_subtotal + shipping_cost
 
         if form.is_valid():
-            order = form.save()
+            order = form.save(commit=False)
+            order.shipping_method = shipping_method
+            order.shipping_cost = shipping_cost
+            order.save()
 
             for item in cart:
                 OrderItem.objects.create(
@@ -175,11 +197,6 @@ def checkout(request):
                     price=item['size'].price,
                     quantity=item['quantity']
                 )
-
-            order = form.save(commit=False)
-            order.shipping_method = shipping_method
-            order.shipping_cost = shipping_cost
-            order.save()
 
             cart.clear()
             return redirect('order_confirmation')

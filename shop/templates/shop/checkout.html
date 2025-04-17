@@ -76,7 +76,7 @@
                                 <div>
                                     {{ item.product.name }}
                                     <br>
-                                    <small class="text-muted">Size: {{ item.size.get_code_display }}</small>
+                                    <small class="text-muted">Size: {{ item.size.size_type.name }}</small>
                                     <br>
                                     <small class="text-muted">Qty: {{ item.quantity }}</small>
                                 </div>
@@ -143,14 +143,14 @@
     </div>
     <script>
         (function () {
-            const radios      = document.querySelectorAll('input[name="shipping_method"]');
-            const shipSpan    = document.getElementById('shipCost');
-            const labelSpan   = document.getElementById('shipLabel');
-            const totalSpan   = document.getElementById('grandTotal');
-            const subtotal    = parseFloat('{{ cart_subtotal }}');
+            const radios = document.querySelectorAll('input[name="shipping_method"]');
+            const shipSpan = document.getElementById('shipCost');
+            const labelSpan = document.getElementById('shipLabel');
+            const totalSpan = document.getElementById('grandTotal');
+            const subtotal = parseFloat('{{ cart_subtotal }}');
         
             function updateTotals() {
-                const cost  = parseFloat(this.dataset.cost);
+                const cost = parseFloat(this.dataset.cost);
                 const label = this.dataset.label;
         
                 labelSpan.textContent = label;

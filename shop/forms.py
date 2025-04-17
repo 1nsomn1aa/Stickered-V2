@@ -1,13 +1,32 @@
 from django import forms
-from .models import Product, SizeOption, Order
+from .models import Product, SizeType, SizeOption, Order
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'size_description', 'usage', 'base_price', 'image', 'category', 'sizes']
+        fields = ['name', 'description', 'size_description', 'usage', 'base_price', 'image', 'category']
 
-    sizes = forms.ModelMultipleChoiceField(queryset=SizeOption.objects.all(), required=False)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        all_size_types = SizeType.objects.all()
+        existing_options = {}
+        if self.instance.pk:
+            existing_options = {so.size_type_id: so for so in self.instance.size_options.all()}
+
+        self.size_data = []
+        for size_type in all_size_types:
+            size_option = existing_options.get(size_type.id)
+            self.size_data.append({
+                'size_type': size_type,
+                'size_option': size_option,
+                'checked': bool(size_option),
+                'price': size_option.price if size_option else '',
+            })
+
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control'})
 
 
 class OrderForm(forms.ModelForm):
