@@ -37,16 +37,42 @@ class OrderItemInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'first_name', 'last_name', 'email',
-        'shipping_method', 'shipping_cost',
-        'total_amount', 'created_at',
-    )
-    readonly_fields = (
-        'first_name', 'last_name', 'email', 'address',
-        'city', 'zip_code', 'shipping_method',
+        'id', 'full_name', 'email', 'shipping_method',
         'shipping_cost', 'total_amount', 'created_at',
     )
+    readonly_fields = (
+        'first_name', 'last_name', 'email',
+        'address_line1', 'address_line2', 'city', 'eir_code', 'country',
+        'shipping_method', 'shipping_cost', 'total_amount', 'created_at',
+        'full_name', 'address_display',
+    )
     inlines = [OrderItemInline]
+
+    fieldsets = (
+        ('Customer Information', {
+            'fields': ('first_name', 'last_name', 'email', 'full_name')
+        }),
+        ('Shipping Address', {
+            'fields': (
+                'address_line1', 'address_line2', 'city', 'eir_code', 'country', 'address_display'
+            )
+        }),
+        ('Order Details', {
+            'fields': ('shipping_method', 'shipping_cost', 'total_amount', 'created_at')
+        }),
+    )
+
+    def full_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}"
+    full_name.short_description = 'Full Name'
+
+    def address_display(self, obj):
+        address = obj.address_line1
+        if obj.address_line2:
+            address += f", {obj.address_line2}"
+        address += f", {obj.city}, {obj.eir_code}, {obj.country}"
+        return address
+    address_display.short_description = 'Full Address'
 
 
 admin.site.register(Product, ProductAdmin)
