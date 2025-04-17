@@ -1,16 +1,75 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container py-5 margin-top-fix">
+    <div class="container py-5 margin-top-fix text-white">
         <h2 class="mb-4 text-center">Checkout</h2>
         <form method="POST">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-6">
-                    <h4>Billing Information</h4>
-                    {{ form.as_p }}
+                    <h4 class="text-center text-md-start">Shipping / Billing Information</h4>
+                    <div class="bg-white rounded p-4 shadow-sm">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="mb-3">
+                                    <label class="form-label">{{ form.first_name.label }}</label>
+                                    {{ form.first_name }}
+                                    {% if form.first_name.errors %}<div class="text-danger small">{{ form.first_name.errors }}</div>{% endif %}
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="mb-3">
+                                    <label class="form-label">{{ form.last_name.label }}</label>
+                                    {{ form.last_name }}
+                                    {% if form.last_name.errors %}<div class="text-danger small">{{ form.last_name.errors }}</div>{% endif %}
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="mb-3">
+                                    <label class="form-label">{{ form.email.label }}</label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}<div class="text-danger small">{{ form.email.errors }}</div>{% endif %}
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="mb-3">
+                                    <label class="form-label">{{ form.address_line1.label }}</label>
+                                    {{ form.address_line1 }}
+                                    {% if form.address_line1.errors %}<div class="text-danger small">{{ form.address_line1.errors }}</div>{% endif %}
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="mb-3">
+                                    <label class="form-label">{{ form.city.label }}</label>
+                                    {{ form.city }}
+                                    {% if form.city.errors %}<div class="text-danger small">{{ form.city.errors }}</div>{% endif %}
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="mb-3">
+                                    <label class="form-label">{{ form.address_line2.label }}</label>
+                                    {{ form.address_line2 }}
+                                    {% if form.address_line2.errors %}<div class="text-danger small">{{ form.address_line2.errors }}</div>{% endif %}
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="mb-3">
+                                    <label class="form-label">{{ form.country.label }}</label>
+                                    {{ form.country }}
+                                    {% if form.country.errors %}<div class="text-danger small">{{ form.country.errors }}</div>{% endif %}
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="mb-3">
+                                    <label class="form-label">{{ form.eir_code.label }}</label>
+                                    {{ form.eir_code }}
+                                    {% if form.eir_code.errors %}<div class="text-danger small">{{ form.eir_code.errors }}</div>{% endif %}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <h4>Order Summary</h4>
+                    <h4 class="text-center text-md-start pt-4 pt-md-0">Order Summary</h4>
                     <ul class="list-group mb-3">
                         {% for item in cart %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">

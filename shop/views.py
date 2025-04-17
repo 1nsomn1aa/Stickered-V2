@@ -7,7 +7,6 @@ from django.views.decorators.http import require_POST
 from .shipping import calculate_shipping
 
 
-
 def product_list(request):
     products = Product.objects.all()
     categories = Category.objects.all()

@@ -57,17 +57,17 @@ class Order(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
-    address = models.TextField()
+    address_line1 = models.CharField(max_length=255)
+    address_line2 = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
-    zip_code = models.CharField(max_length=20)
-
+    eir_code = models.CharField(max_length=20)
+    country = models.CharField(max_length=50, default='Ireland')
     shipping_method = models.CharField(
         max_length=10, choices=SHIPPING_CHOICES, default='standard'
     )
     shipping_cost = models.DecimalField(
         max_digits=6, decimal_places=2, default=0.00
     )
-
     created_at = models.DateTimeField(auto_now_add=True)
 
     def total_amount(self):
