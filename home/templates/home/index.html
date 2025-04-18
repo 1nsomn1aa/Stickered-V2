@@ -12,12 +12,10 @@
             <h1 class="display-1 fw-bold lh-1 text-center text-shadow">UNFOLD YOUR CREATIVITY</h1>
             <p class="lead text-shadow">Discover handcrafted products from independent artists</p>
             <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center mt-4">
-                <a href="#latest">
-                    <button type="button" class="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Latest Products</button>
-                </a>
-                <a href="{% url 'product_list' %}">
-                    <button type="button" class="btn btn-secondary btn-lg px-4">Shop</button>
-                </a>
+                <a href="#latest"
+                   class="btn btn-danger btn-lg px-4 me-md-2 fw-bold text-white text-decoration-none">Latest Products</a>
+                <a href="{% url 'product_list' %}"
+                   class="btn btn-secondary btn-lg px-4 text-white text-decoration-none">Shop</a>
             </div>
             <div class="trustadvisor-badge position-absolute bottom-0 start-50 translate-middle-x text-white mb-3">
                 <p class="mb-0">

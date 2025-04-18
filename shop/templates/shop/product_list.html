@@ -190,46 +190,54 @@
                     <!-- Products -->
                     <div class="transparent">
                         <div class="container">
-                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
-                                {% for product in products %}
-                                    <div class="col">
-                                        <div class="card shadow-lg">
-                                            <a href="{% url 'product_detail' product.pk %}">
-                                                <div class="card-img-top d-flex align-items-center justify-content-center gray"
-                                                     style="height: 225px">
-                                                    <img src="{{ product.image.url }}"
-                                                         alt="{{ product.name }}"
-                                                         style="max-height: 100%;
-                                                                max-width: 100%;
-                                                                object-fit: contain" />
-                                                </div>
-                                            </a>
-                                            <div class="card-body text-center">
+                            {% if products %}
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
+                                    {% for product in products %}
+                                        <div class="col">
+                                            <div class="card shadow-lg">
                                                 <a href="{% url 'product_detail' product.pk %}">
-                                                    <h2 class="text-uppercase">{{ product.name }}</h2>
+                                                    <div class="card-img-top d-flex align-items-center justify-content-center gray"
+                                                         style="height: 225px">
+                                                        <img src="{{ product.image.url }}"
+                                                             alt="{{ product.name }}"
+                                                             style="max-height: 100%;
+                                                                    max-width: 100%;
+                                                                    object-fit: contain" />
+                                                    </div>
                                                 </a>
-                                                <small class="text-secondary">{{ product.category }}</small>
-                                                <p class="card-text">{{ product.description|truncatechars:100 }}</p>
-                                                <p class="card-text text-dark">
-                                                    <b>€ {{ product.base_price }}</b>
-                                                </p>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="btn-group w-100">
-                                                        {% if user.is_superuser %}
-                                                            <a href="{% url 'edit_product' product.pk %}"
-                                                               class="btn btn-sm btn-outline-success d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Edit</a>
-                                                            <a href="{% url 'delete_product' product.pk %}"
-                                                               class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Delete</a>
-                                                        {% endif %}
-                                                        <a href="{% url 'product_detail' product.pk %}"
-                                                           class="btn btn-sm btn-danger d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Select Options</a>
+                                                <div class="card-body text-center">
+                                                    <a href="{% url 'product_detail' product.pk %}">
+                                                        <h2 class="text-uppercase">{{ product.name }}</h2>
+                                                    </a>
+                                                    <small class="text-secondary">{{ product.category }}</small>
+                                                    <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                                                    <p class="card-text text-dark">
+                                                        <b>€ {{ product.base_price }}</b>
+                                                    </p>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="btn-group w-100">
+                                                            {% if user.is_superuser %}
+                                                                <a href="{% url 'edit_product' product.pk %}"
+                                                                   class="btn btn-sm btn-outline-success d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Edit</a>
+                                                                <a href="{% url 'delete_product' product.pk %}"
+                                                                   class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Delete</a>
+                                                            {% endif %}
+                                                            <a href="{% url 'product_detail' product.pk %}"
+                                                               class="btn btn-sm btn-danger d-flex align-items-center justify-content-center rounded w-100 mb-2 mb-md-0 mx-1">Select Options</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="d-flex flex-column justify-content-center align-items-center py-5 fade-in">
+                                    <h2 class="text-danger">No Products Found</h2>
+                                    <p class="text-white lead mt-2 mt-md-0 px-5 px-md-0">Try adjusting your filters or search terms!</p>
+                                    <a href="{% url 'product_list' %}" class="btn btn-outline-light mt-3">Browse All Products</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
