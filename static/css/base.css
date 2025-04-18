@@ -71,6 +71,20 @@ main {
     padding: 4px 6px;
 }
 
+.hero-overlay-content {
+    position: relative;
+    height: 100%;
+    z-index: 2;
+    padding: 20px;
+}
+
+.trustadvisor-badge {
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
 /* DESKTOP NAV */
 
 .nav a {
@@ -144,8 +158,12 @@ main {
 
 header {
     background-color: rgba(240, 248, 255, 0.404);
-    z-index: 99;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 #hero-text {
@@ -483,7 +501,7 @@ header {
         margin-left: 10px;
     }
 
-    .hero-mobile {
+    #hero {
         position: relative;
         background: linear-gradient(135deg, rgba(24, 33, 36, 0.2), rgba(24, 33, 36, 0.2)), url("../img/hero-mobile.webp");
         background-repeat: no-repeat;
@@ -541,7 +559,7 @@ header {
 
 @media (min-width: 992px) {
     #hero {
-        position: absolute;
+        position: relative;
         top: 0;
         left: 0;
         right: 0;
@@ -551,7 +569,7 @@ header {
         background-position: 50% 65%;
         width: 100%;
         height: 75vh;
-        z-index: -1;
+        z-index: 1;
         overflow: hidden;
     }
 
@@ -563,5 +581,11 @@ header {
     .next-btn {
         position: absolute;
         right: 0;
+    }
+
+    .trustadvisor-badge {
+        margin-top: 0;
+        align-self: flex-start;
+        text-align: right;
     }
   }

@@ -3,48 +3,35 @@
 {% block page_header %}{% endblock %}
 {% block content %}
     <section id="hero" class="img-fluid">
-    </section>
-    <section id="hero-text" class="hero-mobile">
-        <div class="mx-5 mx-sm-1 hero-text-mobile">
-            <div class="container my-0 my-md-5">
-                <div class="row align-items-center">
-                    <div class="p-3 p-lg-5 text-white">
-                        <img class="d-none d-md-block mx-auto mb-4 hero-logo"
-                             src="{% static 'img/stickered.png' %}"
-                             alt=""
-                             width="200"
-                             height="auto">
-                        <h1 class="display-1 fw-bold lh-1 text-center text-shadow">UNFOLD YOUR CREATIVITY</h1>
-                        <p class="lead text-shadow">Discover handcrafted products from independant artists</p>
-                        <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center mt-5">
-                            <a href="#latest">
-                                <button type="button" class="btn btn-danger btn-lg px-4 me-md-2 fw-bold">
-                                    Latest
-                                    Products
-                                </button>
-                            </a>
-                            <a href="{% url 'product_list' %}">
-                                <button type="button" class="btn btn-secondary btn-lg px-4">Shop</button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        <div class="hero-overlay-content d-flex flex-column justify-content-center align-items-center text-white text-center h-100">
+            <img class="d-none d-md-block mx-auto mb-4 hero-logo"
+                 src="{% static 'img/stickered.png' %}"
+                 alt=""
+                 width="200"
+                 height="auto">
+            <h1 class="display-1 fw-bold lh-1 text-center text-shadow">UNFOLD YOUR CREATIVITY</h1>
+            <p class="lead text-shadow">Discover handcrafted products from independent artists</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center mt-4">
+                <a href="#latest">
+                    <button type="button" class="btn btn-danger btn-lg px-4 me-md-2 fw-bold">Latest Products</button>
+                </a>
+                <a href="{% url 'product_list' %}">
+                    <button type="button" class="btn btn-secondary btn-lg px-4">Shop</button>
+                </a>
             </div>
-        </div>
-        <div class="pt-0 pt-md-5 bottom">
-            <p style="color: aliceblue;">
-                <svg width="16"
-                     height="16"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     color="#53CB24">
-                    <path fill="currentColor" d="M22.456 5.22a.75.75 0 00-.616-.69c-4.055-.728-5.747-1.254-9.531-2.963a.75.75 0 00-.618 0c-3.784 1.709-5.476 2.235-9.53 2.962a.75.75 0 00-.617.691c-.18 2.865.204 5.534 1.145 7.933a16.38 16.38 0 003.358 5.274c2.506 2.66 5.167 3.814 5.675 4.019a.75.75 0 00.563 0c.507-.205 3.168-1.36 5.675-4.019a16.379 16.379 0 003.351-5.274c.941-2.4 1.326-5.068 1.145-7.933zm-6.14 3.52l-5.194 6a.748.748 0 01-.535.26h-.03a.75.75 0 01-.526-.214l-2.306-2.26a.75.75 0 111.05-1.071l1.734 1.7 4.674-5.396a.75.75 0 111.134.982h-.001z">
-                    </path>
-                </svg>
-                100%
-                TRUSTADVISOR
-                RATING
-            </p>
+            <div class="trustadvisor-badge position-absolute bottom-0 start-50 translate-middle-x text-white mb-3">
+                <p class="mb-0">
+                    <svg width="16"
+                         height="16"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         color="#53CB24">
+                        <path fill="currentColor" d="M22.456 5.22a.75.75 0 00-.616-.69c-4.055-.728-5.747-1.254-9.531-2.963a.75.75 0 00-.618 0c-3.784 1.709-5.476 2.235-9.53 2.962a.75.75 0 00-.617.691c-.18 2.865.204 5.534 1.145 7.933a16.38 16.38 0 003.358 5.274c2.506 2.66 5.167 3.814 5.675 4.019a.75.75 0 00.563 0c.507-.205 3.168-1.36 5.675-4.019a16.379 16.379 0 003.351-5.274c.941-2.4 1.326-5.068 1.145-7.933zm-6.14 3.52l-5.194 6a.748.748 0 01-.535.26h-.03a.75.75 0 01-.526-.214l-2.306-2.26a.75.75 0 111.05-1.071l1.734 1.7 4.674-5.396a.75.75 0 111.134.982h-.001z">
+                        </path>
+                    </svg>
+                    100% TRUSTADVISOR RATING
+                </p>
+            </div>
         </div>
     </section>
     <section id="hero-text-secondary">
