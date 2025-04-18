@@ -1,9 +1,128 @@
 {% extends "base.html" %}
 {% load static %}
-
-{% block page_header %}
-{% endblock %}
-
 {% block content %}
-
+    <section class="container-fluid about-hero mb-5" id="top">
+        <div class="container text-center py-5">
+            <h1 class="display-4 text-white fw-bold reveal">About Stickered</h1>
+            <p class="lead text-white reveal">Where creativity and car culture collide</p>
+        </div>
+    </section>
+    <section class="container py-5">
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6 mb-4 mb-md-0 reveal">
+                <img src="{% static 'img/about-story.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="Our Story">
+            </div>
+            <div class="col-md-6 reveal">
+                <h2 class="text-danger mb-3">Our Story</h2>
+                <p class="lead text-white">
+                    Stickered was born from a garage filled with drift cars, race weekends, and late-night sketch sessions.
+                    What began as a passion project turned into a home for creativity, where self-expression meets quality.
+                </p>
+            </div>
+        </div>
+        <div class="row align-items-center mb-5 flex-md-row-reverse">
+            <div class="col-md-6 mb-4 mb-md-0 reveal">
+                <img src="{% static 'img/about-enthusiasts.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="Enthusiasts">
+            </div>
+            <div class="col-md-6 reveal">
+                <h2 class="text-danger mb-3">Built by Enthusiasts</h2>
+                <p class="lead text-white">
+                    We're more than a brand — we're part of the scene. From limited edition windshield banners
+                    to clean daily-driver graphics, Stickered is built for the ones who live and breathe cars.
+                </p>
+            </div>
+        </div>
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6 mb-4 mb-md-0 reveal">
+                <img src="{% static 'img/about-mission.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="Our Mission">
+            </div>
+            <div class="col-md-6 reveal">
+                <h2 class="text-danger mb-3">Our Mission</h2>
+                <p class="lead text-white">
+                    We empower individuals to stand out, to create, and to roll with style.
+                    We offer high-end, durable products that go from city streets to race tracks — and never back down.
+                </p>
+            </div>
+        </div>
+        <div class="text-center mt-5 reveal">
+            <a href="{% url 'product_list' %}" class="btn btn-danger btn-lg px-5">Explore the Collection</a>
+        </div>
+    </section>
+    <h2 class="text-center text-danger mb-2 mt-5 reveal">Gallery</h2>
+    <div class="mx-auto mb-4 reveal"
+         style="width: 180px;
+                height: 4px;
+                background-color: white;
+                border-radius: 2px"></div>
+    <section class="container">
+        <div class="row g-4 mb-5 align-items-center reveal">
+            <div class="col-md-7">
+                <img src="{% static 'img/e36-front.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="BMW Front">
+            </div>
+            <div class="col-md-5">
+                <img src="{% static 'img/e36-side.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="BMW Side">
+            </div>
+        </div>
+        <div class="row g-4 mb-5 align-items-center reveal flex-md-row-reverse">
+            <div class="col-md-7">
+                <img src="{% static 'img/e46-front.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="BMW Front">
+            </div>
+            <div class="col-md-5">
+                <img src="{% static 'img/e46-top.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="BMW Top">
+            </div>
+        </div>
+        <div class="row g-4 mb-5 align-items-center reveal">
+            <div class="col-md-7">
+                <img src="{% static 'img/honda-front.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="Honda Front">
+            </div>
+            <div class="col-md-5">
+                <img src="{% static 'img/honda-top.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="Honda Top">
+            </div>
+        </div>
+        <div class="row g-4 mb-5 align-items-center reveal flex-md-row-reverse">
+            <div class="col-md-7">
+                <img src="{% static 'img/mr2-back.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="MR2 Back">
+            </div>
+            <div class="col-md-5">
+                <img src="{% static 'img/mr2-front.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="MR2 Front">
+            </div>
+        </div>
+        <div class="row justify-content-center g-4 mb-5 reveal">
+            <div class="col-10 col-md-6">
+                <img src="{% static 'img/2jz-plate.jpg' %}"
+                     class="img-fluid rounded-4 shadow"
+                     alt="2JZ Plate">
+            </div>
+        </div>
+        <div class="text-center mt-5 mb-3">
+            <a href="#top"
+               class="back-to-top-gallery d-inline-flex flex-column align-items-center text-decoration-none">
+                <i class="fas fa-arrow-up mb-2"></i>
+                <span>Back to Top</span>
+            </a>
+        </div>
+    </section>
+    <script src="/static/js/about.js" defer></script>
 {% endblock %}
