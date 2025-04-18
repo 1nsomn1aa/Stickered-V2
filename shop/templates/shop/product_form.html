@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
     <div class="container py-5 margin-top-fix">
-        <h2 class="text-center mb-4">{{ form.instance.pk|yesno:"Edit Product,Add New Product" }}</h2>
+        <h2 class="text-center mb-4 text-white">{{ form.instance.pk|yesno:"Edit Product,Add New Product" }}</h2>
         <form method="post"
               enctype="multipart/form-data"
               class="bg-white rounded p-4 shadow">
