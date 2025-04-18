@@ -63,26 +63,30 @@
         <h2 class="display-5">Latest Releases</h2>
     </div>
     <section class="container mb-5" id="latest">
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                {% for product in recent_products %}
-                    <div class="swiper-slide">
-                        <a href="{% url 'product_detail' product.pk %}">
-                            <img src="{{ product.image.url }}"
-                                 alt="{{ product.name }}"
-                                 class="swiper-image"
-                                 loading="lazy">
-                            <div class="product-info text-center text-black rounded-bottom-3">
-                                <h3 class="product-name text-black">{{ product.name }}</h3>
-                                <p>{{ product.category|truncatewords:10 }}</p>
-                                <span>€ {{ product.base_price }}</span>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
+        <div class="swiper-container-wrapper">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    {% for product in recent_products %}
+                        <div class="swiper-slide">
+                            <a href="{% url 'product_detail' product.pk %}">
+                                <div>
+                                    <img src="{{ product.image.url }}"
+                                         alt="{{ product.name }}"
+                                         class="swiper-image"
+                                         loading="lazy">
+                                </div>
+                                <div class="product-info text-center text-black rounded">
+                                    <h3 class="product-name text-black">{{ product.name }}</h3>
+                                    <p>{{ product.category|truncatewords:10 }}</p>
+                                    <span>€ {{ product.base_price }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-        <div class="text-center mt-5">
+        <div class="text-center">
             <a href="{% url 'product_list' %}">
                 <button class="btn btn-danger btn-lg">Visit our shop</button>
             </a>
