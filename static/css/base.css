@@ -2,13 +2,17 @@
 
 a {
     text-decoration: none;
-    color: white;
 }
 
 .nav a {
     font-family: "Russo One", sans-serif;
     font-weight: 100;
     font-style: normal;
+    color: white;
+}
+
+header a {
+    color: white;
 }
 
 a h2 {

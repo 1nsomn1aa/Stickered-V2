@@ -21,21 +21,29 @@
                     </div>
                     <form method="POST" action="{% url 'add_to_cart' product.pk %}">
                         {% csrf_token %}
-                        <div>
-                            <span class="optional ">Description</span>
-                            <div class="border rounded mb-3 p-3">
-                                <p>{{ product.description|linebreaks }}</p>
-                            </div>
-                            {% if product.size_description %}
-                                <span class="optional">Sizes</span>
+                        <div class="row">
+                            <div class="col-12">
+                                <span class="optional">Description</span>
                                 <div class="border rounded mb-3 p-3">
-                                    <p>{{ product.size_description|linebreaks }}</p>
+                                    <p>{{ product.description|linebreaks }}</p>
                                 </div>
-                            {% endif %}
-                            {% if product.usage %}
-                                <span class="optional">Usage</span>
-                                <div class="border rounded p-3">
-                                    <p>{{ product.usage|linebreaks }}</p>
+                            </div>
+                            {% if product.size_description or product.usage %}
+                                <div class="col-md-6 d-flex flex-column ">
+                                    {% if product.size_description %}
+                                        <span class="optional">Sizes</span>
+                                        <div class="border rounded pt-3 px-3 mb-3 flex-grow-1 d-flex align-items-center justify-content-center">
+                                            <p>{{ product.size_description|linebreaks }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 d-flex flex-column">
+                                    {% if product.usage %}
+                                        <span class="optional">Usage</span>
+                                        <div class="border rounded pt-1 px-3 mb-3 flex-grow-1  align-items-center justify-content-center">
+                                            <p>{{ product.usage|linebreaks }}</p>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         </div>
@@ -71,7 +79,10 @@
                                        style="max-width: 120px">
                             </div>
                             <div id="total-price" class="text-center mb-3">
-                                <strong>Price:</strong> €<span id="price-value">0.00</span>
+                                <h5>
+                                    <strong>Total:</strong>
+                                    €<span id="price-value">0.00</span>
+                                </h5>
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-danger">Add to Cart</button>
@@ -90,7 +101,9 @@
             <!-- Sidebar -->
             <div class="col-md-3 position-sticky text-center text-white">
                 <div class="gray-opacity rounded border py-3 mb-4 text-uppercase">
-                    <h2>More in {{ product.category }}</h2>
+                    <h2>
+                        More in <span class="red">{{ product.category }}</span>
+                    </h2>
                 </div>
                 {% for recent in recent_products %}
                     <div class="border rounded my-3 bg-white">
