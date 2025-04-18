@@ -135,6 +135,14 @@
                                        aria-label="Remove"></a>
                                 </span>
                             {% endif %}
+                            {% if query %}
+                                <span class="badge rounded-pill bg-danger d-flex align-items-center px-3 py-2">
+                                    "{{ query }}"
+                                    <a href="{% url 'product_list' %}?{% for id in category_filter %}category={{ id }}&{% endfor %} {% if request.GET.price_from %}price_from={{ request.GET.price_from }}&{% endif %} {% if request.GET.price_to %}price_to={{ request.GET.price_to }}&{% endif %} {% if sort_by %}sort_by={{ sort_by }}{% endif %}"
+                                       class="btn-close btn-close-white btn-sm ms-2"
+                                       aria-label="Remove"></a>
+                                </span>
+                            {% endif %}
                         </div>
                         <!-- Sorting -->
                         <div class="d-flex justify-content-center justify-content-md-end w-100 pt-3 pt-md-0">

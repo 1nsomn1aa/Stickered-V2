@@ -5,11 +5,19 @@ from .cart import Cart
 from django.http import HttpResponseBadRequest
 from django.views.decorators.http import require_POST
 from .shipping import calculate_shipping
+from django.db.models import Q
 
 
 def product_list(request):
     products = Product.objects.all()
     categories = Category.objects.all()
+
+    query = request.GET.get('q')
+    if query:
+        products = products.filter(
+            Q(name__icontains=query) |
+            Q(category__name__icontains=query)
+        )
 
     category_filter = request.GET.getlist('category')
     if category_filter:
@@ -48,6 +56,7 @@ def product_list(request):
         'price_from': price_from,
         'price_to': price_to,
         'selected_categories': category_filter,
+        'query': query,
     })
 
 
