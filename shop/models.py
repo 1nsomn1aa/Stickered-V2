@@ -55,11 +55,13 @@ class Order(models.Model):
         ('express', 'Express'),
     ]
 
+    order_number = models.CharField(max_length=32, unique=True, null=True, blank=True)
+
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
     address_line1 = models.CharField(max_length=255)
-    address_line2 = models.CharField(max_length=255)
+    address_line2 = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=100)
     eir_code = models.CharField(max_length=20)
     country = models.CharField(max_length=50, default='Ireland')
@@ -71,13 +73,21 @@ class Order(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def _generate_order_number(self):
+        return uuid.uuid4().hex.upper()
+
+    def save(self, *args, **kwargs):
+        if not self.order_number:
+            self.order_number = self._generate_order_number()
+        super().save(*args, **kwargs)
+
     def total_amount(self):
         items_total = sum(i.get_total_price() for i in self.items.all())
         return items_total + self.shipping_cost
     total_amount.short_description = "Total (€)"
 
     def __str__(self):
-        return f"Order #{self.pk} by {self.first_name} {self.last_name}"
+        return f"Order {self.order_number} - {self.first_name} {self.last_name}"
 
 
 class OrderItem(models.Model):

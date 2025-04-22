@@ -508,9 +508,11 @@ input[type=number].no-spin::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 input[type=number].no-spin {
     -moz-appearance: textfield;
 }
+
 .quantity-form .btn {
     width: 30px;
     height: 30px;
@@ -519,6 +521,7 @@ input[type=number].no-spin {
     font-size: 18px;
     line-height: 1;
 }
+
 .quantity-input {
     width: 60px;
 }
@@ -615,6 +618,12 @@ img.rounded-4 {
     to {
         opacity: 1;
     }
+}
+
+input.btn-check:checked + label.btn-secondary {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
 }
 
 /* MEDIA QUERIES */

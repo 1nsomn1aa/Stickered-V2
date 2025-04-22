@@ -2,7 +2,9 @@
 {% block content %}
     <div class="container py-5 margin-top-fix text-center">
         <h2>Thank you for your order!</h2>
-        <p>Aasasdsad</p>
+        <p>
+            Order Number: <strong>{{ order.order_number }}</strong>
+        </p>
         <a href="{% url 'product_list' %}" class="btn btn-primary mt-3">Continue Shopping</a>
     </div>
 {% endblock %}
