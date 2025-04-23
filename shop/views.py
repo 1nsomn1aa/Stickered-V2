@@ -186,11 +186,6 @@ def create_payment_intent(request):
         shipping_cost = calculate_shipping(cart, shipping_method)
         grand_total = cart_subtotal + shipping_cost
 
-        intent = stripe.PaymentIntent.create(
-            amount=int(grand_total * 100),
-            currency='eur',
-        )
-
         order = Order.objects.create(
             first_name=request.POST.get('first_name', ''),
             last_name=request.POST.get('last_name', ''),
@@ -212,6 +207,14 @@ def create_payment_intent(request):
                 price=item['size'].price,
                 quantity=item['quantity']
             )
+
+        intent = stripe.PaymentIntent.create(
+            amount=int(grand_total * 100),
+            currency='eur',
+            metadata={
+                'order_number': order.order_number,
+            }
+        )
 
         return JsonResponse({
             'client_secret': intent.client_secret,
