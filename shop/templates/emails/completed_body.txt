@@ -1,0 +1,19 @@
+Hi {{ order.first_name }},
+
+We’re happy to let you know that your order has been delivered.
+
+Order Summary:
+Order Number: {{ order.order_number }}
+Date: {{ order.created_at|date:"F j, Y" }}
+
+Items:
+{% for item in order.items.all %}
+- {{ item.quantity }} x {{ item.product.name }} ({{ item.size.size_type.name }}) – €{{ item.price }}
+{% endfor %}
+
+Total Paid: €{{ order.total_amount }}
+
+We hope you love your purchase! If you have any questions or feedback, feel free to reply to this email.
+
+Best wishes,  
+- Stickered Team

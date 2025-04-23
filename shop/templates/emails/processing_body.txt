@@ -1,0 +1,23 @@
+Hi {{ order.first_name }},
+
+Thank you for your order with Stickered!
+
+We're currently processing your order. You’ll receive an update once it’s on the way.
+
+Order Summary:
+Order Number: {{ order.order_number }}
+Date: {{ order.created_at|date:"F j, Y" }}
+
+Items:
+{% for item in order.items.all %}
+- {{ item.quantity }} x {{ item.product.name }} ({{ item.size.size_type.name }}) – €{{ item.price }}
+{% endfor %}
+
+Shipping Method: {{ order.shipping_method|capfirst }}
+Shipping Cost: €{{ order.shipping_cost }}
+Total: €{{ order.total_amount }}
+
+We appreciate your business!
+
+Warm regards,  
+- Stickered Team

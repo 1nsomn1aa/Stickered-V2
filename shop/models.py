@@ -55,6 +55,12 @@ class Order(models.Model):
         ('express', 'Express'),
     ]
 
+    STATUS_CHOICES = [
+        ('processing', 'Processing'),
+        ('shipped', 'Shipped'),
+        ('completed', 'Completed'),
+    ]
+
     order_number = models.CharField(max_length=32, unique=True, null=True, blank=True)
 
     first_name = models.CharField(max_length=100)
@@ -72,6 +78,13 @@ class Order(models.Model):
         max_digits=6, decimal_places=2, default=0.00
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='processing'
+    )
+    tracking_number = models.CharField(max_length=100, blank=True, null=True)
 
     def _generate_order_number(self):
         return uuid.uuid4().hex.upper()

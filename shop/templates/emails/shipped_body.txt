@@ -1,0 +1,25 @@
+Hi {{ order.first_name }},
+
+Great news! Your order is now on its way to you.
+
+Order Summary:
+Order Number: {{ order.order_number }}
+Date: {{ order.created_at|date:"F j, Y" }}
+
+Items:
+{% for item in order.items.all %}
+- {{ item.quantity }} x {{ item.product.name }} ({{ item.size.size_type.name }}) – €{{ item.price }}
+{% endfor %}
+
+Shipping Method: {{ order.shipping_method|capfirst }}
+Shipping Cost: €{{ order.shipping_cost }}
+Total: €{{ order.total_amount }}
+
+{% if order.tracking_number %}
+Tracking Number: {{ order.tracking_number }}
+{% endif %}
+
+You can expect delivery soon!
+
+Thanks again,  
+- Stickered Team

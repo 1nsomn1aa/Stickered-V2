@@ -1,5 +1,18 @@
 from django.contrib import admin
 from .models import Product, Category, SizeType, SizeOption, Order, OrderItem
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings
+
+
+def send_order_status_email(order, status):
+    template_prefix = f"emails/{status}"
+    subject = render_to_string(f"{template_prefix}_subject.txt", {'order': order}).strip()
+    message = render_to_string(f"{template_prefix}_body.txt", {
+        'order': order,
+        'order_items': order.items.all(),
+    })
+    send_mail(subject, message, settings.EMAIL_HOST_USER, [order.email], fail_silently=False)
 
 
 class SizeOptionInline(admin.TabularInline):
@@ -31,7 +44,10 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'full_name', 'email', 'shipping_method', 'shipping_cost', 'total_amount', 'created_at')
+    list_display = (
+        'id', 'full_name', 'email', 'shipping_method',
+        'shipping_cost', 'total_amount', 'status', 'tracking_number', 'created_at'
+    )
     readonly_fields = (
         'first_name', 'last_name', 'email',
         'address_line1', 'address_line2', 'city', 'eir_code', 'country',
@@ -50,6 +66,9 @@ class OrderAdmin(admin.ModelAdmin):
         ('Order Details', {
             'fields': ('shipping_method', 'shipping_cost', 'total_amount', 'created_at')
         }),
+        ('Order Management', {
+            'fields': ('status', 'tracking_number')
+        }),
     )
 
     def full_name(self, obj):
@@ -63,6 +82,13 @@ class OrderAdmin(admin.ModelAdmin):
         address += f", {obj.city}, {obj.eir_code}, {obj.country}"
         return address
     address_display.short_description = 'Full Address'
+
+    def save_model(self, request, obj, form, change):
+        if change:
+            old_status = Order.objects.get(pk=obj.pk).status
+            if obj.status != old_status:
+                send_order_status_email(obj, obj.status)
+        super().save_model(request, obj, form, change)
 
 
 admin.site.register(Product, ProductAdmin)
