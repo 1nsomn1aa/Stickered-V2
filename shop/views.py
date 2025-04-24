@@ -187,6 +187,7 @@ def create_payment_intent(request):
         grand_total = cart_subtotal + shipping_cost
 
         order = Order.objects.create(
+            user=request.user if request.user.is_authenticated else None,
             first_name=request.POST.get('first_name', ''),
             last_name=request.POST.get('last_name', ''),
             email=request.POST.get('email', ''),

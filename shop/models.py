@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -62,6 +63,8 @@ class Order(models.Model):
     ]
 
     order_number = models.CharField(max_length=32, unique=True, null=True, blank=True)
+
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
