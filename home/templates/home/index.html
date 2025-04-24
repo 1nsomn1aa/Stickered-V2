@@ -152,7 +152,11 @@
                             </label>
                             {{ form.role }}
                         </div>
-                        <button type="submit" class="submit-btn">Submit</button>
+                        {% if user.is_authenticated %}
+                            <button type="submit" class="submit-btn">Submit</button>
+                        {% else %}
+                            <span class="red">You must be logged in to submit this form.</span>
+                        {% endif %}
                     </form>
                 </div>
             </div>

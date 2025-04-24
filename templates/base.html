@@ -73,11 +73,11 @@
                            class="d-block text-decoration-none dropdown-toggle"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <img src="https://github.com/mdo.png"
+                            <img src="{% if user.is_authenticated %}{{ user.profile.profile_image.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}"
                                  alt="mdo"
                                  width="32"
                                  height="32"
-                                 class="rounded-circle">
+                                 class="rounded">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end text-small">
                             {% if user.is_authenticated %}
@@ -87,20 +87,25 @@
                                     </li>
                                 {% endif %}
                                 <li>
-                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Sign out</a>
+                                    <form method="POST"
+                                          action="{% url 'account_logout' %}"
+                                          style="display: inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item btn btn-link">Sign out</button>
+                                    </form>
                                 </li>
                             {% else %}
                                 <li>
-                                    <a class="dropdown-item" href="#">Login</a>
+                                    <a class="dropdown-item" href="{% url 'login' %}">Login</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">Signup</a>
+                                    <a class="dropdown-item" href="{% url 'register' %}">Signup</a>
                                 </li>
                             {% endif %}
                         </ul>
@@ -214,11 +219,11 @@
                        class="d-block text-decoration-none dropdown-toggle"
                        data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="https://github.com/mdo.png"
+                        <img src="{% if user.is_authenticated %}{{ user.profile.profile_image.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}"
                              alt="mdo"
                              width="32"
                              height="32"
-                             class="rounded-circle">
+                             class="rounded">
                     </a>
                     <ul class="dropdown-menu text-small">
                         {% if user.is_authenticated %}
@@ -228,20 +233,23 @@
                                 </li>
                             {% endif %}
                             <li>
-                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">Sign out</a>
+                                <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item btn btn-link">Sign out</button>
+                                </form>
                             </li>
                         {% else %}
                             <li>
-                                <a class="dropdown-item" href="#">Login</a>
+                                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">Signup</a>
+                                <a class="dropdown-item" href="{% url 'register' %}">Signup</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -249,11 +257,20 @@
             </div>
         </header>
         {% if messages %}
-            <ul class="global-messages">
+            <div class="alert-container">
                 {% for message in messages %}
-                    {% if 'testimonial' not in message.tags %}<li class="{{ message.tags }}">{{ message }}</li>{% endif %}
+                    {% if 'testimonial' not in message.tags %}
+                        <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show"
+                             role="alert">
+                            {{ message }}
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                    {% endif %}
                 {% endfor %}
-            </ul>
+            </div>
         {% endif %}
         <main>
             {% block page_header %}{% endblock %}

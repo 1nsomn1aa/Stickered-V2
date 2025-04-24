@@ -1,54 +1,83 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
     <div class="container py-5 text-white margin-top-fix">
-        <h2 class="mb-4 text-center">Order #{{ order.order_number }}</h2>
-        <div class="mb-4">
-            <h5>Shipping Information</h5>
-            <p>
-                {{ order.full_name }}
-                <br>
-                {{ order.address_line1 }}
-                {% if order.address_line2 %}, {{ order.address_line2 }}{% endif %}
-                <br>
-                {{ order.city }}, {{ order.eir_code }}
-                <br>
-                {{ order.country }}
-            </p>
-        </div>
-        <div class="mb-4">
-            <h5>Items</h5>
-            <ul class="list-group">
-                {% for item in order.items.all %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>{{ item.product.name }}</strong>
-                            <br>
-                            Size: {{ item.size }} | Qty: {{ item.quantity }}
+        <h2 class="mb-5 text-center order-number">Order #{{ order.order_number }}</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white border-light">
+                    <div class="card-body">
+                        <h4 class="card-title">Shipping Information</h4>
+                        <div class="card-text mt-3">
+                            <p>{{ order.first_name }} {{ order.last_name }}</p>
+                            <p>
+                                {{ order.address_line1 }}
+                                {% if order.address_line2 %}, {{ order.address_line2 }}{% endif %}
+                            </p>
+                            <p>{{ order.city }}, {{ order.eir_code }}</p>
+                            <p>{{ order.country }}</p>
                         </div>
-                        <span>€{{ item.price|floatformat:2 }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card bg-dark text-white border-light">
+                    <div class="card-body">
+                        <h4 class="card-title">Order Summary</h4>
+                        <div class="mt-3">
+                            <p>
+                                <strong>Shipping Method:</strong> <small>{{ order.get_shipping_method_display }}</small>
+                            </p>
+                            <p>
+                                <strong>Shipping Cost:</strong> <small>€{{ order.shipping_cost|floatformat:2 }}</small>
+                            </p>
+                            <p>
+                                <strong>Total:</strong> <small>€{{ order.total_amount|floatformat:2 }}</small>
+                            </p>
+                            <p>
+                                <strong>Status:</strong> <small>{{ order.get_status_display }}</small>
+                            </p>
+                            {% if order.tracking_number %}
+                                <p>
+                                    <strong>Tracking Number:</strong> <small>{{ order.tracking_number }}</small>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mt-4">
-            <h5>Order Summary</h5>
-            <p>
-                <strong>Shipping Method:</strong> {{ order.get_shipping_method_display }}
-            </p>
-            <p>
-                <strong>Shipping Cost:</strong> €{{ order.shipping_cost|floatformat:2 }}
-            </p>
-            <p>
-                <strong>Total:</strong> €{{ order.total_amount|floatformat:2 }}
-            </p>
-            <p>
-                <strong>Status:</strong> {{ order.get_status_display }}
-            </p>
-            {% if order.tracking_number %}
-                <p>
-                    <strong>Tracking Number:</strong> {{ order.tracking_number }}
-                </p>
-            {% endif %}
+        <div class="card bg-dark text-white border-light">
+            <div class="card-body">
+                <h5 class="card-title mb-4">Items</h5>
+                <ul class="list-group list-group-flush">
+                    {% for item in order.items.all %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white border-secondary">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ item.product.image.url }}"
+                                     alt="{{ item.product.name }}"
+                                     class="me-3"
+                                     style="width: 60px;
+                                            height: 60px;
+                                            object-fit: cover">
+                                <div>
+                                    <strong>{{ item.product.name }}</strong>
+                                    <br>
+                                    Size: {{ item.size }}
+                                    <br>
+                                    Quantity: {{ item.quantity }}
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <span>€{{ item.price|floatformat:2 }}</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="mt-5 text-center">
+            <a href="{% url 'profile' %}" class="btn btn-danger">Back To Profile</a>
         </div>
     </div>
 {% endblock %}

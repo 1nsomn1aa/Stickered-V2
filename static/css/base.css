@@ -1,5 +1,9 @@
 /* GENERAL STYLES */
 
+:root {
+    --bs-secondary-color: white;
+}
+
 a {
     text-decoration: none;
 }
@@ -126,7 +130,7 @@ main {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 501;
 }
 
 .nav-mobile a {
@@ -163,7 +167,7 @@ header {
     left: 0;
     right: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 500;
 }
 
 #hero-text {
@@ -626,6 +630,50 @@ input.btn-check:checked + label.btn-secondary {
     color: white;
 }
 
+.order-number {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ALERTS */
+
+.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: auto;
+}
+
+.alert {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 40px 10px 10px;
+    position: relative;
+}
+
+.alert .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    border: none;
+    padding: 0;
+}
+
+.alert-container .alert {
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 15px 35px;
+}
+
 /* MEDIA QUERIES */
 
 @media (max-width: 991.98px) {
@@ -694,6 +742,13 @@ input.btn-check:checked + label.btn-secondary {
 
     .margin-top-fix {
         margin-top: 120px;
+    }
+
+    .alert-container .alert {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;  /* Ensure text is centered within the alert */
+        width: 90%;           /* Adjust width to make sure the alert is not too wide */
     }
 }
 
