@@ -138,6 +138,7 @@
                           method="get"
                           action="{% url 'product_list' %}"
                           role="search">
+                        {% csrf_token %}
                         <input type="search"
                                name="q"
                                class="search-input"
@@ -186,6 +187,7 @@
                       method="get"
                       action="{% url 'product_list' %}"
                       role="search">
+                    {% csrf_token %}
                     <input type="search"
                            name="q"
                            class="search-input"

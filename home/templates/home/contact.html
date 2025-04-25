@@ -13,6 +13,7 @@
                 <div class="p-4 mb-3 mb-md-0 bg-light rounded-4 shadow w-100 h-100 reveal">
                     <h2 class="text-danger mb-4">Get In Touch</h2>
                     <form>
+                        {% csrf_token %}
                         <div class="mb-3">
                             <input type="text" class="form-control" placeholder="Your Name">
                         </div>

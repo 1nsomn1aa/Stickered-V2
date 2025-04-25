@@ -13,6 +13,7 @@
                          style="background-color: #55595c">
                         <h4 class="text-uppercase">Filter Products</h4>
                         <form method="GET" action="{% url 'product_list' %}">
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label class="form-label">Category</label>
                                 <div class="mb-3 py-2 mx-n2 border rounded bg-light">
@@ -64,6 +65,7 @@
                              style="background-color: #55595c">
                             <h4>Filter Products</h4>
                             <form method="GET" action="{% url 'product_list' %}">
+                                {% csrf_token %}
                                 <div class="mb-3">
                                     <label class="form-label">Category</label>
                                     <div class="mb-3 py-2 mx-n2 border rounded bg-light">
@@ -149,6 +151,7 @@
                             <form method="GET"
                                   action="{% url 'product_list' %}"
                                   class="d-flex align-items-center">
+                                {% csrf_token %}
                                 <label for="sort_by" class="me-2 mb-0 text-white">Sort By :</label>
                                 <select class="form-select form-select-sm"
                                         name="sort_by"
