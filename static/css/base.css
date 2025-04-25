@@ -82,13 +82,6 @@ main {
     padding: 20px;
 }
 
-.trustadvisor-badge {
-    font-size: 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 5px 10px;
-    border-radius: 15px;
-}
-
 /* DESKTOP NAV */
 
 .nav a {
@@ -672,6 +665,16 @@ input.btn-check:checked + label.btn-secondary {
     font-size: 1.25rem;
     font-weight: bold;
     padding: 15px 35px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: gray !important;
+    opacity: 1;
+}
+
+.text-muted {
+    color: gray !important;
 }
 
 /* MEDIA QUERIES */

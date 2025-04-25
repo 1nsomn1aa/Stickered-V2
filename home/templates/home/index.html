@@ -17,7 +17,7 @@
                 <a href="{% url 'product_list' %}"
                    class="btn btn-secondary btn-lg px-4 text-white text-decoration-none">Shop</a>
             </div>
-            <div class="trustadvisor-badge position-absolute bottom-0 start-50 translate-middle-x text-white mb-3">
+            <div class="position-absolute bottom-0 start-50 translate-middle-x text-white mb-3">
                 <p class="mb-0">
                     <svg width="16"
                          height="16"
@@ -97,13 +97,16 @@
         <div class="container">
             <div id="testimonials" class="testimonials-section">
                 {% if messages %}
-                    <div class="bg-success rounded pt-4 pb-2 mb-4">
-                        <ul class="messages">
-                            {% for message in messages %}
-                                {% if 'testimonial' in message.tags %}<h2>{{ message }}</h2>{% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    {% for message in messages %}
+                        {% if 'testimonial' in message.tags %}
+                            <div class="bg-success rounded pt-4 pb-4 mb-4 mx-auto">
+                                <div class="messages">
+                                    <h2>{{ message }}</h2>
+                                </div>
+                            </div>
+                        {% else %}
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
                 <div class="testimonials-wrapper">
                     <div class="testimonials-container">
