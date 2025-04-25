@@ -301,8 +301,8 @@
             </ul>
         </footer>
         {% block post_load_js %}
-            <script src="/static/js/dropdown.js" defer></script>
-            <script src="/static/js/search.js" defer></script>
+            <script src="{% static 'js/dropdown.js' %}" defer></script>
+            <script src="{% static 'js/search.js' %}" defer></script>
         {% endblock %}
     </body>
 </html>
