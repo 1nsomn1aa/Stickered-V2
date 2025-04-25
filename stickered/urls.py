@@ -22,6 +22,11 @@ from django.contrib.auth import views as auth_views
 from users import views as user_views
 from users.views import CustomLoginView
 
+handler400 = 'home.views.bad_request'
+handler403 = 'home.views.permission_denied'
+handler404 = 'home.views.page_not_found'
+handler500 = 'home.views.server_error'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
