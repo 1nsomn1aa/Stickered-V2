@@ -1,0 +1,1 @@
+web: gunicorn stickered.wsgi --log-file -
