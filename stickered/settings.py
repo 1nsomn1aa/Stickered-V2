@@ -24,6 +24,7 @@ STORAGES = {
             'region_name': 'eu-north-1',
             'access_key': os.getenv('AWS_ACCESS_KEY_ID'),
             'secret_key': os.getenv('AWS_SECRET_ACCESS_KEY'),
+            'location': 'media',
         }
     },
     'staticfiles': {
@@ -33,9 +34,10 @@ STORAGES = {
             'region_name': 'eu-north-1',
             'location': 'static',
         }
-    },
+    }
 }
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_URL = 'https://stickered-static-media-files.s3.amazonaws.com/static/'
 MEDIA_URL = 'https://stickered-static-media-files.s3.amazonaws.com/media/'
 
