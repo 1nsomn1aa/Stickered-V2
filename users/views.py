@@ -23,6 +23,7 @@ def profile_view(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
+            messages.success(request, "Profile updated successfully!")
             return redirect('profile')
     else:
         form = ProfileForm(instance=profile, user=user)
