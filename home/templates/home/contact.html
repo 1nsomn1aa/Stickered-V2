@@ -12,17 +12,16 @@
             <div class="col-md-6 d-flex flex-column justify-content-center">
                 <div class="p-4 mb-3 mb-md-0 bg-light rounded-4 shadow w-100 h-100 reveal">
                     <h2 class="text-danger mb-4">Get In Touch</h2>
-                    <form>
+                    {% if messages %}
+                        <div class="alert px-2 py-2 text-center alert-success">
+                            {% for message in messages %}<p class="m-0">{{ message }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+                    <form method="POST" class="contact-form">
                         {% csrf_token %}
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Your Name">
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Your Email">
-                        </div>
-                        <div class="mb-3">
-                            <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
-                        </div>
+                        <div class="mb-3">{{ form.name }}</div>
+                        <div class="mb-3">{{ form.email }}</div>
+                        <div class="mb-3">{{ form.message }}</div>
                         <button type="submit" class="btn btn-danger w-100">Send Message</button>
                     </form>
                 </div>

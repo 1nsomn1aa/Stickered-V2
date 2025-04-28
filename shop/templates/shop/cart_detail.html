@@ -130,8 +130,11 @@
                 </div>
             </div>
         {% else %}
-            <div class="alert alert-light text-center">
-                Your cart is empty. <a href="{% url 'product_list' %}" class="alert-link">Start shopping now!</a>
+            <div class="text-center">
+                <div class="gray text-white border rounded w-50 mx-auto text-center p-0 py-3">
+                    <h3>Your cart is empty.</h3>
+                </div>
+                <a href="{% url 'product_list' %}" class="btn btn-lg btn-danger mt-4">Start shopping now!</a>
             </div>
         {% endif %}
     </div>

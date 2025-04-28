@@ -3,6 +3,9 @@ from shop.models import Product
 from .models import Testimonial
 from .forms import TestimonialForm
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from .forms import ContactForm
 
 
 def index(request):
@@ -32,10 +35,6 @@ def admin_redirect_view(request):
     return redirect('/admin/')
 
 
-def contact(request):
-    return render(request, 'home/contact.html')
-
-
 def about(request):
     return render(request, 'home/about.html')
 
@@ -54,3 +53,46 @@ def permission_denied(request, exception):
 
 def bad_request(request, exception):
     return render(request, 'home/400.html', status=400)
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            if request.user.is_authenticated:
+                form.instance.user = request.user
+
+            contact_message = form.save()
+            print(f"Contact message saved: {contact_message}")
+
+            subject = f"New contact message from {contact_message.name}"
+            message = f"Message from {contact_message.name} ({contact_message.email}):\n\n{contact_message.message}"
+            send_mail(
+                subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+
+            customer_subject = f"Your message has been received, {contact_message.name}"
+            customer_message = f"Hi {contact_message.name},\n\nThanks for getting in touch! Here's a copy of your message:\n\n{contact_message.message}"
+            send_mail(
+                customer_subject,
+                customer_message,
+                settings.EMAIL_HOST_USER,
+                [contact_message.email],
+                fail_silently=False,
+            )
+
+            messages.success(request, "Your message has been sent successfully!")
+            print("Success message added")
+
+            return redirect('contact')
+        else:
+            print("Form is not valid:", form.errors)
+            messages.error(request, "There was an issue submitting your message. Please try again.")
+    else:
+        form = ContactForm()
+
+    return render(request, 'home/contact.html', {'form': form})

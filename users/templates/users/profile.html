@@ -32,8 +32,9 @@
                 <ul class="list-group">
                     {% for order in orders %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong class="order-number pe-5">Order #{{ order.order_number }}</strong>
+                            <div class="pe-3">
+                                <strong class="order-number">Order:</strong>
+                                <strong class="order-number">#{{ order.order_number }}</strong>
                                 <br>
                                 {{ order.created_at|date:"F j, Y, g:i a" }}
                                 <br>
@@ -46,6 +47,26 @@
                 </ul>
             {% else %}
                 <p class="text-center">You haven't placed any orders yet.</p>
+            {% endif %}
+        </div>
+        <div class="col-md-8 pb-5 text-white mx-auto">
+            <h2 class="mb-4 text-center">My Messages</h2>
+            {% if contact_messages %}
+                <ul class="list-group">
+                    {% for message in contact_messages %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="pe-3">
+                                <strong>{{ message.name }} ({{ message.email }})</strong>
+                                <p>{{ message.created_at }}</p>
+                                <p class="order-number">Message: {{ message.message }}</p>
+                            </div>
+                            <a href="{% url 'delete_contact_message' message.id %}"
+                               class="btn btn-sm btn-outline-danger">Delete</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-center">You haven't sent any messages yet.</p>
             {% endif %}
         </div>
     </div>
