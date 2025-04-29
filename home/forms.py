@@ -1,6 +1,5 @@
 from django import forms
-from .models import Testimonial
-from .models import ContactMessage
+from .models import Testimonial, ContactMessage
 
 
 class TestimonialForm(forms.ModelForm):

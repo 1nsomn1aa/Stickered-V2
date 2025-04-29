@@ -5,7 +5,10 @@ from .forms import TestimonialForm
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from .forms import ContactForm
+import json
 
 
 def index(request):
@@ -96,3 +99,35 @@ def contact_view(request):
         form = ContactForm()
 
     return render(request, 'home/contact.html', {'form': form})
+
+
+@csrf_exempt
+def newsletter_signup(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email')
+
+            if email:
+                if not NewsletterSubscriber.objects.filter(email=email).exists():
+                    subscriber = NewsletterSubscriber.objects.create(email=email)
+
+                    subject = "Newsletter Subscription Confirmation"
+                    message = f"Hi {email},\n\nThanks for subscribing to our newsletter! You'll now receive the latest updates."
+                    send_mail(
+                        subject,
+                        message,
+                        settings.EMAIL_HOST_USER,
+                        [email],
+                        fail_silently=False,
+                    )
+
+                    return JsonResponse({'success': True})
+                else:
+                    return JsonResponse({'success': False, 'message': 'This email is already subscribed.'})
+            else:
+                return JsonResponse({'success': False, 'message': 'Please provide a valid email.'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'})
