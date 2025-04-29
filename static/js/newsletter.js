@@ -4,13 +4,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById('newsletter-popup');
     const closeBtn = document.querySelector('.close-btn');
 
+    setTimeout(function() {
+        popup.classList.add('show');
+    }, 2000);
+
     closeBtn.addEventListener('click', function () {
-        popup.style.display = "none";
+        popup.classList.remove('show');
     });
 
     window.onclick = function (event) {
         if (event.target == popup) {
-            popup.style.display = "none";
+            popup.classList.remove('show');
         }
     };
 
@@ -23,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
             email: email
         };
 
-        fetch("{% url 'newsletter_signup' %}", {
+        fetch(newsletterSignupUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(responseData => {
             if (responseData.success) {
                 alert('You have successfully subscribed to our newsletter!');
-                popup.style.display = "none";
+                popup.classList.remove('show');
             } else {
                 alert(responseData.message || 'Something went wrong, please try again!');
             }
