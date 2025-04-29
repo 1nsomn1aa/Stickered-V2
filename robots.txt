@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /products/checkout/
+Disallow: /products/cart/
+Disallow: /profile/
+Disallow: /logout/
+Disallow: /login/
+Disallow: /register/
+Disallow: /password-reset/
+Sitemap: https://stickered-9f7c00b2095b.herokuapp.com/sitemap.xml

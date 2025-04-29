@@ -750,8 +750,8 @@ textarea::placeholder {
     .alert-container .alert {
         margin-left: auto;
         margin-right: auto;
-        text-align: center;  /* Ensure text is centered within the alert */
-        width: 90%;           /* Adjust width to make sure the alert is not too wide */
+        text-align: center;
+        width: 90%;
     }
 }
 
