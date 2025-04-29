@@ -1,5 +1,5 @@
 from django import forms
-from .models import Testimonial, ContactMessage
+from .models import Testimonial, ContactMessage, NewsletterSubscriber
 
 
 class TestimonialForm(forms.ModelForm):
@@ -20,3 +20,11 @@ class ContactForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'placeholder': 'Your Email', 'class': 'form-control'}),
             'message': forms.Textarea(attrs={'placeholder': 'Your Message', 'class': 'form-control'}),
         }
+
+
+class NewsletterSignupForm(forms.ModelForm):
+    class Meta:
+        model = NewsletterSubscriber
+        fields = ['email']
+
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Enter your email'}), required=True)

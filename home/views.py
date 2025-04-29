@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from shop.models import Product
 from .models import Testimonial
-from .forms import TestimonialForm
+from .forms import TestimonialForm, NewsletterSubscriber
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
@@ -123,10 +123,13 @@ def newsletter_signup(request):
                     )
 
                     return JsonResponse({'success': True})
+
                 else:
                     return JsonResponse({'success': False, 'message': 'This email is already subscribed.'})
+
             else:
                 return JsonResponse({'success': False, 'message': 'Please provide a valid email.'})
+
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)})
 

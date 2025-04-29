@@ -1,42 +1,48 @@
-var modal = document.getElementById("newsletter-popup");
-var span = document.getElementsByClassName("close-btn")[0];
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('newsletter-form');
+    const emailInput = document.getElementById('email');
+    const popup = document.getElementById('newsletter-popup');
+    const closeBtn = document.querySelector('.close-btn');
 
-setTimeout(function() {
-    modal.style.display = "block";
-}, 3000);
+    closeBtn.addEventListener('click', function () {
+        popup.style.display = "none";
+    });
 
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-document.getElementById('newsletter-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var email = document.getElementById('email').value;
-
-    fetch('/newsletter/signup/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
-        },
-        body: JSON.stringify({ email: email })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Thank you for subscribing!');
-            modal.style.display = "none";
-        } else {
-            alert('Something went wrong. Please try again.');
+    window.onclick = function (event) {
+        if (event.target == popup) {
+            popup.style.display = "none";
         }
-    })
-    .catch(error => {
-        alert('There was an error. Please try again.');
+    };
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const email = emailInput.value;
+        
+        const data = {
+            email: email
+        };
+
+        fetch("{% url 'newsletter_signup' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(responseData => {
+            if (responseData.success) {
+                alert('You have successfully subscribed to our newsletter!');
+                popup.style.display = "none";
+            } else {
+                alert(responseData.message || 'Something went wrong, please try again!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Something went wrong, please try again!');
+        });
     });
 });
