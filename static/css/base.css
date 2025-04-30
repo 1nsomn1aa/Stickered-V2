@@ -70,16 +70,14 @@ main {
     margin-top: 150px;
 }
 
-.badge {
-    font-size: 0.65rem;
-    padding: 4px 6px;
+input::placeholder,
+textarea::placeholder {
+    color: gray !important;
+    opacity: 1;
 }
 
-.hero-overlay-content {
-    position: relative;
-    height: 100%;
-    z-index: 2;
-    padding: 20px;
+.text-muted {
+    color: gray !important;
 }
 
 /* DESKTOP NAV */
@@ -169,6 +167,18 @@ header {
 
 #hero-text-secondary {
     padding-top: 12vh;
+}
+
+.badge {
+    font-size: 0.65rem;
+    padding: 4px 6px;
+}
+
+.hero-overlay-content {
+    position: relative;
+    height: 100%;
+    z-index: 2;
+    padding: 20px;
 }
 
 /* SHOP */
@@ -523,6 +533,8 @@ input[type=number].no-spin {
     width: 60px;
 }
 
+/* ABOUT */
+
 .about-hero {
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../img/about-hero.webp') no-repeat;
     background-position: center bottom;
@@ -617,6 +629,8 @@ img.rounded-4 {
     }
 }
 
+/* PROFILE */
+
 input.btn-check:checked + label.btn-secondary {
     background-color: #dc3545;
     border-color: #dc3545;
@@ -667,79 +681,101 @@ input.btn-check:checked + label.btn-secondary {
     padding: 15px 35px;
 }
 
-input::placeholder,
-textarea::placeholder {
-    color: gray !important;
-    opacity: 1;
-}
-
-.text-muted {
-    color: gray !important;
-}
+/* NEWSLETTER */
 
 #newsletter-popup {
-    display: none;
     position: fixed;
     z-index: 9999;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    margin: 15% auto;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-#newsletter-popup .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;
-    color: #aaa;
-    cursor: pointer;
-}
-
-#newsletter-popup .close-btn:hover {
-    color: black;
-}
-
-#newsletter-popup .form-control {
-    margin: 10px 0;
-    padding: 10px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#newsletter-popup .btn {
-    width: 80%;
-    padding: 10px;
-    margin-top: 10px;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
 }
 
 #newsletter-popup.show {
-    display: block;
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
+}
+
+#newsletter-popup .modal-content {
+    background-color: #ffffff;
+    padding: 30px 25px;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: relative;
 }
 
 #newsletter-popup.show .modal-content {
     opacity: 1;
+    transform: translateY(0);
 }
 
+#newsletter-popup .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#newsletter-popup .close-btn:hover {
+    color: #333;
+}
+
+#newsletter-popup h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #222;
+}
+
+#newsletter-popup p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+#newsletter-popup .form-control {
+    margin: 10px 0;
+    padding: 12px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+#newsletter-popup .btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #dc3545;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+#newsletter-popup .btn:hover {
+    background-color: #c82333;
+}
 
 /* MEDIA QUERIES */
 

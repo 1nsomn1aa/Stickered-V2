@@ -121,6 +121,7 @@ def newsletter_signup(request):
                         [email],
                         fail_silently=False,
                     )
+                    messages.success(request, "You've successfully subscribed to our newsletter!")
 
                     return JsonResponse({'success': True})
 

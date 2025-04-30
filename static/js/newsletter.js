@@ -4,16 +4,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const popup = document.getElementById('newsletter-popup');
     const closeBtn = document.querySelector('.close-btn');
 
-    setTimeout(function() {
-        popup.classList.add('show');
-    }, 2000);
+    if (!localStorage.getItem('subscribedToNewsletter')) {
+        setTimeout(function () {
+            popup.classList.add('show');
+        }, 2000);
+    }
 
     closeBtn.addEventListener('click', function () {
         popup.classList.remove('show');
     });
 
     window.onclick = function (event) {
-        if (event.target == popup) {
+        if (event.target === popup) {
             popup.classList.remove('show');
         }
     };
@@ -22,10 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         const email = emailInput.value;
-        
-        const data = {
-            email: email
-        };
 
         fetch(newsletterSignupUrl, {
             method: 'POST',
@@ -33,13 +31,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({ email: email })
         })
         .then(response => response.json())
         .then(responseData => {
             if (responseData.success) {
-                alert('You have successfully subscribed to our newsletter!');
+                localStorage.setItem('subscribedToNewsletter', 'true');
                 popup.classList.remove('show');
+
+                setTimeout(() => {
+                    window.location.href = '/?subscribed=1';
+                }, 500);
             } else {
                 alert(responseData.message || 'Something went wrong, please try again!');
             }
