@@ -13,18 +13,25 @@ class UserProfile(models.Model):
     profile_image = models.ImageField(upload_to=user_profile_image_path, default='default.jpg')
 
     def save(self, *args, **kwargs):
+        old_image = None
+
         if self.pk:
-            old_profile = UserProfile.objects.get(pk=self.pk)
-            old_image = old_profile.profile_image
-        else:
-            old_image = None
+            try:
+                old_profile = UserProfile.objects.get(pk=self.pk)
+                old_image = old_profile.profile_image
+            except UserProfile.DoesNotExist:
+                pass
 
         super().save(*args, **kwargs)
 
-        if self.profile_image and self.profile_image.name != 'default.jpg' and old_image and old_image != self.profile_image:
+        if (
+            old_image and
+            old_image.name != 'default.jpg' and
+            old_image.name != self.profile_image.name and
+            default_storage.exists(old_image.name)
+        ):
             try:
-                if old_image:
-                    old_image.delete(save=False)
+                old_image.delete(save=False)
             except Exception as e:
                 print(f"Failed to delete old image: {e}")
 
