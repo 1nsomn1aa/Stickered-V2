@@ -6,11 +6,10 @@
     <section id="hero" class="img-fluid">
         <div class="hero-overlay-content d-flex flex-column justify-content-center align-items-center text-white text-center h-100">
             <!-- Logo & Text -->
-            <img class="d-none d-md-block mx-auto mb-4 hero-logo"
+            <img class="d-none d-md-block mx-auto mb-4 hero-logo img-auto-height"
                  src="{% static 'img/stickered.webp' %}"
                  alt=""
-                 width="200"
-                 height="auto">
+                 width="200">
             <h1 class="display-1 fw-bold lh-1 text-center text-shadow">UNFOLD YOUR CREATIVITY</h1>
             <p class="lead text-shadow">Discover handcrafted products from independent artists</p>
             <!-- Buttons -->
@@ -95,9 +94,7 @@
         </div>
         <!-- Shop Button -->
         <div class="text-center">
-            <a href="{% url 'product_list' %}">
-                <button class="btn btn-danger btn-lg">Visit our shop</button>
-            </a>
+            <a href="{% url 'product_list' %}" class="btn btn-danger btn-lg">Visit our shop</a>
         </div>
     </section>
     <!-- TESTIMONIALS -->
@@ -200,7 +197,7 @@
         </div>
     </div>
     <!-- Postload JS  -->
-    <script type="text/javascript">const newsletterSignupUrl = "{% url 'newsletter_signup' %}";</script>
+    <script>const newsletterSignupUrl = "{% url 'newsletter_signup' %}";</script>
     <script src="{% static 'js/newsletter.js' %}" defer></script>
     <script src="{% static 'js/swiper.js' %}" defer></script>
     <script src="{% static 'js/testimonials.js' %}" defer></script>

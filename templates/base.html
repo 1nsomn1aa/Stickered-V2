@@ -4,9 +4,9 @@
     <head>
         <!-- Meta Tags -->
         {% block meta %}
-            <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock %}
         {% block extra_meta %}
             <meta name="description"
@@ -23,14 +23,14 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
                   rel="stylesheet"
                   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-                  crossorigin="anonymous" />
+                  crossorigin="anonymous">
             <link rel="stylesheet" href="{% static 'css/base.css' %}">
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Russo+One&display=swap"
                   rel="stylesheet">
             <link rel="stylesheet"
-                  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+                  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
             <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         {% endblock %}
         {% block extra_css %}{% endblock %}
@@ -76,8 +76,7 @@
                             <img src="{% static 'img/stickered.webp' %}"
                                  alt="Stickered Logo"
                                  width="100"
-                                 height="auto"
-                                 class="mx-auto">
+                                 class="mx-auto img-auto-height">
                         </a>
                     </div>
                     <!-- Mobile Profile Dropdown -->
@@ -158,7 +157,7 @@
                                name="q"
                                class="search-input"
                                placeholder="Search products..."
-                               aria-label="Search" />
+                               aria-label="Search">
                         <button type="submit"
                                 class="btn text-white search-toggle"
                                 aria-label="Search">
@@ -174,11 +173,10 @@
                 <!-- Desktop Logo -->
                 <a href="/"
                    class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-                    <img class="me-5"
+                    <img class="me-5 img-auto-height"
                          loading="lazy"
                          src="{% static 'img/stickered.webp' %}"
                          width="130"
-                         height="auto"
                          alt="Stickered Logo">
                 </a>
                 <!-- Desktop Nav links -->
@@ -210,7 +208,7 @@
                            name="q"
                            class="search-input"
                            placeholder="Search products..."
-                           aria-label="Search" />
+                           aria-label="Search">
                     <button type="submit"
                             class="btn text-white search-toggle"
                             aria-label="Search">

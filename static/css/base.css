@@ -80,6 +80,10 @@ textarea::placeholder {
     color: gray !important;
 }
 
+.img-auto-height {
+    height: auto;
+}
+
 /* DESKTOP NAV */
 
 .nav a {
@@ -638,7 +642,6 @@ input.btn-check:checked + label.btn-secondary {
 }
 
 .order-number {
-    word-break: break-word;
     overflow-wrap: break-word;
 }
 

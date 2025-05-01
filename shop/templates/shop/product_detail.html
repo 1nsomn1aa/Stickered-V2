@@ -24,16 +24,14 @@
                         <div class="row">
                             <div class="col-12">
                                 <span class="optional">Description</span>
-                                <div class="border rounded mb-3 p-3">
-                                    <p>{{ product.description|linebreaks }}</p>
-                                </div>
+                                <div class="border rounded mb-3 p-3">{{ product.description|linebreaks }}</div>
                             </div>
                             {% if product.size_description or product.usage %}
                                 <div class="col-md-6 d-flex flex-column ">
                                     {% if product.size_description %}
                                         <span class="optional">Sizes</span>
                                         <div class="border rounded pt-3 px-3 mb-3 flex-grow-1 d-flex align-items-center justify-content-center">
-                                            <p>{{ product.size_description|linebreaks }}</p>
+                                            {{ product.size_description|linebreaks }}
                                         </div>
                                     {% endif %}
                                 </div>
@@ -41,7 +39,7 @@
                                     {% if product.usage %}
                                         <span class="optional">Usage</span>
                                         <div class="border rounded pt-1 px-3 mb-3 flex-grow-1  align-items-center justify-content-center">
-                                            <p>{{ product.usage|linebreaks }}</p>
+                                            {{ product.usage|linebreaks }}
                                         </div>
                                     {% endif %}
                                 </div>
@@ -58,7 +56,6 @@
                                                id="size-{{ size.id }}"
                                                value="{{ size.id }}"
                                                data-size-price="{{ size.price }}"
-                                               autocomplete="off"
                                                {% if forloop.first %}checked{% endif %}>
                                         <label class="btn btn-outline-danger" for="size-{{ size.id }}">
                                             {{ size.size_type.name }} (€{{ size.price|floatformat:2 }})
@@ -123,9 +120,7 @@
                             <p>
                                 <strong>Price:</strong> €{{ recent.base_price|floatformat:2 }}
                             </p>
-                            <a href="{% url 'product_detail' recent.pk %}">
-                                <button class="btn btn-danger">View</button>
-                            </a>
+                            <a href="{% url 'product_detail' recent.pk %}" class="btn btn-danger">View</a>
                         </div>
                     </div>
                 {% endfor %}

@@ -53,7 +53,7 @@ class OrderForm(forms.ModelForm):
             'address_line2': forms.TextInput(attrs={'placeholder': 'County'}),
             'city': forms.TextInput(attrs={'placeholder': 'City or Town'}),
             'eir_code': forms.TextInput(attrs={'placeholder': 'Eircode or Postal Code'}),
-            'country': forms.Select(choices=[('Ireland', 'Ireland')]),
+            'country': forms.Select(attrs={'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):
