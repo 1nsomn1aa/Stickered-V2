@@ -158,7 +158,24 @@ def update_cart_quantity(request, product_id, size_id):
 def checkout(request):
     cart = Cart(request)
     cart_subtotal = cart.get_total_price()
-    form = OrderForm()
+
+    initial_data = {}
+
+    if request.user.is_authenticated:
+        profile = getattr(request.user, 'profile', None)
+        if profile:
+            initial_data = {
+                'first_name': profile.first_name or '',
+                'last_name': profile.last_name or '',
+                'email': request.user.email,
+                'address_line1': profile.address or '',
+                'address_line2': profile.county or '',
+                'city': profile.city or '',
+                'eir_code': profile.eir_code or '',
+                'country': 'Ireland',
+            }
+
+    form = OrderForm(initial=initial_data)
 
     shipping_standard = calculate_shipping(cart, 'standard')
     shipping_express = calculate_shipping(cart, 'express')

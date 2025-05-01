@@ -25,7 +25,20 @@ def index(request):
             print("Form is not valid:", form.errors)
             messages.error(request, "There was an issue submitting your testimonial.", extra_tags='testimonial')
     else:
-        form = TestimonialForm()
+        if request.user.is_authenticated:
+            profile = getattr(request.user, 'profile', None)
+            initial_data = {}
+
+            if profile:
+                first = profile.first_name or ''
+                last = profile.last_name or ''
+                full_name = f"{first} {last}".strip()
+                initial_data['name'] = full_name
+                initial_data['role'] = profile.role or ''
+
+            form = TestimonialForm(initial=initial_data)
+        else:
+            form = TestimonialForm()
 
     return render(request, 'home/index.html', {
         'recent_products': recent_products,
@@ -96,7 +109,18 @@ def contact_view(request):
             print("Form is not valid:", form.errors)
             messages.error(request, "There was an issue submitting your message. Please try again.")
     else:
-        form = ContactForm()
+        if request.user.is_authenticated:
+            profile = getattr(request.user, 'profile', None)
+            first = profile.first_name or '' if profile else ''
+            last = profile.last_name or '' if profile else ''
+            full_name = f"{first} {last}".strip()
+
+            form = ContactForm(initial={
+                'name': full_name,
+                'email': request.user.email,
+            })
+        else:
+            form = ContactForm()
 
     return render(request, 'home/contact.html', {'form': form})
 

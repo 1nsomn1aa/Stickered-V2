@@ -11,7 +11,11 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ['profile_image', 'bio', 'reset_image']
+        fields = [
+            'profile_image', 'bio', 'reset_image',
+            'first_name', 'last_name',
+            'address', 'city', 'county', 'eir_code', 'role'
+        ]
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
@@ -19,6 +23,20 @@ class ProfileForm(forms.ModelForm):
         if user:
             self.fields['username'].initial = user.username
             self.fields['email'].initial = user.email
+
+        placeholders = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'address': '123 Main Street, Apt 4B',
+            'city': 'Dublin',
+            'county': 'Louth',
+            'eir_code': 'A65 F4E2',
+            'role': 'Sticker collector, mechanic, etc.',
+            'bio': 'Tell us a bit about yourself...',
+        }
+
+        for field, text in placeholders.items():
+            self.fields[field].widget.attrs['placeholder'] = text
 
     def save(self, commit=True):
         profile = super().save(commit=False)

@@ -3,6 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const emailInput = document.getElementById('email');
     const popup = document.getElementById('newsletter-popup');
     const closeBtn = document.querySelector('.close-btn');
+    const userEmail = popup.getAttribute('data-user-email');
+    
+    if (userEmail) {
+        emailInput.value = userEmail;
+    }
 
     if (!localStorage.getItem('subscribedToNewsletter')) {
         setTimeout(function () {
