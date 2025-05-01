@@ -73,7 +73,7 @@
                     <!-- Mobile Logo -->
                     <div>
                         <a href="/" class="d-block text-center">
-                            <img src="{% static 'img/stickered.png' %}"
+                            <img src="{% static 'img/stickered.webp' %}"
                                  alt="Stickered Logo"
                                  width="100"
                                  height="auto"
@@ -86,7 +86,7 @@
                            class="d-block text-decoration-none dropdown-toggle"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <img src="{% if user.is_authenticated %}{{ user.profile.profile_image.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}"
+                            <img src="{% if user.is_authenticated %}{{ user.profile.profile_image.url }}{% else %}{% static 'img/default.webp' %}{% endif %}"
                                  alt="mdo"
                                  width="32"
                                  height="32"
@@ -176,7 +176,7 @@
                    class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
                     <img class="me-5"
                          loading="lazy"
-                         src="{% static 'img/stickered.png' %}"
+                         src="{% static 'img/stickered.webp' %}"
                          width="130"
                          height="auto"
                          alt="Stickered Logo">
@@ -242,7 +242,7 @@
                        class="d-block text-decoration-none dropdown-toggle"
                        data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="{% if user.is_authenticated %}{{ user.profile.profile_image.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}"
+                        <img src="{% if user.is_authenticated %}{{ user.profile.profile_image.url }}{% else %}{% static 'img/default.webp' %}{% endif %}"
                              alt="mdo"
                              width="32"
                              height="32"
