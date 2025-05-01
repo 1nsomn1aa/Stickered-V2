@@ -2,9 +2,11 @@
 {% block content %}
     <div class="container py-5 margin-top-fix text-white">
         <h2 class="mb-4 text-center">Checkout</h2>
+        <!-- Checkout Form -->
         <form id="payment-form" method="POST">
             {% csrf_token %}
             <div class="row">
+                <!-- Shipping / Billing Form -->
                 <div class="col-md-6">
                     <h4 class="text-center text-md-start">Shipping / Billing Information</h4>
                     <div class="bg-white rounded p-4 shadow-sm">
@@ -68,8 +70,10 @@
                         </ul>
                     </div>
                 </div>
+                <!-- Order Summary and Payment -->
                 <div class="col-md-6">
                     <h4 class="text-center text-md-start pt-4 pt-md-0">Order Summary</h4>
+                    <!-- List of Products in Cart -->
                     <ul class="list-group mb-3">
                         {% for item in cart %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -84,6 +88,7 @@
                             </li>
                         {% endfor %}
                     </ul>
+                    <!-- Shipping Options -->
                     <h5 class="mt-3">Shipping Method</h5>
                     <div class="form-check">
                         <input class="form-check-input"
@@ -114,6 +119,7 @@
                                {% if shipping_method == 'express' %}checked{% endif %}>
                         <label class="form-check-label" for="ship_express">Express – €{{ shipping_express|floatformat:2 }}</label>
                     </div>
+                    <!-- Totals Summary -->
                     <ul class="list-group my-3">
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Cart Subtotal</span>
@@ -136,16 +142,19 @@
                             <strong id="grandTotal">€{{ grand_total|floatformat:2 }}</strong>
                         </li>
                     </ul>
+                    <!-- Stripe Card Details -->
                     <div class="mb-3">
                         <label for="card-element" class="form-label">Credit or Debit Card</label>
                         <div id="card-element" class="form-control"></div>
                         <div id="card-errors" role="alert" class="text-danger mt-2"></div>
                     </div>
+                    <!-- Submit Button -->
                     <button id="submit-button" class="btn btn-danger w-100">Place Order</button>
                 </div>
             </div>
         </form>
     </div>
+    <!-- Stripe Payment -->
     <script>
         const stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
         const elements = stripe.elements();
@@ -215,6 +224,7 @@
             });
         });
     </script>
+    <!-- Shipping Method Toggle -->
     <script>
         (function() {
             const radios = document.querySelectorAll('input[name="shipping_method"]');

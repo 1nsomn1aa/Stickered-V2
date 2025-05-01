@@ -16,6 +16,7 @@ EXPRESS_RATES = {
 FREE_SHIPPING_THRESHOLD = Decimal("50.00")
 
 
+# Shipping calculations based on the category
 def calculate_shipping(cart, method='standard'):
     categories = set()
     subtotal = Decimal("0.00")

@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+# Categories
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
@@ -11,6 +12,7 @@ class Category(models.Model):
         return self.name
 
 
+# Main product model
 class Product(models.Model):
     sku = models.CharField(max_length=12, unique=True, blank=True)
     name = models.CharField(max_length=255)
@@ -32,6 +34,7 @@ class Product(models.Model):
         return f"{self.name} ({self.sku})"
 
 
+# Size labels
 class SizeType(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -39,6 +42,7 @@ class SizeType(models.Model):
         return self.name
 
 
+# Size and price option per product
 class SizeOption(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='size_options', null=True, blank=True)
     size_type = models.ForeignKey(SizeType, on_delete=models.CASCADE, related_name='sizes', null=True, blank=True)
@@ -50,6 +54,7 @@ class SizeOption(models.Model):
         return f"{size} - {product} - €{self.price}"
 
 
+# Orders placed at checkout
 class Order(models.Model):
     SHIPPING_CHOICES = [
         ('standard', 'Standard'),
@@ -106,6 +111,7 @@ class Order(models.Model):
         return f"Order {self.order_number} - {self.first_name} {self.last_name}"
 
 
+# Order summary
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

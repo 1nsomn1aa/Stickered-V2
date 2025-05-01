@@ -3,10 +3,12 @@ from django.contrib.auth.models import User
 from django.core.files.storage import default_storage
 
 
+# Path for user profile images
 def user_profile_image_path(instance, filename):
     return f'profile_images/user_{instance.user.id}/{filename}'
 
 
+# User profile info
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     bio = models.TextField(blank=True)

@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
     <div class="container py-5 margin-top-fix">
+        <!-- EDIT/ADD FORM -->
         <h2 class="text-center mb-4 text-white">{{ form.instance.pk|yesno:"Edit Product,Add New Product" }}</h2>
         <form method="post"
               enctype="multipart/form-data"
@@ -19,6 +20,7 @@
                         </div>
                     {% endif %}
                 {% endfor %}
+                <!-- Size Options -->
                 <div class="col-12">
                     <h4 class="mt-4">Available Sizes</h4>
                     <div class="row">
@@ -43,11 +45,13 @@
                         {% endfor %}
                     </div>
                 </div>
+                <!-- Save Button -->
                 <div class="col-12 text-end mt-4">
                     <button type="submit" class="btn btn-danger">Save Product</button>
                 </div>
             </div>
         </form>
+        <!-- Back Button -->
         <div class="text-center mt-4">
             <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to Products</a>
         </div>

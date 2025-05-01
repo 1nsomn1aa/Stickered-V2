@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+# Testimonials left by users or visitors
 class Testimonial(models.Model):
     name = models.CharField(max_length=100)
     message = models.TextField()
@@ -12,6 +13,7 @@ class Testimonial(models.Model):
         return self.name
 
 
+# Messages sent via the contact form
 class ContactMessage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='contact_messages', blank=True, null=True)
     name = models.CharField(max_length=100)
@@ -23,6 +25,7 @@ class ContactMessage(models.Model):
         return f"Message from {self.name} ({self.email})"
 
 
+# People who signed up for the newsletter
 class NewsletterSubscriber(models.Model):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=100, blank=True, null=True)

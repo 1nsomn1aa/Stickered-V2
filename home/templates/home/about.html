@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+    <!-- ABOUT HERO -->
     <section class="container-fluid about-hero mb-5" id="top">
         <div class="container text-center py-5">
             <h1 class="display-4 text-white fw-bold reveal">About Stickered</h1>
             <p class="lead text-white reveal">Where creativity and car culture collide</p>
         </div>
     </section>
+    <!-- ABOUT TEXT -->
     <section class="container py-0 py-md-5">
+        <!-- Our Story -->
         <div class="row align-items-center mb-5">
             <div class="col-md-6 mb-4 mb-md-0 reveal">
                 <img src="{% static 'img/about-story.jpg' %}"
@@ -22,6 +25,7 @@
                 </p>
             </div>
         </div>
+        <!-- Built by Enthusiasts -->
         <div class="row align-items-center mb-5 flex-md-row-reverse">
             <div class="col-md-6 mb-4 mb-md-0 reveal">
                 <img src="{% static 'img/about-enthusiasts.jpg' %}"
@@ -36,6 +40,7 @@
                 </p>
             </div>
         </div>
+        <!-- Our Mission -->
         <div class="row align-items-center mb-5">
             <div class="col-md-6 mb-4 mb-md-0 reveal">
                 <img src="{% static 'img/about-mission.jpg' %}"
@@ -50,10 +55,12 @@
                 </p>
             </div>
         </div>
+        <!-- Shop Button -->
         <div class="text-center mt-5 reveal">
             <a href="{% url 'product_list' %}" class="btn btn-danger btn-lg px-5">Explore the Collection</a>
         </div>
     </section>
+    <!-- IMAGE GALLERY -->
     <h2 class="text-center text-danger mb-2 mt-5 reveal">Gallery</h2>
     <div class="mx-auto mb-4 reveal"
          style="width: 180px;
@@ -61,6 +68,7 @@
                 background-color: white;
                 border-radius: 2px"></div>
     <section class="container">
+        <!-- Gallery 1 -->
         <div class="row g-4 mb-5 align-items-center reveal">
             <div class="col-md-7">
                 <img src="{% static 'img/e36-front.jpg' %}"
@@ -73,6 +81,7 @@
                      alt="BMW Side">
             </div>
         </div>
+        <!-- Gallery 2 -->
         <div class="row g-4 mb-5 align-items-center reveal flex-md-row-reverse">
             <div class="col-md-7">
                 <img src="{% static 'img/e46-front.jpg' %}"
@@ -85,6 +94,7 @@
                      alt="BMW Top">
             </div>
         </div>
+        <!-- Gallery 3 -->
         <div class="row g-4 mb-5 align-items-center reveal">
             <div class="col-md-7">
                 <img src="{% static 'img/honda-front.jpg' %}"
@@ -97,6 +107,7 @@
                      alt="Honda Top">
             </div>
         </div>
+        <!-- Gallery 4 -->
         <div class="row g-4 mb-5 align-items-center reveal flex-md-row-reverse">
             <div class="col-md-7">
                 <img src="{% static 'img/mr2-back.jpg' %}"
@@ -109,6 +120,7 @@
                      alt="MR2 Front">
             </div>
         </div>
+        <!-- Gallery 5 -->
         <div class="row justify-content-center g-4 mb-5 reveal">
             <div class="col-10 col-md-6">
                 <img src="{% static 'img/2jz-plate.jpg' %}"
@@ -116,6 +128,7 @@
                      alt="2JZ Plate">
             </div>
         </div>
+        <!-- Back to top Button -->
         <div class="text-center mt-5 mb-3">
             <a href="#top"
                class="back-to-top-gallery d-inline-flex flex-column align-items-center text-decoration-none">
@@ -124,5 +137,6 @@
             </a>
         </div>
     </section>
+    <!-- Postload JS -->
     <script src="{% static 'js/about.js' %}" defer></script>
 {% endblock %}

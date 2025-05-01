@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+    <!-- User Profile -->
     <div class="container margin-top-fix text-white">
         <h2 class="text-center py-5">{{ user.username }}'s Profile</h2>
         <div class="align-items-center">
+            <!-- Profile Image -->
             <div class="col-md-12 text-center">
                 <img src="{{ user.profile.profile_image.url }}"
                      class="img-fluid rounded mb-3"
                      style="max-width: 300px"
                      alt="Profile Image">
             </div>
+            <!-- Profile Form -->
             <div class="col-md-12">
                 <div class="col-md-8 mx-auto">
                     <form method="POST" enctype="multipart/form-data">
@@ -47,6 +50,7 @@
                 </div>
             </div>
         </div>
+        <!-- Order History -->
         <div class="col-md-8 pb-5 text-white mx-auto">
             <h2 class="mb-4 text-center">My Orders</h2>
             {% if orders %}
@@ -70,6 +74,7 @@
                 <p class="text-center">You haven't placed any orders yet.</p>
             {% endif %}
         </div>
+        <!-- Contact Messages -->
         <div class="col-md-8 pb-5 text-white mx-auto">
             <h2 class="mb-4 text-center">My Messages</h2>
             {% if contact_messages %}

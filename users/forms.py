@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile
 
 
+# Profile update form
 class ProfileForm(forms.ModelForm):
     username = forms.CharField(max_length=150)
     email = forms.EmailField()
@@ -56,6 +57,7 @@ class ProfileForm(forms.ModelForm):
         return profile
 
 
+# Signup form
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 

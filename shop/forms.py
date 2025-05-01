@@ -2,6 +2,7 @@ from django import forms
 from .models import Product, SizeType, SizeOption, Order
 
 
+# Form to add/edit a product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
@@ -29,6 +30,7 @@ class ProductForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'form-control'})
 
 
+# Form on the checkout page to collect user info
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order

@@ -12,9 +12,11 @@ from .shipping import calculate_shipping
 import stripe
 
 
+# Stripe key
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+# Shop main view: display product listings with search, filter, and sort
 def product_list(request):
     products = Product.objects.all()
     categories = Category.objects.all()
@@ -60,6 +62,7 @@ def product_list(request):
     })
 
 
+# Create a new product
 def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
@@ -77,6 +80,7 @@ def add_product(request):
     return render(request, 'shop/product_form.html', {'form': form})
 
 
+# Edit a product
 def edit_product(request, pk):
     product = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
@@ -95,6 +99,7 @@ def edit_product(request, pk):
     return render(request, 'shop/product_form.html', {'form': form})
 
 
+# Delete a product
 def delete_product(request, pk):
     product = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
@@ -103,6 +108,7 @@ def delete_product(request, pk):
     return render(request, 'shop/confirm_delete.html', {'product': product})
 
 
+# Product detail page with related products
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     recent_products = Product.objects.filter(category=product.category).exclude(pk=product.pk)[:3]
@@ -112,6 +118,7 @@ def product_detail(request, pk):
     })
 
 
+# Add item to cart
 def add_to_cart(request, product_id):
     size_id = request.POST.get('size')
     quantity = request.POST.get('quantity', 1)
@@ -129,17 +136,20 @@ def add_to_cart(request, product_id):
     return redirect('cart_detail')
 
 
+# Cart view
 def cart_detail(request):
     cart = Cart(request)
     return render(request, 'shop/cart_detail.html', {'cart': cart})
 
 
+# Remove an item from the cart
 def remove_from_cart(request, product_id, size_id):
     cart = Cart(request)
     cart.remove(product_id=product_id, size_id=size_id)
     return redirect('cart_detail')
 
 
+# Update item quantity in the cart
 @require_POST
 def update_cart_quantity(request, product_id, size_id):
     cart = Cart(request)
@@ -155,6 +165,7 @@ def update_cart_quantity(request, product_id, size_id):
     return redirect('cart_detail')
 
 
+# Checkout page with a pre-filled form and shipping calculations
 def checkout(request):
     cart = Cart(request)
     cart_subtotal = cart.get_total_price()
@@ -193,6 +204,7 @@ def checkout(request):
     })
 
 
+# Create a Stripe PaymentIntent and save the order
 @require_POST
 def create_payment_intent(request):
     try:
@@ -243,6 +255,7 @@ def create_payment_intent(request):
         return JsonResponse({'error': str(e)}, status=400)
 
 
+# Checkout success page and cart clear
 def checkout_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
     Cart(request).clear()

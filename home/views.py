@@ -11,6 +11,7 @@ from .forms import ContactForm
 import json
 
 
+# Homepage view with recent products and testimonials
 def index(request):
     recent_products = Product.objects.order_by('-created_at')[:5]
     testimonials = Testimonial.objects.all().order_by('-created_at')
@@ -47,14 +48,17 @@ def index(request):
     })
 
 
+# Admin redirect
 def admin_redirect_view(request):
     return redirect('/admin/')
 
 
+# About page
 def about(request):
     return render(request, 'home/about.html')
 
 
+# Error page handlers
 def page_not_found(request, exception):
     return render(request, 'home/404.html', status=404)
 
@@ -71,6 +75,7 @@ def bad_request(request, exception):
     return render(request, 'home/400.html', status=400)
 
 
+# Contact us form
 def contact_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -125,6 +130,7 @@ def contact_view(request):
     return render(request, 'home/contact.html', {'form': form})
 
 
+# Newsletter popup
 @csrf_exempt
 def newsletter_signup(request):
     if request.method == 'POST':

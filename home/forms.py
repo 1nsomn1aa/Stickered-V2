@@ -2,6 +2,7 @@ from django import forms
 from .models import Testimonial, ContactMessage, NewsletterSubscriber
 
 
+# Form for users to submit testimonials
 class TestimonialForm(forms.ModelForm):
     class Meta:
         model = Testimonial
@@ -11,6 +12,7 @@ class TestimonialForm(forms.ModelForm):
         }
 
 
+# Contact form
 class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
@@ -22,6 +24,7 @@ class ContactForm(forms.ModelForm):
         }
 
 
+# Newsletter signup form
 class NewsletterSignupForm(forms.ModelForm):
     class Meta:
         model = NewsletterSubscriber

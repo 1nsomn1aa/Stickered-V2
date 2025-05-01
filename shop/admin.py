@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
+# Sends a status update email when an order is updated in the admin panel
 def send_order_status_email(order, status):
     template_prefix = f"emails/{status}"
     subject = render_to_string(f"{template_prefix}_subject.txt", {'order': order}).strip()
@@ -15,12 +16,14 @@ def send_order_status_email(order, status):
     send_mail(subject, message, settings.EMAIL_HOST_USER, [order.email], fail_silently=False)
 
 
+# Editing size options from the product admin panel
 class SizeOptionInline(admin.TabularInline):
     model = SizeOption
     extra = 1
     fields = ('size_type', 'price')
 
 
+# Custom admin for products
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'sku', 'price_display', 'category', 'created_at')
     inlines = [SizeOptionInline]
@@ -33,16 +36,19 @@ class ProductAdmin(admin.ModelAdmin):
     price_display.short_description = 'Price'
 
 
+# Custom admin for size types
 class SizeTypeAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 
+# Shows order items inline when viewing an order
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
     readonly_fields = ('product', 'size', 'price', 'quantity')
 
 
+# Custom admin for managing orders
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'full_name', 'email', 'shipping_method',
@@ -91,6 +97,7 @@ class OrderAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+# Register everything
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category)
 admin.site.register(SizeType, SizeTypeAdmin)

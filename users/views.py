@@ -8,12 +8,14 @@ from .forms import UserRegisterForm, ProfileForm
 from allauth.account.views import LoginView
 
 
+# Order detail view
 @login_required
 def order_detail(request, order_number):
     order = get_object_or_404(Order, order_number=order_number, user=request.user)
     return render(request, 'users/order_detail.html', {'order': order})
 
 
+# User profile page: view and update profile, view past orders and messages
 @login_required
 def profile_view(request):
     user = request.user
@@ -38,6 +40,7 @@ def profile_view(request):
     })
 
 
+# User registration view
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -56,12 +59,14 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
+# Custom login view
 class CustomLoginView(LoginView):
     def form_valid(self, form):
         response = super().form_valid(form)
         return response
 
 
+# Delete a contact message
 @login_required
 def delete_contact_message(request, message_id):
     message = get_object_or_404(ContactMessage, id=message_id, user=request.user)

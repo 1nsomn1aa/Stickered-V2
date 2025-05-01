@@ -2,8 +2,10 @@
 {% load static %}
 {% block page_header %}{% endblock %}
 {% block content %}
+    <!-- HERO -->
     <section id="hero" class="img-fluid">
         <div class="hero-overlay-content d-flex flex-column justify-content-center align-items-center text-white text-center h-100">
+            <!-- Logo & Text -->
             <img class="d-none d-md-block mx-auto mb-4 hero-logo"
                  src="{% static 'img/stickered.png' %}"
                  alt=""
@@ -11,12 +13,14 @@
                  height="auto">
             <h1 class="display-1 fw-bold lh-1 text-center text-shadow">UNFOLD YOUR CREATIVITY</h1>
             <p class="lead text-shadow">Discover handcrafted products from independent artists</p>
+            <!-- Buttons -->
             <div class="d-grid gap-2 d-md-flex justify-content-center mb-4 mb-lg-3 center mt-4">
                 <a href="#latest"
                    class="btn btn-danger btn-lg px-4 me-md-2 fw-bold text-white text-decoration-none">Latest Products</a>
                 <a href="{% url 'product_list' %}"
                    class="btn btn-secondary btn-lg px-4 text-white text-decoration-none">Shop</a>
             </div>
+            <!-- Trust Rating -->
             <div class="position-absolute bottom-0 start-50 translate-middle-x text-white mb-3">
                 <p class="mb-0">
                     <svg width="16"
@@ -32,8 +36,10 @@
             </div>
         </div>
     </section>
+    <!-- FEATURES -->
     <section id="hero-text-secondary">
         <div class="container d-flex flex-column flex-md-row align-items-stretch text-white text-center px-5 mx-auto">
+            <!-- Feature 1 -->
             <div class="col-12 col-md-4 d-flex flex-column justify-content-between h-100 text-center mb-4 mb-md-0 px-2">
                 <i class="fas fa-palette fa-lg mb-4 red"></i>
                 <h3>Custom Designs</h3>
@@ -41,6 +47,7 @@
                     Choose from a wide range of colors, patterns, and designs, or create your own personalized sticker to match your unique style.
                 </p>
             </div>
+            <!-- Feature 2 -->
             <div class="col-12 col-md-4 d-flex flex-column justify-content-between h-100 text-center mb-4 mb-md-0 px-2">
                 <i class="fas fa-check-circle fa-lg mb-4 red"></i>
                 <h3>Quality Assurance</h3>
@@ -48,6 +55,7 @@
                     Every sticker goes through a thorough verification process to ensure premium quality, durability, and vibrant colors.
                 </p>
             </div>
+            <!-- Feature 3 -->
             <div class="col-12 col-md-4 d-flex flex-column justify-content-between h-100 text-center px-2">
                 <i class="fas fa-tag fa-lg mb-4 red"></i>
                 <h3>Exclusive Collections</h3>
@@ -57,6 +65,7 @@
             </div>
         </div>
     </section>
+    <!-- LATEST PRODUCTS -->
     <div class="container text-center text-white py-4 gray-opacity rounded headings">
         <h2 class="display-5">Latest Releases</h2>
     </div>
@@ -84,18 +93,21 @@
                 </div>
             </div>
         </div>
+        <!-- Shop Button -->
         <div class="text-center">
             <a href="{% url 'product_list' %}">
                 <button class="btn btn-danger btn-lg">Visit our shop</button>
             </a>
         </div>
     </section>
+    <!-- TESTIMONIALS -->
     <div class="container text-center text-white py-4 gray-opacity rounded headings">
         <h2 class="display-5">What our customers say?</h2>
     </div>
     <section>
         <div class="container">
             <div id="testimonials" class="testimonials-section">
+                <!-- Success message after form submit -->
                 {% if messages %}
                     {% for message in messages %}
                         {% if 'testimonial' in message.tags %}
@@ -108,6 +120,7 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
+                <!-- Testimonials List -->
                 <div class="testimonials-wrapper">
                     <div class="testimonials-container">
                         {% for testimonial in testimonials %}
@@ -125,6 +138,7 @@
                         <button class="next-btn">&gt;</button>
                     </div>
                 </div>
+                <!-- Testimonial Form -->
                 <div class="submit-testimonial">
                     {% if form.errors %}
                         <div class="form-errors">
@@ -165,6 +179,7 @@
             </div>
         </div>
     </section>
+    <!-- NEWSLETTER POPUP -->
     <div id="newsletter-popup"
          class="modal"
          data-user-email="{% if request.user.is_authenticated %}{{ request.user.email|escapejs }}{% endif %}">
@@ -184,6 +199,7 @@
             </form>
         </div>
     </div>
+    <!-- Postload JS  -->
     <script type="text/javascript">const newsletterSignupUrl = "{% url 'newsletter_signup' %}";</script>
     <script src="{% static 'js/newsletter.js' %}" defer></script>
     <script src="{% static 'js/swiper.js' %}" defer></script>
