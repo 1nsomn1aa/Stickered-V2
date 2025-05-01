@@ -20,11 +20,19 @@ def index(request):
         form = TestimonialForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Your testimonial has been submitted successfully!", extra_tags='testimonial')
+            messages.success(
+                request,
+                "Your testimonial has been submitted successfully!",
+                extra_tags='testimonial'
+            )
             return redirect('home')
         else:
             print("Form is not valid:", form.errors)
-            messages.error(request, "There was an issue submitting your testimonial.", extra_tags='testimonial')
+            messages.error(
+                request,
+                "There was an issue submitting your testimonial.",
+                extra_tags='testimonial'
+            )
     else:
         if request.user.is_authenticated:
             profile = getattr(request.user, 'profile', None)
@@ -86,8 +94,13 @@ def contact_view(request):
             contact_message = form.save()
             print(f"Contact message saved: {contact_message}")
 
-            subject = f"New contact message from {contact_message.name}"
-            message = f"Message from {contact_message.name} ({contact_message.email}):\n\n{contact_message.message}"
+            subject = (
+                f"New contact message from {contact_message.name}"
+            )
+            message = (
+                f"Message from {contact_message.name} "
+                f"({contact_message.email}):\n\n{contact_message.message}"
+            )
             send_mail(
                 subject,
                 message,
@@ -96,8 +109,13 @@ def contact_view(request):
                 fail_silently=False,
             )
 
-            customer_subject = f"Your message has been received, {contact_message.name}"
-            customer_message = f"Hi {contact_message.name},\n\nThanks for getting in touch! Here's a copy of your message:\n\n{contact_message.message}"
+            customer_subject = (
+                f"Your message has been received, {contact_message.name}"
+            )
+            customer_message = (
+                f"Hi {contact_message.name},\n\nThanks for getting in touch! "
+                f"Here's a copy of your message:\n\n{contact_message.message}"
+            )
             send_mail(
                 customer_subject,
                 customer_message,
@@ -106,13 +124,19 @@ def contact_view(request):
                 fail_silently=False,
             )
 
-            messages.success(request, "Your message has been sent successfully!")
+            messages.success(
+                request,
+                "Your message has been sent successfully!"
+            )
             print("Success message added")
 
             return redirect('contact')
         else:
             print("Form is not valid:", form.errors)
-            messages.error(request, "There was an issue submitting your message. Please try again.")
+            messages.error(
+                request,
+                "There was an issue submitting your message. Please try again."
+            )
     else:
         if request.user.is_authenticated:
             profile = getattr(request.user, 'profile', None)
@@ -139,11 +163,15 @@ def newsletter_signup(request):
             email = data.get('email')
 
             if email:
-                if not NewsletterSubscriber.objects.filter(email=email).exists():
-                    subscriber = NewsletterSubscriber.objects.create(email=email)
+                if not NewsletterSubscriber.objects.filter(
+                        email=email).exists():
+                    NewsletterSubscriber.objects.create(email=email)
 
                     subject = "Newsletter Subscription Confirmation"
-                    message = f"Hi {email},\n\nThanks for subscribing to our newsletter! You'll now receive the latest updates."
+                    message = (
+                        f"Hi {email},\n\nThanks for subscribing to our "
+                        f"newsletter! You'll now receive the latest updates."
+                    )
                     send_mail(
                         subject,
                         message,
@@ -151,17 +179,25 @@ def newsletter_signup(request):
                         [email],
                         fail_silently=False,
                     )
-                    messages.success(request, "You've successfully subscribed to our newsletter!")
-
+                    messages.success(
+                        request,
+                        "You've successfully subscribed to our newsletter!"
+                    )
                     return JsonResponse({'success': True})
-
                 else:
-                    return JsonResponse({'success': False, 'message': 'This email is already subscribed.'})
-
+                    return JsonResponse({
+                        'success': False,
+                        'message': 'This email is already subscribed.'
+                    })
             else:
-                return JsonResponse({'success': False, 'message': 'Please provide a valid email.'})
-
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Please provide a valid email.'
+                })
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)})
 
-    return JsonResponse({'success': False, 'message': 'Invalid request method.'})
+    return JsonResponse({
+        'success': False,
+        'message': 'Invalid request method.'
+    })

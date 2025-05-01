@@ -11,7 +11,10 @@ from allauth.account.views import LoginView
 # Order detail view
 @login_required
 def order_detail(request, order_number):
-    order = get_object_or_404(Order, order_number=order_number, user=request.user)
+    order = get_object_or_404(
+        Order,
+        order_number=order_number,
+        user=request.user)
     return render(request, 'users/order_detail.html', {'order': order})
 
 
@@ -47,7 +50,8 @@ def register(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             if User.objects.filter(username=username).exists():
-                messages.error(request, f'Username {username} is already taken.')
+                messages.error(
+                    request, f'Username {username} is already taken.')
                 return render(request, 'users/register.html', {'form': form})
 
             user = form.save()
@@ -69,7 +73,10 @@ class CustomLoginView(LoginView):
 # Delete a contact message
 @login_required
 def delete_contact_message(request, message_id):
-    message = get_object_or_404(ContactMessage, id=message_id, user=request.user)
+    message = get_object_or_404(
+        ContactMessage,
+        id=message_id,
+        user=request.user)
     message.delete()
     messages.success(request, "Your message has been deleted.")
     return redirect('profile')

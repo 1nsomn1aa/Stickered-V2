@@ -15,7 +15,12 @@ class Testimonial(models.Model):
 
 # Messages sent via the contact form
 class ContactMessage(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='contact_messages', blank=True, null=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='contact_messages',
+        blank=True,
+        null=True)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     message = models.TextField()

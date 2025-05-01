@@ -29,6 +29,7 @@ def calculate_shipping(cart, method='standard'):
         return Decimal("0.00")
 
     rates = STANDARD_RATES if method == 'standard' else EXPRESS_RATES
-    selected_rates = [rates.get(category, Decimal("0.00")) for category in categories]
+    selected_rates = [rates.get(category, Decimal("0.00"))
+                      for category in categories]
 
     return max(selected_rates) if selected_rates else Decimal("0.00")

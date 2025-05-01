@@ -44,8 +44,18 @@ class SizeType(models.Model):
 
 # Size and price option per product
 class SizeOption(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='size_options', null=True, blank=True)
-    size_type = models.ForeignKey(SizeType, on_delete=models.CASCADE, related_name='sizes', null=True, blank=True)
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='size_options',
+        null=True,
+        blank=True)
+    size_type = models.ForeignKey(
+        SizeType,
+        on_delete=models.CASCADE,
+        related_name='sizes',
+        null=True,
+        blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def __str__(self):
@@ -67,9 +77,15 @@ class Order(models.Model):
         ('completed', 'Completed'),
     ]
 
-    order_number = models.CharField(max_length=32, unique=True, null=True, blank=True)
+    order_number = models.CharField(
+        max_length=32, unique=True, null=True, blank=True)
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='orders')
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -108,12 +124,18 @@ class Order(models.Model):
     total_amount.short_description = "Total (€)"
 
     def __str__(self):
-        return f"Order {self.order_number} - {self.first_name} {self.last_name}"
+        return f"Order {
+            self.order_number} - {
+            self.first_name} {
+            self.last_name}"
 
 
 # Order summary
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order,
+        related_name='items',
+        on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     size = models.ForeignKey(SizeOption, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)

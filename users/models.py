@@ -10,9 +10,14 @@ def user_profile_image_path(instance, filename):
 
 # User profile info
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="profile")
     bio = models.TextField(blank=True)
-    profile_image = models.ImageField(upload_to=user_profile_image_path, default='default.jpg')
+    profile_image = models.ImageField(
+        upload_to=user_profile_image_path,
+        default='default.jpg')
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     address = models.CharField(max_length=255, blank=True)

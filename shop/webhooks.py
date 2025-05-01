@@ -38,10 +38,13 @@ def stripe_webhook(request):
             order = Order.objects.get(order_number=order_number)
             print(f"Payment succeeded for Order: {order_number}")
 
-            subject = f"Your Order is Confirmed - {order.order_number}"
+            subject = (
+                f"Your Order is Confirmed - {order.order_number}"
+            )
             message = (
                 f"Hi {order.first_name},\n\n"
-                f"Thanks for your order! We’ve received your payment and your order is now being processed.\n\n"
+                f"Thanks for your order! We’ve received your payment and your "
+                f"order is now being processed.\n\n"
                 f"Order Number: {order.order_number}\n"
                 f"Shipping Method: {order.get_shipping_method_display()}\n"
                 f"Shipping Cost: €{order.shipping_cost:.2f}\n"
@@ -50,12 +53,15 @@ def stripe_webhook(request):
             )
 
             for item in order.items.all():
-                message += f"- {item.quantity} x {item.product.name} ({item.size}) - €{item.price:.2f} each\n"
+                message += (
+                    f"- {item.quantity} x {item.product.name} "
+                    f"({item.size}) - €{item.price:.2f} each\n"
+                )
 
             message += (
-                f"\nYour order is now being prepared and we’ll notify you when it ships.\n\n"
-                f"Thanks again for shopping with us!\n\n"
-                f"– The Stickered Team"
+                "\nYour order is now being prepared and we’ll notify you when "
+                "it ships.\n\nThanks again for shopping with us!\n\n"
+                "– The Stickered Team"
             )
 
             send_mail(
@@ -81,8 +87,10 @@ def stripe_webhook(request):
             subject = f"Order Cancelled - {order.order_number}"
             message = (
                 f"Hi {order.first_name},\n\n"
-                f"Unfortunately, your payment for the order {order.order_number} was cancelled.\n"
-                f"If this was a mistake, you can return to the site and place your order again.\n\n"
+                f"Unfortunately, your payment for the order "
+                f"{order.order_number} was cancelled.\n"
+                f"If this was a mistake, you can return to the site and place "
+                f"your order again.\n\n"
                 f"Order Details:\n"
                 f"Total Amount: €{order.total_amount():.2f}\n"
                 f"Shipping Method: {order.get_shipping_method_display()}\n"
@@ -91,11 +99,14 @@ def stripe_webhook(request):
             )
 
             for item in order.items.all():
-                message += f"- {item.quantity} x {item.product.name} ({item.size}) - €{item.price:.2f} each\n"
+                message += (
+                    f"- {item.quantity} x {item.product.name} "
+                    f"({item.size}) - €{item.price:.2f} each\n"
+                )
 
             message += (
-                f"\nIf you need assistance, feel free to contact our support team.\n\n"
-                f"– The Stickered Team"
+                "\nIf you need assistance, feel free to contact our "
+                "support team.\n\n– The Stickered Team"
             )
 
             send_mail(

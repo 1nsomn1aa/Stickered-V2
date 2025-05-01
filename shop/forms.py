@@ -1,12 +1,20 @@
 from django import forms
-from .models import Product, SizeType, SizeOption, Order
+from .models import Product, SizeType, Order
 
 
 # Form to add/edit a product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'size_description', 'usage', 'base_price', 'image', 'category']
+        fields = [
+            'name',
+            'description',
+            'size_description',
+            'usage',
+            'base_price',
+            'image',
+            'category'
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -14,7 +22,10 @@ class ProductForm(forms.ModelForm):
         all_size_types = SizeType.objects.all()
         existing_options = {}
         if self.instance.pk:
-            existing_options = {so.size_type_id: so for so in self.instance.size_options.all()}
+            existing_options = {
+                so.size_type_id: so
+                for so in self.instance.size_options.all()
+            }
 
         self.size_data = []
         for size_type in all_size_types:
@@ -34,7 +45,11 @@ class ProductForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['first_name', 'last_name', 'email', 'address_line1', 'address_line2', 'city', 'eir_code', 'country']
+        fields = [
+            'first_name', 'last_name', 'email',
+            'address_line1', 'address_line2', 'city',
+            'eir_code', 'country'
+        ]
         labels = {
             'first_name': 'First Name',
             'last_name': 'Last Name',
@@ -46,13 +61,27 @@ class OrderForm(forms.ModelForm):
             'country': 'Country',
         }
         widgets = {
-            'first_name': forms.TextInput(attrs={'placeholder': 'Enter your first name'}),
-            'last_name': forms.TextInput(attrs={'placeholder': 'Enter your last name'}),
-            'email': forms.EmailInput(attrs={'placeholder': 'Enter your email address'}),
-            'address_line1': forms.TextInput(attrs={'placeholder': 'Street address'}),
-            'address_line2': forms.TextInput(attrs={'placeholder': 'County'}),
-            'city': forms.TextInput(attrs={'placeholder': 'City or Town'}),
-            'eir_code': forms.TextInput(attrs={'placeholder': 'Eircode or Postal Code'}),
+            'first_name': forms.TextInput(attrs={
+                'placeholder': 'Enter your first name'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'placeholder': 'Enter your last name'
+            }),
+            'email': forms.EmailInput(attrs={
+                'placeholder': 'Enter your email address'
+            }),
+            'address_line1': forms.TextInput(attrs={
+                'placeholder': 'Street address'
+            }),
+            'address_line2': forms.TextInput(attrs={
+                'placeholder': 'County'
+            }),
+            'city': forms.TextInput(attrs={
+                'placeholder': 'City or Town'
+            }),
+            'eir_code': forms.TextInput(attrs={
+                'placeholder': 'Eircode or Postal Code'
+            }),
             'country': forms.Select(attrs={'class': 'form-control'}),
         }
 

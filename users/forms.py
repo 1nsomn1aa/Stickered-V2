@@ -8,7 +8,10 @@ from .models import UserProfile
 class ProfileForm(forms.ModelForm):
     username = forms.CharField(max_length=150)
     email = forms.EmailField()
-    reset_image = forms.BooleanField(required=False, label='Reset profile image to default')
+    reset_image = forms.BooleanField(
+        required=False,
+        label='Reset profile image to default'
+    )
 
     class Meta:
         model = UserProfile
@@ -47,7 +50,8 @@ class ProfileForm(forms.ModelForm):
         user.email = self.cleaned_data['email']
 
         if self.cleaned_data.get('reset_image'):
-            if profile.profile_image and profile.profile_image.name != 'default.jpg':
+            if (profile.profile_image and
+                    profile.profile_image.name != 'default.jpg'):
                 profile.profile_image.delete(save=False)
             profile.profile_image = 'default.jpg'
 

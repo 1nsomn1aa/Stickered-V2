@@ -4,13 +4,15 @@ from django.views.decorators.http import require_POST
 from django.db.models import Q
 from django.conf import settings
 
-from .models import Product, Category, SizeOption, SizeType, Order, OrderItem
+from .models import (
+    Product, Category, SizeOption,
+    Order, OrderItem
+)
 from .forms import ProductForm, OrderForm
 from .cart import Cart
 from .shipping import calculate_shipping
 
 import stripe
-
 
 # Stripe key
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -23,7 +25,9 @@ def product_list(request):
 
     query = request.GET.get('q')
     if query:
-        products = products.filter(Q(name__icontains=query) | Q(category__name__icontains=query))
+        products = products.filter(
+            Q(name__icontains=query) | Q(category__name__icontains=query)
+        )
 
     category_filter = request.GET.getlist('category')
     if category_filter:
@@ -73,7 +77,11 @@ def add_product(request):
             for size_type_id in selected_sizes:
                 price = request.POST.get(f'price_{size_type_id}', 0)
                 if price:
-                    SizeOption.objects.create(product=product, size_type_id=size_type_id, price=price)
+                    SizeOption.objects.create(
+                        product=product,
+                        size_type_id=size_type_id,
+                        price=price
+                    )
             return redirect('product_list')
     else:
         form = ProductForm()
@@ -92,7 +100,11 @@ def edit_product(request, pk):
             for size_type_id in selected_sizes:
                 price = request.POST.get(f'price_{size_type_id}', 0)
                 if price:
-                    SizeOption.objects.create(product=product, size_type_id=size_type_id, price=price)
+                    SizeOption.objects.create(
+                        product=product,
+                        size_type_id=size_type_id,
+                        price=price
+                    )
             return redirect('product_list')
     else:
         form = ProductForm(instance=product)
@@ -111,7 +123,9 @@ def delete_product(request, pk):
 # Product detail page with related products
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    recent_products = Product.objects.filter(category=product.category).exclude(pk=product.pk)[:3]
+    recent_products = Product.objects.filter(
+        category=product.category
+    ).exclude(pk=product.pk)[:3]
     return render(request, 'shop/product_detail.html', {
         'product': product,
         'recent_products': recent_products,
@@ -157,7 +171,12 @@ def update_cart_quantity(request, product_id, size_id):
     try:
         quantity = int(quantity)
         if quantity > 0:
-            cart.add(product_id=product_id, size_id=size_id, quantity=quantity, update_quantity=True)
+            cart.add(
+                product_id=product_id,
+                size_id=size_id,
+                quantity=quantity,
+                update_quantity=True
+            )
         else:
             cart.remove(product_id=product_id, size_id=size_id)
     except (ValueError, TypeError):
@@ -171,7 +190,6 @@ def checkout(request):
     cart_subtotal = cart.get_total_price()
 
     initial_data = {}
-
     if request.user.is_authenticated:
         profile = getattr(request.user, 'profile', None)
         if profile:
