@@ -82,15 +82,15 @@ class OrderForm(forms.ModelForm):
             'eir_code': forms.TextInput(attrs={
                 'placeholder': 'Eircode or Postal Code'
             }),
-            'country': forms.Select(attrs={'class': 'form-control'}),
+            'country': forms.Select()
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-def __init__(self, *args, **kwargs):
-    super().__init__(*args, **kwargs)
+        self.fields['country'].choices = [('Ireland', 'Ireland')]
+        self.fields['country'].initial = 'Ireland'
+        self.fields['country'].widget = forms.Select(choices=[('Ireland', 'Ireland')])
 
-    self.fields['country'].choices = [('Ireland', 'Ireland')]
-    self.fields['country'].initial = 'Ireland'
-
-    for field in self.fields.values():
-        field.widget.attrs.update({'class': 'form-control'})
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control'})

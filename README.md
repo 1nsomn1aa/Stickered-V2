@@ -80,10 +80,9 @@ Wireframe for the home page was drafted using Balsamiq and was used throughout t
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/fonts.png)
 
 - **Color palette:**
-  - Dark Gray (#212529) for text
-  - Accent Blue (#0d6efd) for buttons and highlights
-  - Muted white/light backgrounds (#f8f9fa)
-  - Alert red/green for validation and system feedback
+  - Soft White-Blue (`#f0f8ff`) and Dark Gray (`#55595c`) for backgrounds
+  - Pure Black (`#000000`) and Pure White (`#FFFFFF`) for headings and emphasis
+  - Bright Red (`#dc3545`) for alerts, errors, buttons and key highlights
 
 #### Colors
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/colors.png)
@@ -214,7 +213,7 @@ Displays items in the user’s cart with quantity controls, size info, and prici
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/cartmobile.png)
 
 ### Checkout Page
-Secure checkout form, pre-filled for registered users with their information for shipping/billing. The page also displays cart summary, shipping options and Stripe payment integration.
+Secure checkout form, pre-filled for registered users with their information for shipping/billing. The page also displays cart summary, shipping options and Stripe payment integration. Shipping options pricing changes based on the most expensive shipping option category, for orders over 50 euro, standard shipping becomes free.
 
 #### Checkout Desktop
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/checkoutdesktop.png)
