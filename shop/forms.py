@@ -85,7 +85,12 @@ class OrderForm(forms.ModelForm):
             'country': forms.Select(attrs={'class': 'form-control'}),
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs.update({'class': 'form-control'})
+
+def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+
+    self.fields['country'].choices = [('Ireland', 'Ireland')]
+    self.fields['country'].initial = 'Ireland'
+
+    for field in self.fields.values():
+        field.widget.attrs.update({'class': 'form-control'})

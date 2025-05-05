@@ -641,6 +641,7 @@ input.btn-check:checked + label.btn-secondary {
 }
 
 .order-number {
+    word-break: break-all;
     overflow-wrap: break-word;
 }
 
