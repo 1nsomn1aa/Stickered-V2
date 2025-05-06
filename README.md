@@ -10,36 +10,39 @@ Stickered is a full-stack eCommerce web application built using Django and Boots
 
 ## Table of Contents
 
-1. [Project Goals](#project-goals)  
-2. [UX Design](#ux-design)  
-   - [Skeleton](#skeleton)  
-   - [Surface](#surface)  
-   - [Typography & Colour](#typography--colour)  
-3. [Features](#features)  
-   - [Front-End Features](#front-end-features)  
-   - [Admin / Backend Features](#admin--backend-features)  
-4. [Pages Overview](#pages-overview)  
-   - [Home Page](#home-page)  
-   - [Shop Page](#shop-page)  
-   - [Product Detail Page](#product-detail-page)  
-   - [Product Add Page](#product-add-page)  
-   - [Product Edit Page](#product-edit-page)  
-   - [Cart Page](#cart-page)  
-   - [Checkout Page](#checkout-page)  
-   - [Profile Page](#profile-page)  
-   - [Order Detail Page](#order-detail-page)  
-   - [Login, Register & Password Reset](#login-register--password-reset)  
-   - [Contact Page](#contact-page)  
-   - [About Page](#about-page)  
-   - [Custom 400, 403, 404, 500 error handling pages](#custom-400-403-404-500-error-handling-pages)  
-5. [Database Design](#database-design)  
-6. [Technologies Used](#technologies-used)  
-7. [Testing & Bugs](#testing--bugs)  
-8. [Development Process](#development-process)  
-9. [Deployment](#deployment)  
-10. [Marketing Strategy](#marketing-strategy)  
-11. [Business Model](#business-model)  
-12. [Credits](#credits)
+1. [Project Goals](#project-goals)
+2. [UX Design](#ux-design)
+   - [Skeleton](#skeleton)
+   - [Surface](#surface)
+   - [Typography & Colour](#typography--colour)
+3. [Features](#features)
+   - [Front-End Features](#front-end-features)
+   - [Admin / Backend Features](#admin--backend-features)
+4. [Future Features](#future-features)
+5. [Pages Overview](#pages-overview)
+   - [Home Page](#home-page)
+   - [Shop Page](#shop-page)
+   - [Product Detail Page](#product-detail-page)
+   - [Product Add Page](#product-add-page)
+   - [Product Edit Page](#product-edit-page)
+   - [Cart Page](#cart-page)
+   - [Checkout Page](#checkout-page)
+   - [Profile Page](#profile-page)
+   - [Order Detail Page](#order-detail-page)
+   - [Login, Register & Password Reset](#login-register--password-reset)
+   - [Contact Page](#contact-page)
+   - [About Page](#about-page)
+   - [Custom 400, 403, 404, 500 error handling pages](#custom-400-403-404-500-error-handling-pages)
+6. [Admin Panel](#admin-panel)
+7. [Automated Emails](#automated-emails)
+8. [Database Design](#database-design)
+9. [Technologies Used](#technologies-used)
+10. [Testing & Bugs](#testing--bugs)
+11. [Development Process](#development-process)
+12. [Deployment](#deployment)
+13. [Marketing Strategy](#marketing-strategy)
+14. [Business Model](#business-model)
+15. [Credits](#credits)
 
 ---
 
@@ -59,7 +62,7 @@ Stickered is a full-stack eCommerce web application built using Django and Boots
 #### Homepage
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/homedesktop.png)
 
-The design of this project was kept simple yet modern to make the site easy to use, but still pleasing to look at. Since the product images are bright and colorful, the rest of the site uses mostly black (#000000), dark gray (#55595c), and a soft off-white blue (#f0f8ff). These neutral colors help the products stand out. A bold red (#dc3545) is used for buttons and important messages. Overall, the result is clean and clear, without any unnecessary distractions.
+The design of this project was kept simple yet modern to make the site easy to use, but still pleasing to look at. Since the product images are bright and colorful, the rest of the site uses mostly black (#000000), dark gray (#55595c), and a soft off-white blue (#f0f8ff). These neutral colors help the products stand out. A bold red (#dc3545) is used for buttons and important messages. Overall, the end result is clean and without any unnecessary distractions.
 
 ### Skeleton
 Wireframe for the home page was drafted using Balsamiq and was used throughout the development process.
@@ -81,7 +84,7 @@ Wireframe for the home page was drafted using Balsamiq and was used throughout t
 
 - **Color palette:**
   - Soft White-Blue (`#f0f8ff`) and Dark Gray (`#55595c`) for backgrounds
-  - Pure Black (`#000000`) and Pure White (`#FFFFFF`) for headings and emphasis
+  - Pure Black (`#000000`) and Pure White (`#FFFFFF`) for headings, paragraphs and emphasis
   - Bright Red (`#dc3545`) for alerts, errors, buttons and key highlights
 
 #### Colors
@@ -135,10 +138,36 @@ Wireframe for the home page was drafted using Balsamiq and was used throughout t
 
 ---
 
+## Future Features
+
+While Stickered already offers a complete shopping experience, there are a few ideas I'd like to implement in the future:
+
+- **Product Reviews**  
+  Allow customers to leave reviews and ratings on products.
+
+- **Discount Codes & Sales**  
+  Add the ability for customers to enter discount codes at checkout.
+
+- **Stock Management**  
+  Introduce inventory tracking so that products can show as "Out of Stock" or "Limited Edition" when applicable.
+
+- **Multi Image Uploads**  
+  Support adding more than one image per product.
+
+- **Admin Dashboard Charts**  
+  Include charts in the admin panel to track total sales, top products, and customer activity.
+
+- **Advanced Newsletter Features**  
+  Create email campaigns or scheduled emails for product launches and updates.
+
+These features aren't critical for the first version but would help make the site more useful and professional in the long run.
+
+---
+
 ## Pages Overview
 
 ### Home Page
-Landing page that introduces the brand. Features a large, eye-catching hero picture that sets the theme with bold information text and two buttons. After a small delay, a newsletter popup appears suggesting the users to sign up to the newsletter. After a user signs up, the information is stored and the popup no longer appears. Below is the "Latest Releases" slider by Swiper JS that shows the latest products added to the shop. Towards the bottom of the page there is a testimonial section that shows previous testimonials and a submit form that is only accessible to authenticated users and has form validation. At the bottom of the page there is a footer section with social media links.
+Landing page that introduces the brand. Features a large, eye-catching hero picture that sets the theme with bold information text and two buttons. After a small delay, a newsletter popup appears suggesting the users to sign up to the newsletter. After a user signs up, the information is stored and the popup no longer appears. Below is the "Latest Releases" slider by Swiper JS that shows the latest products added to the shop. Towards the bottom of the page there is a testimonial section that shows previous testimonials and a submit form that is only accessible to authenticated users and has form validation. Testimonial form is automatically pre-filled with the information from the users profile. At the bottom of the page there is a footer section with social media links.
 
 #### Desktop
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/homedesktop.png)
@@ -221,17 +250,23 @@ Secure checkout form, pre-filled for registered users with their information for
 #### Checkout Mobile
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/checkoutmobile.png)
 
+#### Order Confirmation
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/thankyouorder.png)
+
 ### Profile Page
-User dashboard with editable profile details, photo upload, order status tracking and previous contact messages.
+User dashboard with editable profile details, photo upload, order status tracking and previous contact messages. On picture upload, the system checks if the picture is new and if so - it deletes the previous profile picture to save space.
 
 #### Profile Desktop
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/profile.gif)
 
 ### Order Detail Page
-Detailed breakdown of each order including items, sizes, shipping method, and current status.
+Detailed breakdown of each order including shipping information, order summary, items, sizes, pricing, and current status.
 
-#### Order Details Desktop
-![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/ordersummary.png)
+#### Order Details Confirmed
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/orderconfirmed.png)
+
+#### Order Details Shipped
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/ordershipped.png)
 
 ### Login, Register & Password Reset
 Uses Django Allauth with custom styling. Allauth pages customized with Bootstrap and validation messages.
@@ -241,6 +276,15 @@ Uses Django Allauth with custom styling. Allauth pages customized with Bootstrap
 
 #### Login Mobile
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/loginmobile.png)
+
+#### Register Desktop
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/registerdesktop.png)
+
+#### Register Mobile
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/registermobile.png)
+
+#### Password Reset
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/passwordreset.png)
 
 ### Contact Page
 Form for users to submit inquiries. Messages sent via SMTP to the site owner, also saved in admin interface and user profile messages section. Includes an Iframe of google maps and a live status of store opening times.
@@ -259,6 +303,107 @@ Shows custom pages for each type of error.
 
 #### 404 Desktop
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/404.png)
+
+---
+
+### Admin Panel
+
+The Django admin panel gives administrators full control over the site’s content and database. In addition to the default Django features, Stickered includes several custom admin tools to make managing the store easier:
+
+#### Testimonials
+
+View, add, edit, or delete customer testimonials shown on the homepage.
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/testimonialadmin.png)
+
+#### Product Size Types
+
+Manage all available size options for products — add, update, or remove them as needed.
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/sizeadmin.png)
+
+#### Products
+
+Full control over the store’s products. Admins can create new items, edit details, upload images, and remove outdated listings.
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/productadmin.png)
+
+#### Orders
+
+View submitted orders, update their status (e.g. shipped or completed), provide tracking numbers, or manually adjust items if needed.
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/orderadmin.png)
+
+#### Newsletter Signups
+
+View and manage users who have subscribed to the newsletter via the popup form.
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/newsletteradmin.png)
+
+#### Contact Messages
+
+Review messages sent through the Contact Us form.
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/contactadmin.png)
+
+#### Categories
+
+Add, edit, or delete product categories to help organize the store.
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/categoryadmin.png)
+
+---
+
+## Automated Emails
+
+Stickered sends several automated emails to keep users informed and improve the shopping experience. These include:
+
+**Order Confirmed** – Sent after a successful checkout
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/confirmed.png)
+
+**Order Shipped** – Sent when the order status is updated to shipped
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/shipped.png)
+
+**Order Completed** – Sent when the order is marked as completed
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/completed.png)
+
+**Newsletter Signup Confirmation** – Sent after users subscribe to the newsletter
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/newsletterconfirm.png)
+
+**Contact Us Message Confirmation** – Sent after submitting the contact form
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/message.png)
+
+**Password Reset** – Sent through Django Allauth when users request a password reset
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/reset.png)
+
+All emails are styled for clarity and include helpful details:
+
+#### Orders
+- Order number
+- Product names
+- Sizes
+- Quantity
+- Shipping method
+- Price
+- Tracking information
+- Status
+
+#### Newsletter Signup
+- Signup confirmation
+
+#### Contact Us
+- Received message confirmation
+
+#### Password Reset
+- Site URL
+- Reset link
+- Username reminder
 
 ---
 
@@ -332,7 +477,7 @@ To manage the workflow, I used GitHub Projects as an Agile board. I set up templ
 
 The project is hosted on **Heroku**, with the following setup:
 - AWS S3 bucket for image and static file storage
-- Stripe live/test keys handled via config vars
+- Stripe test keys handled via config vars
 - Heroku PostgreSQL as the primary database
 - Heroku Config Vars to hide sensitive information
 
