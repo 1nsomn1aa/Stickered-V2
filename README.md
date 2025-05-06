@@ -290,7 +290,7 @@ Uses Django Allauth with custom styling. Allauth pages customized with Bootstrap
 Form for users to submit inquiries. Messages sent via SMTP to the site owner, also saved in admin interface and user profile messages section. Includes an Iframe of google maps and a live status of store opening times.
 
 #### Contact Us Desktop
-![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/contact.png)
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/contact2.png)
 
 ### About Page
 Describes the purpose and backstory of the site, includes an image gallery with pictures of our products being used by customers.
@@ -460,6 +460,10 @@ This project followed an **Agile methodology**, with development broken into 10 
 9. Testing
 
 10. Deployment
+
+[GitHub Milestones](https://github.com/1nsomn1aa/Stickered-V2/milestones)
+
+![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/readmeimages/milestones.png)
 
 To manage the workflow, I used GitHub Projects as an Agile board. I set up templates for epics and user stories, each with clear labels and priorities using the MoSCoW method (Must have, Should have, Could have, Won’t have). This helped me plan weekly tasks, keep track of progress, and focus on building features in the right order.
 
