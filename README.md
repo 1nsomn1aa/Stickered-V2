@@ -411,6 +411,80 @@ All emails are styled for clarity and include helpful details:
 
 Initially, SQLite was used as the database provided by Django but later migrated to PostgreSQL which was used as the main database.
 
+### Models Overview
+
+Below is a full description of the database schema used in this project:
+
+#### Category
+
+- `name` – `CharField` (max_length=255, unique): The name of the category.
+- `description` – `TextField` (optional): A short description of the category.
+
+#### Product
+
+- `sku` – `CharField` (max_length=12, unique): Automatically generated SKU.
+- `name` – `CharField`: Name of the product.
+- `description` – `TextField`: Main description of the product.
+- `size_description` – `TextField` (optional): Describes size variations.
+- `usage` – `TextField` (optional): Optional usage instructions.
+- `base_price` – `DecimalField`: Base price before selecting size.
+- `image` – `ImageField`: Image uploaded to `media/products/` directory.
+- `category` – `ForeignKey` to `Category`: Linked category.
+- `created_at` / `updated_at` – `DateTimeField`: Timestamps.
+
+#### SizeType
+
+- `name` – `CharField` (max_length=50, unique): Size label like "Small", "Standard", etc.
+
+#### SizeOption
+
+- `product` – `ForeignKey` to `Product`: Related product.
+- `size_type` – `ForeignKey` to `SizeType`: The label.
+- `price` – `DecimalField`: Price associated with the size.
+
+#### Order
+
+- `order_number` – `CharField` (unique): Automatically generated.
+- `user` – `ForeignKey` to `User` (optional): Linked to the user if logged in.
+- `first_name`, `last_name`, `email` – Personal details.
+- `address_line1`, `address_line2`, `city`, `eir_code`, `country` – Shipping details.
+- `shipping_method` – ChoiceField: Standard or Express.
+- `shipping_cost` – `DecimalField`: Calculated at checkout.
+- `status` – ChoiceField: Processing, Shipped, or Completed.
+- `tracking_number` – Optional field added by admin.
+- `created_at` – Timestamp.
+
+#### OrderItem
+
+- `order` – `ForeignKey` to `Order`
+- `product` – `ForeignKey` to `Product`
+- `size` – `ForeignKey` to `SizeOption`
+- `price` – Price at time of purchase.
+- `quantity` – Quantity ordered.
+
+#### Testimonial
+
+- `user` – Linked user (optional).
+- `name` – `CharField`: Customer name.
+- `quote` – `TextField`: Testimonial message.
+- `date_created` – Timestamp.
+
+#### ContactMessage
+
+- `user` – Linked to the user if logged in.
+- `email`, `message`, `name` – User's input.
+- `date_created` – Timestamp.
+
+#### NewsletterSubscriber
+
+- `email` – Subscriber's email.
+- `date_subscribed` – Timestamp.
+
+#### UserProfile
+
+- `user` – OneToOne link to User.
+- `profile_image`, `bio`, `first_name`, `last_name`, `address`, `city`, `county`, `eir_code`, `role` – Profile details.
+
 #### Database Schema
 ![image](https://raw.githubusercontent.com/1nsomn1aa/Stickered-V2/refs/heads/main/testing/dbschema.png)
 
