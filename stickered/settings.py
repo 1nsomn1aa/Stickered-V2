@@ -54,7 +54,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'stickered-9f7c00b2095b.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'stickered-v2.onrender.com']
 
 
 # Application definition
@@ -189,3 +189,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://stickered-v2.onrender.com"
+]
